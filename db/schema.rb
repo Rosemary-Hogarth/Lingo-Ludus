@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_18_112508) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_122303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_112508) do
     t.bigint "category_id", null: false
     t.string "difficulty_level"
     t.bigint "user_id", null: false
-    t.integer "score"
+    t.integer "score", default: 0
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
