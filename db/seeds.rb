@@ -7,3 +7,45 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require 'faker'
+
+# Create Categories
+categories = %w[Animals Science Sports History Geography]
+categories.each do |category|
+  Category.create!(name: category)
+end
+
+
+# Create Words
+Category.all.each do |category|
+  10.times do
+    Word.create!(
+      name: Faker::Lorem.word,
+      category: category,
+      definition: Faker::Lorem.sentence(word_count: 10),
+      level: rand(1..3) # Adjusted level range to 1-3
+    )
+  end
+end
+
+# Create Games
+User.all.each do |user|
+  2.times do
+    game = Game.create!(
+      category: Category.all.sample,
+      difficulty_level: %w[Beginner Intermediate Advanced].sample,
+      user: user,
+      score: rand(0..100),
+      date: Faker::Date.between(from: 2.years.ago, to: Date.today)
+    )
+
+    # Create Rounds for each Game
+    2.times do
+      Round.create!(
+        game: game,
+        word: Word.all.sample,
+        attempts: rand(1..5)
+      )
+    end
+  end
+end
