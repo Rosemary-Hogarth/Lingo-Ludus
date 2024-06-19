@@ -1,0 +1,9 @@
+<h1>Lingo Ludus</h1>
+<% @games.each do |game| %>
+  <p>
+    <%= link_to "Game ##{game.id} - #{game.category.name} - #{game.difficulty_level}", game_path(game) %>
+    (Score: <%= game.score %>)
+  </p>
+<% end %>
+<p><%= link_to 'Start a New Game', new_game_path, class: 'btn btn-primary' %></p>
+<p><%= link_to 'Back to Home', root_path, class: 'btn btn-secondary' %></p>
