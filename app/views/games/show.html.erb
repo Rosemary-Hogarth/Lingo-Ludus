@@ -14,4 +14,3 @@
   <p>Game over! The correct word was <%= @game.rounds.last.word.name %>.</p>
   <%= link_to 'Start a New Game', new_game_path, class: 'btn btn-primary' %>
 <% end %>
-<p><%= link_to 'Back to Dashboard', dashboard_path, class: 'btn btn-secondary' %></p>
