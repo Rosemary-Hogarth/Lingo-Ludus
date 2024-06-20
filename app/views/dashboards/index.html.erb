@@ -1,0 +1,36 @@
+<h1>Dashboard</h1>
+
+  <h2>Welcome, <%= @user.first_name %>!</h2>
+<p>Total Score: <span class="score"><%= @total_score %></span></p>
+<h3>Overview of Recent Activity</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Word</th>
+        <th>Level</th>
+        <th>Category</th>
+        <th>Time Taken</th>
+        <th>Score</th>
+        <th>Attempts</th>
+        <th>Game End Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recent_games.each do |game| %>
+        <% game.game_details.each do |detail| %>
+          <tr>
+            <td><%= game.id %></td>
+            <td><%= detail.word.word %></td>
+            <td><%= detail.word.level.level_name %></td>
+            <td><%= detail.word.category.category_name %></td>
+            <td><%= calculate_time_taken(game.start_time, game.end_time) %></td>
+            <td><%= detail.score %></td>
+            <td><%= detail.attempts %></td>
+            <td><%= game.end_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p>Average Score: <span class="score"><%= @average_score.round(2) %></span></p>

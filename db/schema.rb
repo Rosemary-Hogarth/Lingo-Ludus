@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_18_122303) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_145041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,18 +28,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_122303) do
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "attempts", default: 0
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "word_id"
     t.index ["category_id"], name: "index_games_on_category_id"
     t.index ["user_id"], name: "index_games_on_user_id"
-  end
-
-  create_table "rounds", force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "word_id", null: false
-    t.integer "attempts", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_rounds_on_game_id"
-    t.index ["word_id"], name: "index_rounds_on_word_id"
+    t.index ["word_id"], name: "index_games_on_word_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,13 +57,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_122303) do
     t.text "definition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "level"
+    t.string "level"
     t.index ["category_id"], name: "index_words_on_category_id"
   end
 
   add_foreign_key "games", "categories"
   add_foreign_key "games", "users"
-  add_foreign_key "rounds", "games"
-  add_foreign_key "rounds", "words"
+  add_foreign_key "games", "words"
   add_foreign_key "words", "categories"
 end

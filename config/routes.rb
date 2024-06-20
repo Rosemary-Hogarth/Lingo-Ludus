@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
+  get 'dashboard', to: 'dashboards#index'
 
-  resources :games, only: [:index, :show, :create, :new] do
-    resources :rounds
-  end
+  resources :games, only: [:index, :show, :create, :new]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
