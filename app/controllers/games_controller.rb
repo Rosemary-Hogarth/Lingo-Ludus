@@ -7,7 +7,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @round = Round.new
+    # @round = Round.new
   end
 
   def new

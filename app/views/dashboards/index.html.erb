@@ -13,14 +13,14 @@
       </tr>
     </thead>
     <tbody>
-    <% @recent_game_details.each do |detail| %>
+    <% @recent_games.each do |game| %>
       <tr>
-        <%# <td><%= detail.word %></td> %>
-        <%# <td><%= detail.level %></td> %>
-        <td><%= detail.category %></td>
-        <td><%= detail.time %></td>
-        <td><%= detail.attempts %></td>
-        <td><%= detail.score %></td>
+        <td><%= game.word.name %></td>
+        <td><%= game.difficulty_level %></td>
+        <td><%= game.category.name %></td>
+
+        <td><%= game.attempts %></td>
+        <td><%= game.score %></td>
       </tr>
       <% end %>
     </tbody>

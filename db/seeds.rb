@@ -9,6 +9,19 @@
 #   end
 require 'faker'
 
+Game.destroy_all
+Word.destroy_all
+Category.destroy_all
+
+
+# Create users
+User.create!(
+  first_name: "Iona",
+  last_name: "Helbig",
+  email: "iona@gmail.com",
+  password: "123456!",
+  password_confirmation: "123456!"
+)
 # Create Categories
 categories = %w[Animals Science Sports History Geography]
 categories.each do |category|
@@ -23,7 +36,7 @@ Category.all.each do |category|
       name: Faker::Lorem.word,
       category: category,
       definition: Faker::Lorem.sentence(word_count: 10),
-      level: rand(1..3) # Adjusted level range to 1-3
+      level: %w[Beginner Intermediate Advanced].sample
     )
   end
 end
@@ -31,21 +44,29 @@ end
 # Create Games
 User.all.each do |user|
   2.times do
+    date =  Faker::Date.between(from: 2.years.ago, to: Date.today)
     game = Game.create!(
       category: Category.all.sample,
-      difficulty_level: %w[Beginner Intermediate Advanced].sample,
+      difficulty_level: "Beginner",
       user: user,
       score: rand(0..100),
-      date: Faker::Date.between(from: 2.years.ago, to: Date.today)
+      date: date,
+      start_time: Faker::Time.between(from: date - 1, to: date),
+      end_time: Faker::Time.between(from: date + 1, to: date),
+      word_id: Word.where(level: "Beginner").sample.id || 1
     )
 
+
+
+
+
     # Create Rounds for each Game
-    2.times do
-      Round.create!(
-        game: game,
-        word: Word.all.sample,
-        attempts: rand(1..5)
-      )
-    end
+    # 2.times do
+    #   Round.create!(
+    #     game: game,
+    #     word: Word.all.sample,
+    #     attempts: rand(1..5)
+    #   )
+    # end
   end
 end
