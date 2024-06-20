@@ -14,14 +14,15 @@ class GamesController < ApplicationController
 
     if @game.save
       @word_to_guess = select_word(@game.difficulty_level)
-      Rails.logger.debug "Selected word: #{@word_to_guess.inspect}"
+      Rails.logger.debug "Selected word: #{@word_to_guess.inspect}" # Debugging line
 
       if @word_to_guess.nil?
         flash[:alert] = 'No words available for the selected difficulty level.'
         @game.destroy
         redirect_to new_game_path
       else
-        @game.update(word: @word_to_guess)
+        @game.update(word_id: @word_to_guess.id)
+        Rails.logger.debug "Game after word update: #{@game.inspect}" # Debugging line
         redirect_to @game, notice: 'Game started successfully.'
       end
     else
