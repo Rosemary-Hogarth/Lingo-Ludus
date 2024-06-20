@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_game, only: [:show]
+  before_action :set_game, only: [:show, :guess_word]
 
   def new
     @game = current_user.games.new
@@ -11,8 +11,19 @@ class GamesController < ApplicationController
   def create
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current
+
     if @game.save
-      redirect_to @game, notice: 'Game started successfully.'
+      @word_to_guess = select_word(@game.difficulty_level)
+      Rails.logger.debug "Selected word: #{@word_to_guess.inspect}"
+
+      if @word_to_guess.nil?
+        flash[:alert] = 'No words available for the selected difficulty level.'
+        @game.destroy
+        redirect_to new_game_path
+      else
+        @game.update(word: @word_to_guess)
+        redirect_to @game, notice: 'Game started successfully.'
+      end
     else
       @categories = Category.all
       @levels = %w[Beginner Intermediate Advanced]
@@ -25,7 +36,11 @@ class GamesController < ApplicationController
   end
 
   def show
-    @word = select_word(@game.difficulty_level)
+    @word_to_guess = @game.word
+    if @word_to_guess.nil?
+      flash[:alert] = 'No word selected for this game.'
+      redirect_to new_game_path
+    end
   end
 
   def update_attempts
@@ -36,14 +51,30 @@ class GamesController < ApplicationController
     @game.update(end_time: Time.current, score: calculate_score)
   end
 
+  def guess_word
+    if @game.attempts < 3
+      @game.update(attempts: @game.attempts + 1)
+      @word_to_guess = @game.word
+
+      if params[:guess].casecmp?(@word_to_guess.name) == 0
+        flash[:notice] = "Correct guess!"
+      else
+        flash[:alert] = "Incorrect guess. Try again!"
+      end
+    else
+      flash[:alert] = "You have reached the maximum number of attempts."
+    end
+    redirect_to @game
+  end
+
   private
 
   def set_game
-    @game = current_user.games.find(params[:id])
+    @game = Game.find(params[:id])
   end
 
   def game_params
-    params.require(:game).permit(:category_id, :difficulty_level)
+    params.require(:game).permit(:category_id, :difficulty_level, :attempts)
   end
 
   def calculate_score
@@ -53,8 +84,8 @@ class GamesController < ApplicationController
   end
 
   def select_word(level)
-    words = @game.category.words.where(level: level)
+    words = Word.where(level: level, category_id: @game.category_id)
+    Rails.logger.debug "Words found: #{words.inspect}"
     words.sample
   end
-
 end

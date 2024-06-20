@@ -1,12 +1,13 @@
 class Game < ApplicationRecord
   belongs_to :category
   belongs_to :user
-  has_many :rounds
+  belongs_to :word, class_name: 'Word', foreign_key: 'word_id', optional: true
 
   validates :score, presence: true, numericality: { only_integer: true }
   validates :date, presence: true
   validates :difficulty_level, presence: true
   validates :start_time, :end_time, presence: true, on: :update
+  validates :difficulty_level, presence: true, inclusion: { in: %w[Beginner Intermediate Advanced] }
 
   before_validation :set_default_date, on: :create
 

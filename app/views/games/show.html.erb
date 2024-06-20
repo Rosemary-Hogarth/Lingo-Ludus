@@ -1,22 +1,21 @@
-<p>
-  <strong>Category:</strong>
-  <%= @game.category.name %>
-</p>
+<h1>Game</h1>
 
-<p>
-  <strong>Difficulty Level:</strong>
-  <%= @game.difficulty_level %>
-</p>
+<p>Category: <%= @game.category.name %></p>
+<p>Difficulty: <%= @game.difficulty_level %></p>
+<p>Attempts: <%= @game.attempts %></p>
+<% if @word_to_guess %>
+  <p>Definition: <%= @word_to_guess.definition %></p>
+  <%= form_with url: guess_word_game_path(@game), local: true, method: :post do |form| %>
+    <div class="field">
+      <%= form.label :guess %>
+      <%= form.text_field :guess %>
+    </div>
+    <div class="actions">
+      <%= form.submit "Submit Guess" %>
+    </div>
+  <% end %>
+<% else %>
+  <p>No word available for this game.</p>
+<% end %>
 
-<p>
-  <strong>Attempts:</strong>
-  <%= @game.attempts %>
-</p>
-
-<p>
-  <strong>Score:</strong>
-  <%= @game.score %>
-</p>
-
-<%= link_to 'Update Attempts', update_attempts_game_path(@game), method: :post %>
-<%= link_to 'Update Score', update_score_game_path(@game), method: :patch %>
+<%= link_to 'Back', games_path %>
