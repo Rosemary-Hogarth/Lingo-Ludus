@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "pages#home"
 
-  resources :games, only: [:index, :show, :create, :new]
+  resources :games, only: [:show, :create, :new] do
+    member do
+      post "update_attempts"
+      patch "update_score"
+    end
+  end
+
+  root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

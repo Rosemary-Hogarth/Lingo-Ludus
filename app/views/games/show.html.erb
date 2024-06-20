@@ -1,16 +1,22 @@
-<h1>Game: <%= @game.category.name %> - <%= @game.difficulty_level %></h1>
-<p>Score: <%= @game.score %></p>
-<p>Attempts left: <%= 3 - @game.rounds.count %></p>
-<% if @game.rounds.count < 3 %>
-  <h2>Round <%= @game.rounds.count + 1 %></h2>
-  <%= form_with model: [@game, @round], local: true do |f| %>
-    <div class="form-group">
-      <%= f.label :guess, 'Enter your guess' %>
-      <%= f.text_field :guess, class: 'form-control' %>
-    </div>
-    <%= f.submit 'Submit Guess', class: 'btn btn-primary' %>
-  <% end %>
-<% else %>
-  <p>Game over! The correct word was <%= @game.rounds.last.word.name %>.</p>
-  <%= link_to 'Start a New Game', new_game_path, class: 'btn btn-primary' %>
-<% end %>
+<p>
+  <strong>Category:</strong>
+  <%= @game.category.name %>
+</p>
+
+<p>
+  <strong>Difficulty Level:</strong>
+  <%= @game.difficulty_level %>
+</p>
+
+<p>
+  <strong>Attempts:</strong>
+  <%= @game.attempts %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @game.score %>
+</p>
+
+<%= link_to 'Update Attempts', update_attempts_game_path(@game), method: :post %>
+<%= link_to 'Update Score', update_score_game_path(@game), method: :patch %>

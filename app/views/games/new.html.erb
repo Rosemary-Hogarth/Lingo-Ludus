@@ -1,12 +1,27 @@
 <h1>Start a New Game</h1>
-<%= form_with model: @game, local: true do |f| %>
-  <div class="form-group">
-    <%= f.label :category_id, 'Select Category' %>
-    <%= f.collection_select :category_id, @categories, :id, :name, { prompt: 'Choose a category' }, { class: 'form-control' } %>
+<%= form_with(model: @game, url: games_path, method: :post) do |form| %>
+  <% if @game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+      <ul>
+        <% @game.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, @categories, :id, :name, prompt: "Select a category" %>
   </div>
-  <div class="form-group">
-    <%= f.label :difficulty_level, 'Select Level' %>
-    <%= f.select :difficulty_level, @levels, { prompt: 'Choose a level' }, { class: 'form-control' } %>
+
+  <div class="field">
+    <%= form.label :difficulty_level %>
+    <%= form.select :difficulty_level, @levels, prompt: "Select a difficulty level" %>
   </div>
-  <%= f.submit 'Start Game', class: 'btn btn-primary' %>
+
+  <div class="actions">
+    <%= form.submit "Start Game" %>
+  </div>
 <% end %>
