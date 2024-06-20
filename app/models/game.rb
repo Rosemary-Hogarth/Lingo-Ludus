@@ -9,9 +9,12 @@ class Game < ApplicationRecord
 
   before_validation :set_default_date, on: :create
 
+  # create time method start_time - start_time in seconds
+
   private
 
   def set_default_date
     self.date ||= Date.today
   end
+
 end
