@@ -12,26 +12,21 @@ class GamesController < ApplicationController
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current
 
-    if @game.save
-      @word_to_guess = select_word(@game.difficulty_level)
-      Rails.logger.debug "Selected word: #{@word_to_guess.inspect}" # Debugging line
+    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id)
 
-      if @word_to_guess.nil?
-        flash[:alert] = 'No words available for the selected difficulty level.'
-        @game.destroy
-        redirect_to new_game_path
-      else
-        @game.update(word_id: @word_to_guess.id)
-        Rails.logger.debug "Game after word update: #{@game.inspect}" # Debugging line
-        redirect_to @game, notice: 'Game started successfully.'
-      end
+    if word_to_guess.nil?
+      flash[:alert] = 'No words available for the selected difficulty level.'
+      redirect_to new_game_path
     else
-      @categories = Category.all
-      @levels = %w[Beginner Intermediate Advanced]
-      flash.now[:alert] = @game.errors.full_messages.to_sentence
-      respond_to do |format|
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
+      @game.word_id = word_to_guess.id
+
+      if @game.save
+        redirect_to @game, notice: 'Game started successfully.'
+      else
+        @categories = Category.all
+        @levels = %w[Beginner Intermediate Advanced]
+        flash.now[:alert] = @game.errors.full_messages.to_sentence
+        render :new, status: :unprocessable_entity
       end
     end
   end
@@ -44,20 +39,20 @@ class GamesController < ApplicationController
     end
   end
 
-  def update_attempts
-    @game.increment!(:attempts)
-  end
+  # def update_attempts
+  #   @game.increment!(:attempts)
+  # end
 
-  def update_score
-    @game.update(end_time: Time.current, score: calculate_score)
-  end
+  # def update_score
+  #   @game.update(end_time: Time.current, score: calculate_score)
+  # end
 
   def guess_word
     if @game.attempts < 3
       @game.update(attempts: @game.attempts + 1)
-      @word_to_guess = @game.word
+      @word_to_guess = @game.word.name
 
-      if params[:guess].casecmp?(@word_to_guess.name) == 0
+      if @word_to_guess.downcase.strip == params[:guess].downcase.strip
         flash[:notice] = "Correct guess!"
       else
         flash[:alert] = "Incorrect guess. Try again!"
@@ -82,11 +77,5 @@ class GamesController < ApplicationController
     elapsed_time = (@game.end_time - @game.start_time).to_i
     base_score = 1000 - (elapsed_time * 10) - (@game.attempts - 1 * 50)
     [base_score, 0].max
-  end
-
-  def select_word(level)
-    words = Word.where(level: level, category_id: @game.category_id)
-    Rails.logger.debug "Words found: #{words.inspect}"
-    words.sample
   end
 end
