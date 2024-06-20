@@ -1,34 +1,27 @@
-<h1>Dashboard</h1>
-
-  <h2>Welcome, <%= @user.first_name %>!</h2>
+<h1>Welcome to your dashboard, <%= @user.first_name %>!</h1>
 <p>Total Score: <span class="score"><%= @total_score %></span></p>
-<h3>Overview of Recent Activity</h3>
+<p>Overview of Recent Activity</p>
   <table>
     <thead>
       <tr>
         <th>Word</th>
         <th>Level</th>
         <th>Category</th>
-        <th>Time Taken</th>
-        <th>Score</th>
+        <th>Time</th>
         <th>Attempts</th>
-        <th>Game End Time</th>
+        <th>Score</th>
       </tr>
     </thead>
     <tbody>
-      <% @recent_games.each do |game| %>
-        <% game.game_details.each do |detail| %>
-          <tr>
-            <td><%= game.id %></td>
-            <td><%= detail.word.word %></td>
-            <td><%= detail.word.level.level_name %></td>
-            <td><%= detail.word.category.category_name %></td>
-            <td><%= calculate_time_taken(game.start_time, game.end_time) %></td>
-            <td><%= detail.score %></td>
-            <td><%= detail.attempts %></td>
-            <td><%= game.end_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          </tr>
-        <% end %>
+    <% @recent_game_details.each do |detail| %>
+      <tr>
+        <%# <td><%= detail.word %></td> %>
+        <%# <td><%= detail.level %></td> %>
+        <td><%= detail.category %></td>
+        <td><%= detail.time %></td>
+        <td><%= detail.attempts %></td>
+        <td><%= detail.score %></td>
+      </tr>
       <% end %>
     </tbody>
   </table>
