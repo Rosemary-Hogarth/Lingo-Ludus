@@ -7,66 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-require 'faker'
 
-Game.destroy_all
-Word.destroy_all
-Category.destroy_all
+category = Category.find_or_create_by(name: 'Test')
 
+words_data = [
+  { name: 'Wordone', definition: 'Definition of Word 1', level: "Beginner", category_id: category.id },
+  { name: 'Wordtwo', definition: 'Definition of Word 2', level: "Intermediate", category_id: category.id },
+  { name: 'Wordthree', definition: 'Definition of Word 3', level: "Advanced", category_id: category.id }
+]
 
-# Create users
-User.create!(
-  first_name: "Iona",
-  last_name: "Helbig",
-  email: "iona@gmail.com",
-  password: "123456!",
-  password_confirmation: "123456!"
-)
-# Create Categories
-categories = %w[Animals Science Sports History Geography]
-categories.each do |category|
-  Category.create!(name: category)
-end
-
-
-# Create Words
-Category.all.each do |category|
-  10.times do
-    Word.create!(
-      name: Faker::Lorem.word,
-      category: category,
-      definition: Faker::Lorem.sentence(word_count: 10),
-      level: %w[Beginner Intermediate Advanced].sample
-    )
-  end
-end
-
-# Create Games
-User.all.each do |user|
-  2.times do
-    date =  Faker::Date.between(from: 2.years.ago, to: Date.today)
-    game = Game.create!(
-      category: Category.all.sample,
-      difficulty_level: "Beginner",
-      user: user,
-      score: rand(0..100),
-      date: date,
-      start_time: Faker::Time.between(from: date - 1, to: date),
-      end_time: Faker::Time.between(from: date + 1, to: date),
-      word_id: Word.where(level: "Beginner").sample.id || 1
-    )
-
-
-
-
-
-    # Create Rounds for each Game
-    # 2.times do
-    #   Round.create!(
-    #     game: game,
-    #     word: Word.all.sample,
-    #     attempts: rand(1..5)
-    #   )
-    # end
+words_data.each do |word_params|
+  Word.find_or_create_by(name: word_params[:name]) do |word|
+    word.definition = word_params[:definition]
+    word.level = word_params[:level]
+    word.category_id = word_params[:category_id]
   end
 end
