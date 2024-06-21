@@ -13,18 +13,17 @@ export default class extends Controller {
 
     event.preventDefault();
 
-
-    const formData = {};
-    this.inputTargets.forEach(input => {
+    const formData = {};                                                                          // Empty object to store data
+    this.inputTargets.forEach(input => {                                                          // Iterate through input
       const index = input.dataset.index;
-      formData[`guess_${index}`] = input.value.trim().toLowerCase();
+      formData[`guess_${index}`] = input.value.trim().toLowerCase();                              // Retrieve index and value
     });
 
-    fetch(`/games/${this.data.get("gameId")}/guess_word`, {
+    fetch(`/games/${this.data.get("gameId")}/guess_word`, {                                       // Fetch API request
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content") // Needed for rails to validate the source
       },
       body: JSON.stringify(formData)
     })
@@ -34,12 +33,12 @@ export default class extends Controller {
 
       this.inputTargets.forEach((input, index) => {
         const guessedLetter = formData[`guess_${index}`];
-        if (data.correct_guesses.includes(index)) {
+        if (data.correct_guesses.includes(index)) {                      // changes color depending on which array the letter index is stored
           input.style.backgroundColor = "lightgreen";
         } else if (data.wrong_position.includes(guessedLetter)) {
           input.style.backgroundColor = "orange";
         } else {
-          input.style.backgroundColor = "red"; 
+          input.style.backgroundColor = "red";
         }
       });
     })

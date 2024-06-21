@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_game, only: [:show, :guess_word]
+  before_action :set_game_and_word, only: [:show, :guess_word]
 
   def new
     @game = current_user.games.new
@@ -32,9 +32,6 @@ class GamesController < ApplicationController
   end
 
   def show
-    @word_to_guess = @game.word
-    @word_name = @word_to_guess.name
-    @word_array = @word_name.chars
     @guessed_letters = flash[:guessed_letters] || @word_array.map { { letter: "", correct: false } }
   end
 
@@ -47,34 +44,35 @@ class GamesController < ApplicationController
   # end
 
   def guess_word
-    @word_to_guess = @game.word.name
-    @word_array = @word_to_guess.chars
     correct_guesses = []
     wrong_position = []
 
     if @game.attempts < 3
       @game.update(attempts: @game.attempts + 1)
 
-      params.each do |key, value|
-        next unless key.start_with?("guess_")
-        index = key.gsub("guess_", "").to_i
-        guessed_letter = value.downcase.strip
+      params.each do |key, value|                         # iterate through user input
+        next unless key.start_with?("guess_")             # filter params to only get the guess ones
+        index = key.gsub("guess_", "").to_i               # extract the index from the guessed letter
+        guessed_letter = value.downcase.strip             # sanitize data
 
-        if guessed_letter == @word_array[index].downcase
-          correct_guesses << index
-        elsif @word_array.include?(guessed_letter)
-          wrong_position << guessed_letter
+        if guessed_letter == @word_array[index].downcase  # compare guessed letter with its corresponding counterpart in word_array
+          correct_guesses << index                        # push index of correct letters into correct_guess array
+        elsif @word_array.include?(guessed_letter)        # if not correct, check if correct but misplaced (include)
+          wrong_position << guessed_letter                # push index of misplaced letters into wrong_position array
         end
       end
 
-      render json: { correct_guesses: correct_guesses, wrong_position: wrong_position, word_array: @word_array }
+      render json: { correct_guesses: correct_guesses, wrong_position: wrong_position, word_array: @word_array } # build JSON for Stimulus controller
     end
   end
 
   private
 
-  def set_game
+  def set_game_and_word
     @game = Game.find(params[:id])
+    @word_to_guess = @game.word
+    @word_name = @word_to_guess.name
+    @word_array = @word_name.chars
   end
 
   def game_params
