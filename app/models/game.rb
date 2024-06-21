@@ -31,4 +31,5 @@ class Game < ApplicationRecord
   def set_default_date
     self.date ||= Date.today
   end
+
 end

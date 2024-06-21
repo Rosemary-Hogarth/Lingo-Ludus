@@ -1,0 +1,29 @@
+<h1>Welcome to your dashboard, <%= @user.first_name %>!</h1>
+<p>Total Score: <span class="score"><%= @total_score %></span></p>
+<p>Overview of Recent Activity</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Word</th>
+        <th>Level</th>
+        <th>Category</th>
+        <th>Time</th>
+        <th>Attempts</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @recent_games.each do |game| %>
+      <tr>
+        <td><%= game.word.name %></td>
+        <td><%= game.difficulty_level %></td>
+        <td><%= game.category.name %></td>
+
+        <td><%= game.attempts %></td>
+        <td><%= game.score %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p>Average Score: <span class="score"><%= @average_score.round(2) %></span></p>

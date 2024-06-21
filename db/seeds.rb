@@ -8,9 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-
 category = Category.find_or_create_by(name: 'Test')
-
 
 words_data = [
   { name: 'Wordone', definition: 'Definition of Word 1', level: "Beginner", category_id: category.id },
