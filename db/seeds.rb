@@ -114,7 +114,95 @@ words_attributes = [
   { name: 'Dolphin', definition: 'A small gregarious toothed whale that typically has a beaklike snout and a curved fin on the back.', category_name: 'Animals', level: 'Intermediate' },
   { name: 'Penguin', definition: 'A large flightless seabird of the southern hemisphere, with black upper parts and white underparts and wings developed into flippers for swimming underwater.', category_name: 'Animals', level: 'Advanced' },
   { name: 'Kangaroo', definition: 'A large plant-eating marsupial with a long powerful tail and strongly developed hind limbs that enable it to travel by leaping, found only in Australia and New Guinea.', category_name: 'Animals', level: 'Advanced' },
-  { name: 'Panda', definition: 'A large bearlike mammal with characteristic black and white markings, native to certain mountain forests in China. It feeds almost entirely on bamboo and has become increasingly rare.', category_name: 'Animals', level: 'Advanced' }
+  { name: 'Panda', definition: 'A large bearlike mammal with characteristic black and white markings, native to certain mountain forests in China. It feeds almost entirely on bamboo and has become increasingly rare.', category_name: 'Animals', level: 'Advanced' },
+
+  # Clothing
+  { name: 'Shirt', definition: 'A cloth garment for the upper body.', category_name: 'Clothing', level: 'Beginner' },
+  { name: 'Pants', definition: 'A piece of clothing worn on the lower half of the body.', category_name: 'Clothing', level: 'Beginner' },
+  { name: 'Dress', definition: 'A one-piece garment for a woman or girl.', category_name: 'Clothing', level: 'Intermediate' },
+  { name: 'Blazer', definition: 'A lightweight jacket, typically in a solid color.', category_name: 'Clothing', level: 'Intermediate' },
+  { name: 'Trench Coat', definition: 'A long, double-breasted coat.', category_name: 'Clothing', level: 'Advanced' },
+  { name: 'Tuxedo', definition: 'A formal evening suit.', category_name: 'Clothing', level: 'Advanced' },
+
+  # Fashion
+  { name: 'Runway', definition: 'A narrow, usually flat surface where models walk to display clothing.', category_name: 'Fashion', level: 'Beginner' },
+  { name: 'Model', definition: 'A person employed to display clothes by wearing them.', category_name: 'Fashion', level: 'Beginner' },
+  { name: 'Couture', definition: 'The design and manufacture of fashionable clothes to a client\'s specific requirements.', category_name: 'Fashion', level: 'Intermediate' },
+  { name: 'Trend', definition: 'A general direction in which something is developing or changing.', category_name: 'Fashion', level: 'Intermediate' },
+  { name: 'Haute Couture', definition: 'High-end fashion that is constructed by hand from start to finish.', category_name: 'Fashion', level: 'Advanced' },
+  { name: 'Avant-garde', definition: 'New and unusual or experimental ideas, especially in the arts.', category_name: 'Fashion', level: 'Advanced' },
+
+  # Work
+  { name: 'Office', definition: 'A room, set of rooms, or building used as a place for commercial, professional, or bureaucratic work.', category_name: 'Work', level: 'Beginner' },
+  { name: 'Job', definition: 'A paid position of regular employment.', category_name: 'Work', level: 'Beginner' },
+  { name: 'Manager', definition: 'A person responsible for controlling or administering an organization or group of staff.', category_name: 'Work', level: 'Intermediate' },
+  { name: 'Team', definition: 'A group of people with a full set of complementary skills required to complete a task, job, or project.', category_name: 'Work', level: 'Intermediate' },
+  { name: 'Strategy', definition: 'A plan of action designed to achieve a long-term or overall aim.', category_name: 'Work', level: 'Advanced' },
+  { name: 'Innovation', definition: 'The act of introducing something new.', category_name: 'Work', level: 'Advanced' },
+
+  # Education
+  { name: 'School', definition: 'An institution for educating children.', category_name: 'Education', level: 'Beginner' },
+  { name: 'Teacher', definition: 'A person who teaches, especially in a school.', category_name: 'Education', level: 'Beginner' },
+  { name: 'Curriculum', definition: 'The subjects comprising a course of study in a school or college.', category_name: 'Education', level: 'Intermediate' },
+  { name: 'Lecture', definition: 'An educational talk to an audience, especially to students in a university or college.', category_name: 'Education', level: 'Intermediate' },
+  { name: 'Pedagogy', definition: 'The method and practice of teaching, especially as an academic subject or theoretical concept.', category_name: 'Education', level: 'Advanced' },
+  { name: 'Thesis', definition: 'A statement or theory that is put forward as a premise to be maintained or proved.', category_name: 'Education', level: 'Advanced' },
+
+  # Emotions
+  { name: 'Happy', definition: 'Feeling or showing pleasure or contentment.', category_name: 'Emotions', level: 'Beginner' },
+  { name: 'Sad', definition: 'Feeling or showing sorrow; unhappy.', category_name: 'Emotions', level: 'Beginner' },
+  { name: 'Angry', definition: 'Feeling or showing strong annoyance, displeasure, or hostility.', category_name: 'Emotions', level: 'Intermediate' },
+  { name: 'Fear', definition: 'An unpleasant emotion caused by the belief that someone or something is dangerous, likely to cause pain, or a threat.', category_name: 'Emotions', level: 'Intermediate' },
+  { name: 'Ecstatic', definition: 'Feeling or expressing overwhelming happiness or joyful excitement.', category_name: 'Emotions', level: 'Advanced' },
+  { name: 'Melancholy', definition: 'A feeling of pensive sadness, typically with no obvious cause.', category_name: 'Emotions', level: 'Advanced' },
+
+  # Nature
+  { name: 'Tree', definition: 'A woody perennial plant, typically having a single stem or trunk growing to a considerable height and bearing lateral branches at some distance from the ground.', category_name: 'Nature', level: 'Beginner' },
+  { name: 'River', definition: 'A large natural stream of water flowing in a channel to the sea, a lake, or another such stream.', category_name: 'Nature', level: 'Beginner' },
+  { name: 'Mountain', definition: 'A large natural elevation of the earth\'s surface rising abruptly from the surrounding level; a large steep hill.', category_name: 'Nature', level: 'Intermediate' },
+  { name: 'Forest', definition: 'A large area covered chiefly with trees and undergrowth.', category_name: 'Nature', level: 'Intermediate' },
+  { name: 'Ecosystem', definition: 'A biological community of interacting organisms and their physical environment.', category_name: 'Nature', level: 'Advanced' },
+  { name: 'Biodiversity', definition: 'The variety of life in the world or in a particular habitat or ecosystem.', category_name: 'Nature', level: 'Advanced' },
+
+  # Health
+  { name: 'Doctor', definition: 'A person who is qualified to treat people who are ill.', category_name: 'Health', level: 'Beginner' },
+  { name: 'Medicine', definition: 'The science or practice of the diagnosis, treatment, and prevention of disease (in technical use often taken to exclude surgery).', category_name: 'Health', level: 'Beginner' },
+  { name: 'Nutrition', definition: 'The process of providing or obtaining the food necessary for health and growth.', category_name: 'Health', level: 'Intermediate' },
+  { name: 'Vaccine', definition: 'A substance used to stimulate the production of antibodies and provide immunity against one or several diseases.', category_name: 'Health', level: 'Intermediate' },
+  { name: 'Cardiology', definition: 'The branch of medicine that deals with diseases and abnormalities of the heart.', category_name: 'Health', level: 'Advanced' },
+  { name: 'Neurology', definition: 'The branch of medicine or biology that deals with the anatomy, functions, and organic disorders of nerves and the nervous system.', category_name: 'Health', level: 'Advanced' },
+
+  # Sports
+  { name: 'Soccer', definition: 'A sport in which two teams of eleven players each try to score by kicking a ball into the other team\'s goal.', category_name: 'Sports', level: 'Beginner' },
+  { name: 'Basketball', definition: 'A game played between two teams of five players each on a rectangular court, usually indoors. Each team tries to score by tossing the ball through the opponent\'s goal, an elevated horizontal hoop and net.', category_name: 'Sports', level: 'Beginner' },
+  { name: 'Tennis', definition: 'A game in which two or four players strike a ball with rackets over a net stretched across a court.', category_name: 'Sports', level: 'Intermediate' },
+  { name: 'Swimming', definition: 'The sport or activity of propelling oneself through water using the limbs.', category_name: 'Sports', level: 'Intermediate' },
+  { name: 'Marathon', definition: 'A long-distance running race, strictly one of 26 miles 385 yards (42.195 km).', category_name: 'Sports', level: 'Advanced' },
+  { name: 'Triathlon', definition: 'An athletic contest consisting of three different events, typically swimming, cycling, and long-distance running.', category_name: 'Sports', level: 'Advanced' },
+
+  # Art
+  { name: 'Painting', definition: 'The process or art of using paint, in a picture, as a protective coating, or as decoration.', category_name: 'Art', level: 'Beginner' },
+  { name: 'Sculpture', definition: 'The art of making two- or three-dimensional representative or abstract forms, especially by carving stone or wood or by casting metal or plaster.', category_name: 'Art', level: 'Beginner' },
+  { name: 'Photography', definition: 'The art or practice of taking and processing photographs.', category_name: 'Art', level: 'Intermediate' },
+  { name: 'Ceramics', definition: 'The art of making objects out of clay and similar materials treated by firing.', category_name: 'Art', level: 'Intermediate' },
+  { name: 'Impressionism', definition: 'A style or movement in painting originating in France in the 1860s, characterized by a concern with depicting the visual impression of the moment, especially in terms of the shifting effect of light and color.', category_name: 'Art', level: 'Advanced' },
+  { name: 'Surrealism', definition: 'A 20th-century avant-garde movement in art and literature that sought to release the creative potential of the unconscious mind.', category_name: 'Art', level: 'Advanced' },
+
+  # Literature
+  { name: 'Novel', definition: 'A fictitious prose narrative of book length, typically representing character and action with some degree of realism.', category_name: 'Literature', level: 'Beginner' },
+  { name: 'Poetry', definition: 'Literary work in which the expression of feelings and ideas is given intensity by the use of distinctive style and rhythm.', category_name: 'Literature', level: 'Beginner' },
+  { name: 'Drama', definition: 'A play for theater, radio, or television.', category_name: 'Literature', level: 'Intermediate' },
+  { name: 'Essay', definition: 'A short piece of writing on a particular subject.', category_name: 'Literature', level: 'Intermediate' },
+  { name: 'Modernism', definition: 'A style or movement in the arts that aims to break with classical and traditional forms.', category_name: 'Literature', level: 'Advanced' },
+  { name: 'Postmodernism', definition: 'A late 20th-century style and concept in the arts, architecture, and criticism that represents a departure from modernism and has at its heart a general distrust of grand theories and ideologies as well as a problematic relationship with any notion of “art.”', category_name: 'Literature', level: 'Advanced' },
+
+  # Technology
+  { name: 'Computer', definition: 'An electronic device for storing and processing data, typically in binary form, according to instructions given to it in a variable program.', category_name: 'Technology', level: 'Beginner' },
+  { name: 'Internet', definition: 'A global computer network providing a variety of information and communication facilities, consisting of interconnected networks using standardized communication protocols.', category_name: 'Technology', level: 'Beginner' },
+  { name: 'Software', definition: 'The programs and other operating information used by a computer.', category_name: 'Technology', level: 'Intermediate' },
+  { name: 'Hardware', definition: 'The machines, wiring, and other physical components of a computer or other electronic system.', category_name: 'Technology', level: 'Intermediate' },
+  { name: 'Artificial Intelligence', definition: 'The theory and development of computer systems able to perform tasks that normally require human intelligence, such as visual perception, speech recognition, decision-making, and translation between languages.', category_name: 'Technology', level: 'Advanced' },
+  { name: 'Quantum Computing', definition: 'The use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.', category_name: 'Technology', level: 'Advanced' }
 ]
 
 words_attributes.each do |word_attr|
