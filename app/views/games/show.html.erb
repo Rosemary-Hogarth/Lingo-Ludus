@@ -1,19 +1,20 @@
-<div data-controller="guess">
+<div data-controller="guess" data-guess-game-id="<%= @game.id %>">
   <h1>Game</h1>
 
   <p>Category: <%= @game.category.name %></p>
   <p>Difficulty: <%= @game.difficulty_level %></p>
   <p>Attempts: <%= @game.attempts %></p>
+
   <% if @word_to_guess %>
     <p>Definition: <%= @word_to_guess.definition %></p>
     <div class="field" style="display: flex; gap: 10px;">
       <% @word_array.each_with_index do |char, index| %>
         <div style="text-align: center;">
           <label for="guess_<%= index %>">Letter <%= index + 1 %></label>
-          <input id="guess_<%= index %>" type="text" size="1" data-target="input" data-index="<%= index %>">
+          <input id="guess_<%= index %>" type="text" size="1" data-guess-target="input" data-index="<%= index %>">
         </div>
       <% end %>
-  </div>
+    </div>
     <div class="actions">
       <button type="button" data-action="click->guess#check">Submit Guess</button>
     </div>
@@ -21,4 +22,5 @@
     <p>No word available for this game.</p>
   <% end %>
 </div>
+
 <%= link_to 'Back', games_path %>
