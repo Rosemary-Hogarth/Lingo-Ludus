@@ -12,13 +12,13 @@ class GamesController < ApplicationController
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current
 
-    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id)
+    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id) # try to find a word with the right parameters
 
     if word_to_guess.nil?
       flash[:alert] = 'No words available for the selected difficulty level.'
       redirect_to new_game_path
     else
-      @game.word_id = word_to_guess.id
+      @game.word_id = word_to_guess.id # associates a word_id to the game
 
       if @game.save
         redirect_to @game, notice: 'Game started successfully.'
@@ -33,10 +33,9 @@ class GamesController < ApplicationController
 
   def show
     @word_to_guess = @game.word
-    if @word_to_guess.nil?
-      flash[:alert] = 'No word selected for this game.'
-      redirect_to new_game_path
-    end
+    @word_name = @word_to_guess.name
+    @word_array = @word_name.chars
+    @guessed_letters = flash[:guessed_letters] || @word_array.map { { letter: "", correct: false } }
   end
 
   # def update_attempts
@@ -48,19 +47,21 @@ class GamesController < ApplicationController
   # end
 
   def guess_word
+    @word_to_guess = @game.word.name
+    @word_array = @word_to_guess.chars
+    correct_guesses = []
+
     if @game.attempts < 3
       @game.update(attempts: @game.attempts + 1)
-      @word_to_guess = @game.word.name
 
-      if @word_to_guess.downcase.strip == params[:guess].downcase.strip
-        flash[:notice] = "Correct guess!"
-      else
-        flash[:alert] = "Incorrect guess. Try again!"
+      params.each do |key, value|
+        next unless key.start_with?("guess_")
+        index = key.gsub("guess_", "").to_i
+        correct_guesses << index if value.downcase.strip == @word_array[index].downcase
       end
-    else
-      flash[:alert] = "You have reached the maximum number of attempts."
+
+      render json: { correct_guesses: correct_guesses }
     end
-    redirect_to @game
   end
 
   private
