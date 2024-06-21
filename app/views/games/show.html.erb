@@ -1,16 +1,21 @@
-<h1>Game: <%= @game.category.name %> - <%= @game.difficulty_level %></h1>
-<p>Score: <%= @game.score %></p>
-<p>Attempts left: <%= 3 - @game.attempts %></p>
-<% if @game.attempts < 3 %>
-  <h2>Round <%= @game.attempts + 1 %></h2>
-  <%= form_with model: [@game], local: true do |f| %>
-    <div class="form-group">
-      <%= f.label :guess, 'Enter your guess' %>
-      <%= f.text_field :guess, class: 'form-control' %>
+<h1>Game</h1>
+
+<p>Category: <%= @game.category.name %></p>
+<p>Difficulty: <%= @game.difficulty_level %></p>
+<p>Attempts: <%= @game.attempts %></p>
+<% if @word_to_guess %>
+  <p>Definition: <%= @word_to_guess.definition %></p>
+  <%= form_with url: guess_word_game_path(@game), local: true, method: :post do |form| %>
+    <div class="field">
+      <%= form.label :guess %>
+      <%= form.text_field :guess %>
     </div>
-    <%= f.submit 'Submit Guess', class: 'btn btn-primary' %>
+    <div class="actions">
+      <%= form.submit "Submit Guess" %>
+    </div>
   <% end %>
 <% else %>
-  <p>Game over! The correct word was <%= @game.attempts.last.word.name %>.</p>
-  <%= link_to 'Start a New Game', new_game_path, class: 'btn btn-primary' %>
+  <p>No word available for this game.</p>
 <% end %>
+
+<%= link_to 'Back', games_path %>

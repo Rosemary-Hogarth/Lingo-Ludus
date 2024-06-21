@@ -1,12 +1,16 @@
 <h1>Start a New Game</h1>
-<%= form_with model: @game, local: true do |f| %>
-  <div class="form-group">
-    <%= f.label :category_id, 'Select Category' %>
-    <%= f.collection_select :category_id, @categories, :id, :name, { prompt: 'Choose a category' }, { class: 'form-control' } %>
+<%= form_with model: @game, local: true do |form| %>
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, @categories, :id, :name %>
   </div>
-  <div class="form-group">
-    <%= f.label :difficulty_level, 'Select Level' %>
-    <%= f.select :difficulty_level, @levels, { prompt: 'Choose a level' }, { class: 'form-control' } %>
+
+  <div class="field">
+    <%= form.label :difficulty_level %>
+    <%= form.select :difficulty_level, @levels %>
   </div>
-  <%= f.submit 'Start Game', class: 'btn btn-primary' %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>
