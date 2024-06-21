@@ -1,6 +1,9 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_game, only: [:show, :guess_word]
+  def index
+    @games = Game.all
+  end
 
   def new
     @game = current_user.games.new

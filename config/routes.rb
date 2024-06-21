@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
   get 'dashboard', to: 'dashboards#index'
 
-  resources :games, only: [:show, :create, :new] do
+  resources :games, only: [:index, :show, :create, :new] do
     post "guess_word", on: :member
   end
 
