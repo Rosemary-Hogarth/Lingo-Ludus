@@ -10,7 +10,6 @@
     <div class="field" style="display: flex; gap: 10px;">
       <% @word_array.each_with_index do |char, index| %>
         <div style="text-align: center;">
-          <label for="guess_<%= index %>">Letter <%= index + 1 %></label>
           <input id="guess_<%= index %>" type="text" size="1" data-guess-target="input" data-index="<%= index %>">
         </div>
       <% end %>
