@@ -12,6 +12,8 @@ export default class extends Controller {
     console.log("clicked");
 
     event.preventDefault();
+
+
     const formData = {};
     this.inputTargets.forEach(input => {
       const index = input.dataset.index;
@@ -26,13 +28,21 @@ export default class extends Controller {
       },
       body: JSON.stringify(formData)
     })
-      .then(response => response.json())
-      .then(data => {
-        this.inputTargets.forEach((input, index) => {
-          const isCorrect = data.correct_guesses.includes(index);
-          input.style.backgroundColor = isCorrect ? "lightgreen" : "lightcoral";
-        });
-      })
-      .catch(error => console.error("Error:", error));
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+
+      this.inputTargets.forEach((input, index) => {
+        const guessedLetter = formData[`guess_${index}`];
+        if (data.correct_guesses.includes(index)) {
+          input.style.backgroundColor = "lightgreen";
+        } else if (data.wrong_position.includes(guessedLetter)) {
+          input.style.backgroundColor = "orange";
+        } else {
+          input.style.backgroundColor = "red"; 
+        }
+      });
+    })
+    .catch(error => console.error("Error:", error));
   }
 }

@@ -50,6 +50,7 @@ class GamesController < ApplicationController
     @word_to_guess = @game.word.name
     @word_array = @word_to_guess.chars
     correct_guesses = []
+    wrong_position = []
 
     if @game.attempts < 3
       @game.update(attempts: @game.attempts + 1)
@@ -57,10 +58,16 @@ class GamesController < ApplicationController
       params.each do |key, value|
         next unless key.start_with?("guess_")
         index = key.gsub("guess_", "").to_i
-        correct_guesses << index if value.downcase.strip == @word_array[index].downcase
+        guessed_letter = value.downcase.strip
+
+        if guessed_letter == @word_array[index].downcase
+          correct_guesses << index
+        elsif @word_array.include?(guessed_letter)
+          wrong_position << guessed_letter
+        end
       end
 
-      render json: { correct_guesses: correct_guesses }
+      render json: { correct_guesses: correct_guesses, wrong_position: wrong_position, word_array: @word_array }
     end
   end
 
