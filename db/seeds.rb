@@ -12,6 +12,7 @@ require 'faker'
 Game.destroy_all
 Word.destroy_all
 Category.destroy_all
+User.destroy_all
 
 
 # Create users
@@ -43,7 +44,7 @@ end
 
 # Create Games
 User.all.each do |user|
-  2.times do
+  10.times do
     date =  Faker::Date.between(from: 2.years.ago, to: Date.today)
     game = Game.create!(
       category: Category.all.sample,

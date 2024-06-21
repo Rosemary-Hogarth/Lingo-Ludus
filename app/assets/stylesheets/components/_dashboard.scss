@@ -1,0 +1,49 @@
+body {
+  background-color: #FFFCF9;
+}
+
+.header-message {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+.total-average-score-container {
+  border: 1px solid black;
+  margin-bottom: 15px;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: white;
+    p {
+      font-family: "Roboto", sans-serif;
+      font-weight: 200;
+    }
+}
+
+.overview-container {
+  border: 1px solid black;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 30px;
+  background-color: white;
+  p {
+    font-family: "Roboto", sans-serif;
+  }
+}
+
+.average-over-time-container {
+  border: 1px solid black;
+  border-radius: 30px;
+  padding: 20px;
+  margin-top: 40px;
+  background-color: white;
+    h2 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+  }
+}
+
+.table {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}

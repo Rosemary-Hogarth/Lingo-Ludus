@@ -7,6 +7,7 @@ class Game < ApplicationRecord
   validates :date, presence: true
   validates :difficulty_level, presence: true
 
+
   before_validation :set_default_date, on: :create
 
   # create time method start_time - start_time in seconds

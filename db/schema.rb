@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_20_172959) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_21_062428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_172959) do
     t.integer "attempts", default: 0
     t.datetime "start_time"
     t.datetime "end_time"
-    t.bigint "word_id", null: false
+    t.bigint "word_id"
     t.index ["category_id"], name: "index_games_on_category_id"
     t.index ["user_id"], name: "index_games_on_user_id"
     t.index ["word_id"], name: "index_games_on_word_id"

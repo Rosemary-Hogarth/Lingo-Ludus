@@ -1,29 +1,61 @@
-<h1>Welcome to your dashboard, <%= @user.first_name %>!</h1>
-<p>Total Score: <span class="score"><%= @total_score %></span></p>
-<p>Overview of Recent Activity</p>
-  <table>
-    <thead>
-      <tr>
-        <th>Word</th>
-        <th>Level</th>
-        <th>Category</th>
-        <th>Time</th>
-        <th>Attempts</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @recent_games.each do |game| %>
-      <tr>
-        <td><%= game.word.name %></td>
-        <td><%= game.difficulty_level %></td>
-        <td><%= game.category.name %></td>
+<div class="container">
+  <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
 
-        <td><%= game.attempts %></td>
-        <td><%= game.score %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <!-- one row, two columns -->
+  <div class="row">
+    <!-- Left column -->
+    <div class="col-md-6">
+      <div class="average-over-time-container">
+        <h2>Average score over time</h2>
+      <div class="chart">
+        <canvas data-controller="dashboard-chart"
+                data-dashboard-chart-data-value="<%= @average_scores_over_time %>"
+                width="400" height="417">
+        </canvas>
+      </div>
+    </div>
+  </div>
 
-  <p>Average Score: <span class="score"><%= @average_score.round(2) %></span></p>
+
+    <!-- Right column -->
+  <div class="col-md-6">
+    <div class="total-average-score-container">
+      <p>Total Score: <span class="score"><%= @total_score %></span></p>
+      <p>Average Score: <span class="score"><%= @average_score.round(2) %></span></p>
+    </div>
+
+
+    <div class="overview-container">
+      <p>Overview of Recent Activity</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="word">Word</th>
+              <th>Level</th>
+              <th>Category</th>
+              <th>Attempts</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_games.each do |game| %>
+              <tr>
+                <td>
+                  <% if game.word.present? %>
+                    <%= game.word.name %>
+                  <% else %>
+                    No word associated with this game
+                  <% end %>
+                </td>
+                <td><%= game.difficulty_level %></td>
+                <td><%= game.category.name %></td>
+                <td><%= game.attempts %></td>
+                <td><%= game.score %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

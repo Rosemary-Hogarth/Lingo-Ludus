@@ -18,6 +18,7 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.new(game_params)
+
     if @game.save
       redirect_to @game, notice: 'Game started successfully.'
     else
@@ -30,10 +31,11 @@ class GamesController < ApplicationController
       end
     end
   end
+
   private
 
   def game_params
-    params.require(:game).permit(:category_id, :difficulty_level)
+    params.require(:game).permit(:category_id, :difficulty_level, :word_id)
   end
 
 end
