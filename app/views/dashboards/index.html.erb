@@ -6,11 +6,11 @@
     <!-- Left column -->
     <div class="col-md-6">
       <div class="average-over-time-container">
-        <h2>Average score over time</h2>
+        <h2>Average scores this week</h2>
       <div class="chart">
         <canvas data-controller="dashboard-chart"
                 data-dashboard-chart-data-value="<%= @average_scores_over_time %>"
-                width="400" height="417">
+                width="400" height="418">
         </canvas>
       </div>
     </div>
@@ -20,8 +20,8 @@
     <!-- Right column -->
   <div class="col-md-6">
     <div class="total-average-score-container">
-      <p>Total Score: <span class="score"><%= @total_score %></span></p>
-      <p>Average Score: <span class="score"><%= @average_score.round(2) %></span></p>
+      <p>Total score: <span class="score"><%= @total_score %></span></p>
+      <p>Average overall score: <span class="score"><%= @average_score.round(2) %></span></p>
     </div>
 
 

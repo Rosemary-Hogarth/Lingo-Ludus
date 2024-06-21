@@ -3,8 +3,19 @@ class DashboardsController < ApplicationController
 
   def index
     @user = current_user # Retrieves the current logged-in user
-    # Filters games to only include those played within the last month.
-    @games = @user.games.where("end_time >= ?", 1.month.ago)
+    # start_date = 1.month.ago.beginning_of_hour
+    # end_date = Time.now.end_of_day
+
+    # Filters games to only include those played within the last week.
+    # @games = @user.games.where(date: start_date..end_date)
+    # Debugging: Check if any games are retrieved
+    Rails.logger.debug "Games in the last week: #{@games.inspect}"
+
+    # Calculates the average score over the last week, grouped by day
+    # @average_scores_over_time = @games.group_by_day(:date).average(:score).transform_values(&:to_f)
+
+    # Debugging: Check the average scores over time
+    Rails.logger.debug "Average scores over time: #{@average_scores_over_time.inspect}"
 
     # Calculates the total score dynamically by summing the score column from games associated with the current user (@user)
     # .sum --> active record method
@@ -19,12 +30,20 @@ class DashboardsController < ApplicationController
     @average_score = @user.games.average(:score).to_f
 
     @average_scores_over_time = {
-      "January" => 20,
-      "February" => 25,
-      "March" => 18,
-      "April" => 22,
-      "" => 30
+      "Monday" => 20,
+      "Tuesday" => 24,
+      "Wednesday" => 25,
+      "Thursday" => 29,
+      "Friday" => 29,
+      "Saturday" => 29,
+      "Sunday" => 30
     }.to_json
+  end
+end
+
+
+
+
 
     # if ActiveRecord::Base.connection.adapter_name.downcase.include?("sqlite")
     #   # SQLite workaround: Group by month using Ruby
@@ -35,5 +54,3 @@ class DashboardsController < ApplicationController
     #   @average_scores_over_time = @games.group("DATE_TRUNC('month', end_time)")
     #                                     .average(:score)
     # end
-  end
-end
