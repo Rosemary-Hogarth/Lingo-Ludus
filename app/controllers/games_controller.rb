@@ -86,7 +86,7 @@ class GamesController < ApplicationController
   def set_game_and_word
     @game = Game.find(params[:id])
     @word_to_guess = @game.word
-    @word_name = @word_to_guess.name
+    @word_name = @word_to_guess.name.downcase
     @word_array = @word_name.chars
   end
 

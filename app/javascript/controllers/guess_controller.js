@@ -9,8 +9,6 @@ export default class extends Controller {
 
   check(event) {
 
-    console.log("clicked");
-
     event.preventDefault();
 
     const inputData = {};                                                                          // Empty object to store data
@@ -30,6 +28,7 @@ export default class extends Controller {
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      console.log(`word_array: ${data.word_array}`)
 
       this.inputTargets.forEach((input, index) => {
         const guessedLetter = inputData[`guess_${index}`];
