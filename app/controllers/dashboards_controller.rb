@@ -12,7 +12,7 @@ class DashboardsController < ApplicationController
     Rails.logger.debug "Games in the last week: #{@games.inspect}"
 
     # Calculates the average score over the last week, grouped by day
-    # @average_scores_over_time = @games.group_by_day(:date).average(:score).transform_values(&:to_f)
+    @average_scores_over_time = @games.group_by_day(:date).average(:score).transform_values(&:to_f).to_json
 
 
 
@@ -30,15 +30,15 @@ class DashboardsController < ApplicationController
     # .average --> active record method
     @average_score = @user.games.average(:score).to_f
 
-    @average_scores_over_time = {
-      "Monday" => 20,
-      "Tuesday" => 24,
-      "Wednesday" => 25,
-      "Thursday" => 29,
-      "Friday" => 29,
-      "Saturday" => 29,
-      "Sunday" => 30
-    }.to_json
+  #   @average_scores_over_time = {
+  #     "Monday" => 20,
+  #     "Tuesday" => 24,
+  #     "Wednesday" => 25,
+  #     "Thursday" => 29,
+  #     "Friday" => 29,
+  #     "Saturday" => 29,
+  #     "Sunday" => 30
+  #   }.to_json
   end
 end
 

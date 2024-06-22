@@ -1,4 +1,5 @@
 current_time = DateTime.now
+# demo_time = DateTime.now - 10.days
 
 # Create Users
 users = [
