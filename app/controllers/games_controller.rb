@@ -35,14 +35,6 @@ class GamesController < ApplicationController
     @guessed_letters = flash[:guessed_letters] || @word_array.map { { letter: "", correct: false } }
   end
 
-  # def update_attempts
-  #   @game.increment!(:attempts)
-  # end
-
-  # def update_score
-  #   @game.update(end_time: Time.current, score: calculate_score)
-  # end
-
   def guess_word
     correct_guesses = []
     wrong_position = []
@@ -99,11 +91,5 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:category_id, :difficulty_level, :attempts)
-  end
-
-  def calculate_score
-    elapsed_time = (@game.end_time - @game.start_time).to_i
-    base_score = 1000 - (elapsed_time * 10) - (@game.attempts - 1 * 50)
-    [base_score, 0].max
   end
 end
