@@ -1,5 +1,5 @@
-current_time = DateTime.now
-# demo_time = DateTime.now - 10.days
+current_time = DateTime.now - 7.days
+
 
 # Create Users
 users = [
@@ -234,7 +234,7 @@ games_attributes = [
   },
   {
     category_name: 'Time', difficulty_level: 'Beginner', user_email: 'carol@example.com',
-    score: 9, date: current_time, start_time: current_time - 1.5.hours, end_time: current_time - 0.5.hour,
+    score: 9, date: current_time, start_time: current_time - 1.day + 1.hour, end_time: current_time - 1.day + 2.hours,
     word_name: 'Clock', attempts: 1
   }
 ]

@@ -6,7 +6,7 @@ export default class extends Controller {
 
   connect() {
     const dashboardChartData = JSON.parse(this.element.dataset.dashboardChartDataValue);
-
+    console.log(dashboardChartData);
     // Create the chart
     new Chart(this.element, {
       type: 'line',
@@ -27,6 +27,9 @@ export default class extends Controller {
     });
   }
 }
+
+
+
 // Get the canvas element
 // const canvas = document.querySelector('[data-controller="dashboard-chart"]');
 
