@@ -9,6 +9,7 @@ class Game < ApplicationRecord
   validates :difficulty_level, presence: true, inclusion: { in: %w[Beginner Intermediate Advanced] }
   validates :word_id, presence: true
 
+
   before_validation :set_default_date, on: :create
 
   MAX_ATTEMPTS = 3
