@@ -1,0 +1,35 @@
+<div class="main-container container">
+  <!-- First row with definition-->
+  <div class="row">
+    <div class="container definition-container col-md-4">
+    </div>
+  </div>
+
+  <!-- Second row with game layout and dropdowns-->
+  <div class="row guess-row">
+    <div class="col-md-1">
+      <div class="field difficulty">
+        <%= label_tag 'difficulty_level', 'Difficulty' %>
+        <%= select_tag 'difficulty_level', options_for_select(@levels), class: 'form-control' %>
+      </div>
+    </div>
+    <div class="guess-container col-md-4">
+      <% 20.times do %>
+      <div class="grid-item"></div>
+      <% end %>
+    </div>
+    <div class="col-md-1">
+      <div class="field category ">
+        <%= label_tag 'category', 'Category' %>
+        <%= select_tag 'category', options_for_select(@categories_name), class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <div class="row button-row">
+    <div class="button-container">
+      <button class="btn">Score</button>
+      <button class="btn">Play</button>
+      <button class="btn">Next</button>
+    </div>
+  </div>
+</div>
