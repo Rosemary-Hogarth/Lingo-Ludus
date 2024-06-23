@@ -5,6 +5,7 @@ body {
 .header-message {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
+  margin-top: 30px;
 }
 
 .total-average-score-container {
@@ -15,9 +16,19 @@ body {
   border-radius: 30px;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-align: center;
     p {
       font-family: "Roboto", sans-serif;
-      font-weight: 200;
+      font-weight: 300;
+      font-size: 20px;
+      margin-bottom: 0;
+
+    }
+    .score {
+      font-weight: bold;
+    }
+    .message {
+      font-size: 18px;
     }
 }
 
@@ -28,6 +39,7 @@ body {
   border-radius: 30px;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
   p {
     font-family: "Roboto", sans-serif;
   }
@@ -49,4 +61,8 @@ body {
 .table {
   font-family: "Roboto", sans-serif;
   font-weight: 100;
+}
+
+td {
+  background-color: #ccccff7c !important;
 }

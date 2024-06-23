@@ -27,10 +27,3 @@ export default class extends Controller {
     });
   }
 }
-
-
-
-// Get the canvas element
-// const canvas = document.querySelector('[data-controller="dashboard-chart"]');
-
-// Parse the JSON data from the attribute
