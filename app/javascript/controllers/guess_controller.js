@@ -40,6 +40,7 @@ export default class extends Controller {
           input.style.backgroundColor = "red";
         }
       });
+
     })
     .catch(error => console.error("Error:", error));
   }

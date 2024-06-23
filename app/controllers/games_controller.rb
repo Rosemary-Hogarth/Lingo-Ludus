@@ -2,7 +2,6 @@ class GamesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_game_and_word, only: [:show, :guess_word]
 
-
   def new
     @game = current_user.games.new
     @categories = Category.all
