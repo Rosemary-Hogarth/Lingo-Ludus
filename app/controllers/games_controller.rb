@@ -13,21 +13,18 @@ class GamesController < ApplicationController
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current
 
-    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id) # try to find a word with the right parameters
+    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id)
 
     if word_to_guess.nil?
-      flash[:alert] = 'No words available for the selected difficulty level.'
-      redirect_to new_game_path
+      render json: { error: 'No words available for the selected difficulty level.' }, status: :unprocessable_entity
     else
-      @game.word_id = word_to_guess.id # associates a word_id to the game
+      @game.word_id = word_to_guess.id
 
       if @game.save
-        redirect_to @game, notice: 'Game started successfully.'
+        session[:game_id] = @game.id
+        render json: { word_array: word_to_guess.name.chars, game_id: @game.id }, status: :created
       else
-        @categories = Category.all
-        @levels = %w[Beginner Intermediate Advanced]
-        flash.now[:alert] = @game.errors.full_messages.to_sentence
-        render :new, status: :unprocessable_entity
+        render json: { error: @game.errors.full_messages.to_sentence }, status: :unprocessable_entity
       end
     end
   end
@@ -79,6 +76,12 @@ class GamesController < ApplicationController
 
       render json: { correct_guesses: correct_guesses, wrong_position: wrong_position, word_array: @word_array, incorrect_guesses: incorrect_guesses } # build JSON for Stimulus controller
     end
+  end
+
+  def game
+    @categories = Category.all
+    @categories_name = Category.pluck(:name)
+    @levels = %w[Beginner Intermediate Advanced]
   end
 
   private
