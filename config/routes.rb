@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :games, only: [:index, :show, :create, :new] do
     post "guess_word", on: :member
+    post "next", on: :member
   end
 
 

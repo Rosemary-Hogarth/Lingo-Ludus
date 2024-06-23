@@ -22,8 +22,12 @@ class Game < ApplicationRecord
     attempts >= MAX_ATTEMPTS
   end
 
-  def select_word(level, category_id)
-    words = Word.where(level: level, category_id: category_id)
+  def select_word(level, category_id, last_words_id)
+    if last_words_id.blank?
+      words = Word.where(level: level, category_id: category_id)
+    else
+      words = Word.where(level: level, category_id: category_id).where.not(id: last_words_id)
+    end
     words.sample
   end
 
@@ -32,5 +36,11 @@ class Game < ApplicationRecord
   def set_default_date
     self.date ||= Date.today
   end
+
+  # def select_word(difficulty_level, category_id, last_guessed_word_id = nil)
+  #   available_words = Word.where(difficulty_level: difficulty_level, category_id: category_id)
+  #   available_words = available_words.where.not(id: last_guessed_word_id) if last_guessed_word_id
+  #   available_words.sample
+  # end
 
 end

@@ -58,7 +58,7 @@ input.form-control {
 
 .guess-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -67,6 +67,7 @@ input.form-control {
   flex: 1;flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px;
+  margin: 16px;
 }
 
 .guess-input {
@@ -75,6 +76,6 @@ input.form-control {
 }
 
 .flex-fill {
-  flex: 1; /* Each div takes up equal width */
-  text-align: center; /* Center-align text within input div */
+  flex: 1;
+  text-align: center;
 }

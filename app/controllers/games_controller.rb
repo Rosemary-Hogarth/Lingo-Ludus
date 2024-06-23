@@ -1,19 +1,20 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_game_and_word, only: [:show, :guess_word]
-
+  before_action :set_categories_and_levels, only: [:new, :game]
 
   def new
     @game = current_user.games.new
-    @categories = Category.all
-    @levels = %w[Beginner Intermediate Advanced]
+  end
+
+  def game
+    @categories_name = Category.pluck(:name)
   end
 
   def create
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current
-
-    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id)
+    last_words_id = session[:used_word_ids]
+    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, last_words_id)
 
     if word_to_guess.nil?
       render json: { error: 'No words available for the selected difficulty level.' }, status: :unprocessable_entity
@@ -21,19 +22,21 @@ class GamesController < ApplicationController
       @game.word_id = word_to_guess.id
 
       if @game.save
-        session[:game_id] = @game.id
-        render json: { word_array: word_to_guess.name.chars, game_id: @game.id }, status: :created
+        session[:used_word_ids] ||= []
+        session[:used_word_ids] << word_to_guess.id
+
+        render json: { word_array: word_to_guess.name.chars, game_id: @game.id, definition: word_to_guess.definition }, status: :created
       else
         render json: { error: @game.errors.full_messages.to_sentence }, status: :unprocessable_entity
       end
     end
   end
 
-  def show
-    @guessed_letters = flash[:guessed_letters] || @word_array.map { { letter: "", correct: false } }
-  end
-
   def guess_word
+    @game = Game.find(params[:id])
+    @word_to_guess = @game.word
+    @word_name = @word_to_guess.name.downcase
+    @word_array = @word_name.chars
     correct_guesses = []
     wrong_position = []
     incorrect_guesses = []
@@ -78,22 +81,14 @@ class GamesController < ApplicationController
     end
   end
 
-  def game
-    @categories = Category.all
-    @categories_name = Category.pluck(:name)
-    @levels = %w[Beginner Intermediate Advanced]
-  end
-
   private
-
-  def set_game_and_word
-    @game = Game.find(params[:id])
-    @word_to_guess = @game.word
-    @word_name = @word_to_guess.name.downcase
-    @word_array = @word_name.chars
-  end
 
   def game_params
     params.require(:game).permit(:category_id, :difficulty_level, :attempts)
+  end
+
+  def set_categories_and_levels
+    @categories = Category.all
+    @levels = %w[Beginner Intermediate Advanced]
   end
 end
