@@ -34,8 +34,8 @@ class Game < ApplicationRecord
   def game_duration
     return nil if start_time.nil? || end_time.nil?
 
-    start_time = self.start_time.to_datetime
-    end_time = self.end_time.to_datetime
+    start_time = self.start_time
+    end_time = self.end_time
 
     duration_seconds = (end_time - start_time).to_i
     duration_seconds

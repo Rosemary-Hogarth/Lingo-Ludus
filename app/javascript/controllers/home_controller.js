@@ -2,17 +2,15 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="home"
 export default class extends Controller {
-  static targets = ["container", "shapes"];
+  static targets = ["shapes"];
 
-  id = null;
-  pos = 0;
 
   connect() {
       // Check if the current page is the homepage
       if (window.location.pathname === "/") {
         this.hideNavbar();
       }
-      this.myMove();
+      this.animateSquares();
   }
 
 
@@ -24,26 +22,20 @@ export default class extends Controller {
   }
 
 
-  myMove = () => {
-    const shapes = this.shapesTarget;
-    if (!shapes) return;
+  animateSquares() {
+    this.shapesTargets.forEach((shape, index) => {
+      // Set initial state outside the viewport
+      shape.style.transform = index % 2 === 0 ? 'translateX(-100vw)' : 'translateX(100vw)';
+      shape.style.transition = 'transform 5s cubic-bezier(0.25, 1, 0.5, 1)';
 
-    clearInterval(id);
-    this.id = setInterval(this.frame.bind(this), 10);
-  }
 
-  frame() {
-    const shapes = this.shapesTarget;
-      if (this.pos == 350) {
-        clearInterval(this.id);
-      } else {
-        this.pos++;
-        shapes.style.top = this.pos + 'px';
-        shapes.style.left = this.pos + 'px';
-      }
+    // Trigger animation
+      setTimeout(() => {
+        shape.style.transform = 'translateX(0)';
+      }, index * 200); // stagger the animation
+    });
   }
 }
-
 
 
 
