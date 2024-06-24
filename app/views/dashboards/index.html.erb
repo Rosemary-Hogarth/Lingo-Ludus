@@ -1,6 +1,7 @@
 <div class="container">
   <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
 
+
   <!-- one row, two columns -->
   <div class="row">
     <!-- Left column -->
@@ -17,16 +18,17 @@
   </div>
 
 
-    <!-- Right column -->
+  <!-- Right column -->
   <div class="col-md-6">
     <div class="total-average-score-container">
-      <p>Total score: <span class="score"><%= @total_score %></span></p>
-      <p>Average overall score: <span class="score"><%= @average_score.round(2) %></span></p>
+      <!-- <p>Total score: <span class="score"><%= @total_score %></span></p> -->
+      <p>Average overall score <div class="score"><%= @average_score.round %></div></p>
+      <p class="message">Amazing 💜</p>
     </div>
 
 
     <div class="overview-container">
-      <p>Overview of Recent Activity</p>
+      <p>Overview of recent activity</p>
         <table class="table">
           <thead>
             <tr>
