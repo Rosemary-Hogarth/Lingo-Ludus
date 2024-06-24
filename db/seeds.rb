@@ -1,4 +1,4 @@
-current_time = DateTime.now - 10.hours
+current_time = DateTime.now - 7.days
 
 
 # Create Users
@@ -224,17 +224,17 @@ end
 games_attributes = [
   {
     category_name: 'Animals', difficulty_level: 'Beginner', user_email: 'alice@example.com',
-    score: 10, date: current_time, start_time: current_time - 1.hour, end_time: current_time - 50.minutes,
+    score: 10, date: current_time, start_time: current_time - 1.hour, end_time: current_time,
     word_name: 'Dog', attempts: 1
   },
   {
     category_name: 'Numbers', difficulty_level: 'Beginner', user_email: 'bob@example.com',
-    score: 8, date: current_time, start_time: current_time - 2.hours, end_time: current_time - 140.minutes,
+    score: 8, date: current_time, start_time: current_time - 2.hours, end_time: current_time - 1.hour,
     word_name: 'Two', attempts: 2
   },
   {
     category_name: 'Time', difficulty_level: 'Beginner', user_email: 'carol@example.com',
-    score: 9, date: current_time, start_time: current_time - 7.hours, end_time: current_time - 6.hours,
+    score: 9, date: current_time, start_time: current_time - 1.day + 1.hour, end_time: current_time - 1.day + 2.hours,
     word_name: 'Clock', attempts: 1
   }
 ]

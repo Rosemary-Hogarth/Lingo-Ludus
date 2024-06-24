@@ -1,6 +1,8 @@
 <div class="container dashboard">
+<div class="banner">
   <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
   <%= button_to "Continue playing", new_game_path, method: :post, class: "dashboard-btn" %>
+  </div>
 
 
   <!-- one row, two columns -->
@@ -12,7 +14,7 @@
       <div class="chart">
         <canvas data-controller="dashboard-chart"
                 data-dashboard-chart-data-value="<%= @average_scores_over_time %>"
-                width="400" height="418">
+                width="400" height="428">
         </canvas>
       </div>
     </div>
