@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
   get 'dashboard', to: 'dashboards#index'
+  get "play", to: "games#game"
 
   resources :games, only: [:index, :show, :create, :new] do
     post "guess_word", on: :member
+    post "next", on: :member
   end
 
 

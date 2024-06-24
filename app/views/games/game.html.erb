@@ -1,0 +1,43 @@
+<div class="main-container container" data-controller="guess">
+  <!-- First row with definition-->
+  <div class="row">
+    <div class="container definition-container col-md-4" data-guess-target="definition">
+    </div>
+  </div>
+
+  <!-- Second row with game layout and dropdowns-->
+  <div class="row guess-row">
+    <div class="col-md-1">
+      <div class="field difficulty">
+        <%= label_tag 'difficulty_level', 'Difficulty' %>
+        <select id="difficulty_level" data-guess-target="difficulty" class="form-control">
+          <% @levels.each do |level| %>
+            <option value="<%= level %>"><%= level %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <div class="guess-container-layout col-md-4" data-guess-target="guessContainer">
+      <% 20.times do %>
+      <div class="grid-item"></div>
+      <% end %>
+    </div>
+    <div class="col-md-1">
+      <div class="field category ">
+        <%= label_tag 'category', 'Category' %>
+         <select id="category_id" data-guess-target="category" class="form-control">
+          <% @categories.each do |category| %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row button-row">
+    <div class="button-container">
+      <button class="btn">Score</button>
+      <button id="create-game-btn" data-action="guess#createGame" class="btn btn-primary">Play</button>
+      <button id="next-game-btn" data-action="guess#createGame" class="btn btn-secondary">Next</button>
+    </div>
+  </div>
+</div>

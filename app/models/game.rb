@@ -12,19 +12,23 @@ class Game < ApplicationRecord
 
   before_validation :set_default_date, on: :create
 
-  MAX_ATTEMPTS = 3
+  # MAX_ATTEMPTS = 3
 
-  def attempts_remaining
-    MAX_ATTEMPTS - attempts
-  end
+  # def attempts_remaining
+  #   MAX_ATTEMPTS - attempts
+  # end
 
-  def max_attempts_reached?
-    attempts >= MAX_ATTEMPTS
-  end
+  # def max_attempts_reached?
+  #   attempts >= MAX_ATTEMPTS
+  # end
 
-  def select_word(level, category_id)
-    words = Word.where(level: level, category_id: category_id)
-    words.sample
+  def select_word(level, category_id, last_words_id)
+    if last_words_id.blank? # if last_words_id is empty, selects the word depending on selected category and level
+      words = Word.where(level: level, category_id: category_id)
+    else                    # same but rejects words contained in last_words_id array
+      words = Word.where(level: level, category_id: category_id).where.not(id: last_words_id)
+    end
+    words.sample  # returns a single random word
   end
 
   private
