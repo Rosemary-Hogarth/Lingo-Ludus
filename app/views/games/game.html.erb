@@ -25,7 +25,7 @@
     <div class="col-md-1">
       <div class="field category ">
         <%= label_tag 'category', 'Category' %>
-         <select id="category_id" data-guess-target="category" class="form-control">
+          <select id="category_id" data-guess-target="category" class="form-control">
           <% @categories.each do |category| %>
             <option value="<%= category.id %>"><%= category.name %></option>
           <% end %>
