@@ -1,5 +1,8 @@
-<div class="container">
+<div class="container dashboard">
+<div class="banner">
   <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
+  <%= button_to "Continue playing", new_game_path, method: :post, class: "dashboard-btn" %>
+  </div>
 
 
   <!-- one row, two columns -->
@@ -7,11 +10,11 @@
     <!-- Left column -->
     <div class="col-md-6">
       <div class="average-over-time-container">
-        <h2>Average scores this week</h2>
+        <div class="average-over-time-header">Average scores this week</div>
       <div class="chart">
         <canvas data-controller="dashboard-chart"
                 data-dashboard-chart-data-value="<%= @average_scores_over_time %>"
-                width="400" height="418">
+                width="400" height="428">
         </canvas>
       </div>
     </div>
@@ -21,14 +24,13 @@
   <!-- Right column -->
   <div class="col-md-6">
     <div class="total-average-score-container">
-      <!-- <p>Total score: <span class="score"><%= @total_score %></span></p> -->
-      <p>Average overall score <div class="score"><%= @average_score.round %></div></p>
-      <p class="message">Amazing 💜</p>
+      <div class="average-score-header">Average overall score <div class="score"><%= @average_score.round %></div></div>
+      <div class="message">Amazing 💜</div>
     </div>
 
 
     <div class="overview-container">
-      <p>Overview of recent activity</p>
+      <p>Overview of recent activity <i class="fa-regular fa-calendar"></i></p>
         <table class="table">
           <thead>
             <tr>
@@ -60,4 +62,22 @@
       </div>
     </div>
   </div>
+
+<div class="extra-info-container">
+    <div class="extra-info-header">Good to know <i class="fa-solid fa-chart-simple"></i></div>
+    <div class="info-row">
+        <div class="info total_games">
+            <p>Total games <i class="fa-solid fa-crown"></i> <div><%= @number_of_games %></div></p>
+        </div>
+        <div class="info total_score">
+            <p>Total score <i class="fa-solid fa-award"></i><div class="score"><%= @total_score %></div></p>
+        </div>
+        <div class="info best_time">
+            <% if @best_time_game.present? %>
+                <p>Best time <i class="fa-solid fa-stopwatch-20"></i><div><%= @best_time_game.game_duration %> seconds</p></div>
+            <% else %>
+                <p>No best game time found.</p>
+            <% end %>
+        </div>
+    </div>
 </div>

@@ -25,6 +25,13 @@ class DashboardsController < ApplicationController
     # .average --> active record method
     @average_score = @user.games.average(:score).to_f
 
+    # get total number of games
+    @number_of_games = Game.count
+
+    # fetch all games and find the minimum duration by comparing the game duration of each game. Check that time is not nil
+    @best_game = Game.all.reject { |game| game.game_duration.nil? }.min_by(&:game_duration)
+    @best_time_game = @best_game if @best_game.present?
+
     # Display as %
     # maximum_score = 100
     # @average_score_percentage = (@user.games.average(:score).to_f / maximum_score) * 100
