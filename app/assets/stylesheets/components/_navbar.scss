@@ -20,7 +20,8 @@
   color: white;
   font-family: roboto;
   font-weight: 200;
-  &:hover {
+  &:hover,
+  &:focus {
     color: white;
   }
 }
