@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: black;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +8,19 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 30px;
+}
+
+.app-name {
+  font-family: "Raleway Dots", sans-serif;
+  font-weight: 600;
+}
+
+.nav-link {
+  color: white;
+  font-family: roboto;
+  font-weight: 200;
+  &:hover {
+    color: white;
+  }
 }

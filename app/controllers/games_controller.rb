@@ -2,6 +2,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_categories_and_levels, only: [:new, :game]
 
+
   def new
     @game = current_user.games.new
   end

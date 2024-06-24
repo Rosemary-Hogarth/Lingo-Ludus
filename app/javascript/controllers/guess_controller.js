@@ -97,6 +97,7 @@ export default class extends Controller {
             input.style.backgroundColor = "red";                                // red for all other letters
           }
       });
+
     })
     .catch(error => console.error("Error:", error));
   }

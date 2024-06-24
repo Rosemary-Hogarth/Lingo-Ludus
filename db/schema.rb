@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_062428) do
     t.integer "attempts", default: 0
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "word_id"
+    t.bigint "word_id"
     t.index ["category_id"], name: "index_games_on_category_id"
     t.index ["user_id"], name: "index_games_on_user_id"
     t.index ["word_id"], name: "index_games_on_word_id"
