@@ -31,6 +31,7 @@ export default class extends Controller {
         this.definitionTarget.innerHTML = data.definition;  // extracts the word's definition
         this.element.dataset.gameId = data.game_id;         // extracts the game_id
         this.updateGuessContainer(data.word_array);         // triggers the update of the guess container using selected word_array
+        this.disableInputsForLine(this.currentLine);        // calls the method that will disable second and third lines
       } else if (data.error) {
         alert("Game creation failed: " + data.error);
       } else {
@@ -40,16 +41,75 @@ export default class extends Controller {
     .catch(error => console.error("Error:", error));
   }
 
+  initialize() {
+    this.currentLine = 0;     // Track the current line (attempt) of inputs
+    this.inputLines = 3;      // Total number of lines (attempts)
+    this.addInputListeners(); // Initialize input listeners
+  }
+
+  disableInputsForLine(line) { // method for disabling lines preventing the user to input in another line than its current attempt
+    this.inputTargets.forEach(input => {              // iterates through the inputTargets array
+      const line = parseInt(input.dataset.attempts);  // retrieve the value of data-attempts from current input element
+      if (line === this.currentLine) {                // if the line extracted from data-attempts matches the current line
+        input.disabled = false;                       // allows inputs
+      } else {
+        input.disabled = true;                        // if not, disable inputs
+      }
+    });
+  }
+
+  updateGuessContainer(wordArray) {                                       // transition between first static page and game
+    this.guessContainerTarget.innerHTML = '';                             // clear the html
+    this.guessContainerTarget.classList.remove("guess-container-layout"); // remove layout class
+    this.guessContainerTarget.classList.add("guess-container");           // applies new styling class
+
+    let html = '';                                                        // initiate an html variable
+    for (let attempts =0; attempts < 3; attempts++) {                     // start a loop that will iterate 3 times
+      html += `<div class="guess-field" data-attempts="${attempts}">`     // div containing a line of inputs, has an attempts data index attribute used in other methods
+      wordArray.forEach((char, index) => {                                // creates as many input field on a line that there are letter in the word to guess
+        html += `
+          <div class= "flex-fill">
+            <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1"
+                  data-guess-target="input" data-index="${index}" data-attempts="${attempts}"
+                  class="form-control guess-input">
+          </div>
+        `;                // sets the html for each input field, giving them and index in their line and the attempt of their line
+      });                 // also sets the maxlength used in addEventListener method and the target "input" used throughout this controller
+      html += '</div>';   // closes the div
+    }
+    this.guessContainerTarget.innerHTML = html; // inserts generated html
+    this.addInputListeners();                   // calls the method responsible for automatic typing without clicking on input fields
+  }
+
+  addInputListeners() {    // automatically let's you input in the next field
+    this.inputTargets.forEach((input, index) => {           // starts a loop that iterates over each element inside inputTargets array
+      input.addEventListener("input", (event) => {          // for each element, an event listener is added "input" event happens when the value of input field is changed
+        this.checkFields(event);                            // call the checkField method to check if all input fields are filled
+
+        if (input.value.length === input.maxLength) {       // checks if input field is filled comparing its length value to its maxLength attribute (which is 1)
+          const nextInput = this.inputTargets[index + 1];   // retrieves the next input field
+          if (nextInput) {                                  // if there is a next input available
+            nextInput.focus();                              // allows user to type in the next field without clicking on it
+          }
+        }
+      });
+    });
+  }
+
   checkFields(event) {  // triggers the check of input fields when all on the same line are filled
     if (!event) return;
 
     const attempts = event.target.dataset.attempts; // extracts the attempt value from the data-attempts so attemps variable now hold the identifier of the current line checked
-    const rowInputs = this.inputTargets.filter(input => input.dataset.attempts === attempts); // defines an array of input element corresponding to a specific line
+    const rowInputs = this.inputTargets.filter(input => parseInt(input.dataset.attempts) === this.currentLine); // defines an array of input element corresponding to a specific line
                                                                                               // by filtering inputs by inputs by matching data-attempts attribute
     const allFilled = rowInputs.every(input => input.value.trim() !== "");  // checks if all input fields in current line are all filled
 
     if (allFilled) { // if allfilled is true, calls the check method on all inputs from a specific attempt
         this.check(attempts);
+        if (this.currentLine < this.inputLines - 1) {  // and disable filled input line
+          this.currentLine++;
+          this.disableInputsForLine();
+        }
     }
   }
 
@@ -100,41 +160,5 @@ export default class extends Controller {
 
     })
     .catch(error => console.error("Error:", error));
-  }
-
-  addInputListeners() {    // automatically let's you input in the next field
-    this.inputTargets.forEach((input, index) => {           // starts a loop that iterates over each element inside inputTargets array
-      input.addEventListener("input", (event) => {          // for each element, an event listener is added "input" event happens when the value of input field is changed
-        this.checkFields(event);                            // call the checkField method to check if all input fields are filled
-
-        if (input.value.length === input.maxLength) {       // checks if input field is filled comparing its length value to its maxLength attribute (which is 1)
-          const nextInput = this.inputTargets[index + 1];   // retrieves the next input field
-          if (nextInput) {                                  // if there is a next input available
-            nextInput.focus();                              // allows user to type in the next field without clicking on it
-          }
-        }
-      });
-    });
-  }
-
-  updateGuessContainer(wordArray) {                                       // transition between first static page and game
-    this.guessContainerTarget.innerHTML = '';                             // clear the html
-    this.guessContainerTarget.classList.remove("guess-container-layout"); // remove layout class
-    this.guessContainerTarget.classList.add("guess-container");           // applies new styling class
-
-    let html = '';                                                        // initiate an html variable
-    for (let attempts =0; attempts < 3; attempts++) {                     // start a loop that will iterate 3 times
-      html += `<div class="guess-field" data-attempts="${attempts}">`     // div containing a line of inputs, has an attempts data index attribute used in other methods
-      wordArray.forEach((char, index) => {                                // creates as many input field on a line that there are letter in the word to guess
-        html += `
-          <div class= "flex-fill">
-            <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1" data-guess-target="input" data-index="${index}" data-attempts="${attempts}" class="form-control guess-input">
-          </div>
-        `;                // sets the html for each input field, giving them and index in their line and the attempt of their line
-      });                 // also sets the maxlength used in addEventListener method and the target "input" used throughout this controller
-      html += '</div>';   // closes the div
-    }
-    this.guessContainerTarget.innerHTML = html; // inserts generated html
-    this.addInputListeners();                   // calls the method responsible for automatic typing without clicking on input fields
   }
 }
