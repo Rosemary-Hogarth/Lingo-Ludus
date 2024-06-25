@@ -6,6 +6,11 @@
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+
 
 
   h1 {
@@ -28,4 +33,22 @@
       margin-bottom: 0;
     }
   }
+}
+
+.message-form {
+  margin-top: 10px;
+}
+
+.message-form .input-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.message-form .input-group .form-control {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.message-form .input-group .btn {
+  width: auto;
 }
