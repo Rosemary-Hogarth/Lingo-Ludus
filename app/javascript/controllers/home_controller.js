@@ -38,7 +38,8 @@ export default class extends Controller {
     });
 
         // Redirect to games page after the animation finishes
-        const homepageDuration = this.shapesTargets.length * 200 + 5300; // (last index delay + animation duration)
+        const homepageDuration = this.shapesTargets.length * 200 + 5300;
+        console.log(homepageDuration) // (last index delay + animation duration)
         setTimeout(() => {
           this.fadeOutAndRedirect();
         }, homepageDuration);
