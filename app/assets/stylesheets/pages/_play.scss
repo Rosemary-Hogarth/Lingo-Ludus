@@ -4,6 +4,7 @@
   align-items: stretch;
   border: 1px solid black;
   min-height: 300px;
+  margin-top: 64px;
 }
 
 .guess-row {
@@ -20,6 +21,12 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   padding: 0;
+}
+
+.guess-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .grid-item {
@@ -54,12 +61,6 @@ input.form-control {
   padding: 0;
   width: 100%;
   max-width: 100%;
-}
-
-.guess-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .guess-field {

@@ -11,6 +11,9 @@ export default class extends Controller {
     const difficultyLevel = this.difficultyTarget.value; // sets difficulty from the dropdown input field
     const categoryId = this.categoryTarget.value;        // sets category from the dropdown input field
 
+    this.currentLine = 0;     // Track the current line (attempt) of inputs
+    this.inputLines = 3;      // Total number of lines (attempts)
+
     fetch("/games", {
       method: "POST",
       headers: {
@@ -32,6 +35,7 @@ export default class extends Controller {
         this.element.dataset.gameId = data.game_id;         // extracts the game_id
         this.updateGuessContainer(data.word_array);         // triggers the update of the guess container using selected word_array
         this.disableInputsForLine(this.currentLine);        // calls the method that will disable second and third lines
+        this.addInputListeners();
       } else if (data.error) {
         alert("Game creation failed: " + data.error);
       } else {
@@ -39,12 +43,6 @@ export default class extends Controller {
       }
     })
     .catch(error => console.error("Error:", error));
-  }
-
-  initialize() {
-    this.currentLine = 0;     // Track the current line (attempt) of inputs
-    this.inputLines = 3;      // Total number of lines (attempts)
-    this.addInputListeners(); // Initialize input listeners
   }
 
   disableInputsForLine(line) { // method for disabling lines preventing the user to input in another line than its current attempt
@@ -96,69 +94,81 @@ export default class extends Controller {
     });
   }
 
-  checkFields(event) {  // triggers the check of input fields when all on the same line are filled
+  checkFields(event) {
     if (!event) return;
 
-    const attempts = event.target.dataset.attempts; // extracts the attempt value from the data-attempts so attemps variable now hold the identifier of the current line checked
-    const rowInputs = this.inputTargets.filter(input => parseInt(input.dataset.attempts) === this.currentLine); // defines an array of input element corresponding to a specific line
-                                                                                              // by filtering inputs by inputs by matching data-attempts attribute
-    const allFilled = rowInputs.every(input => input.value.trim() !== "");  // checks if all input fields in current line are all filled
+    const attempts = event.target.dataset.attempts;
+    const rowInputs = this.inputTargets.filter(input => parseInt(input.dataset.attempts) === this.currentLine);
+    const allFilled = rowInputs.every(input => input.value.trim() !== "");
 
-    if (allFilled) { // if allfilled is true, calls the check method on all inputs from a specific attempt
-        this.check(attempts);
-        if (this.currentLine < this.inputLines - 1) {  // and disable filled input line
-          this.currentLine++;
-          this.disableInputsForLine();
-        }
+    if (allFilled) {
+      this.check(attempts);
+      if (this.currentLine < this.inputLines - 1) {
+        this.currentLine++;
+        this.disableInputsForLine();
+      }
     }
   }
 
-  check(attempts) { // method to check correctness of a letter by using the arrays defines in the guess_word backend method
-    const gameId = this.element.dataset.gameId; // retrieves game_id from data-game-id
-    console.log(`${gameId}`);
+  check(attempts) {
+    const gameId = this.element.dataset.gameId;
 
     if (!gameId) {
       console.error("Game ID is not set.");
       return;
     }
 
-    const inputData = {};                                                       // Empty object to store data
+    const inputData = {};
     this.inputTargets
-        .filter(input => input.dataset.attempts === attempts)                   // filters the inputTarget to get the one belonging to current attempt
-        .forEach(input => {                                                     // Iterate through input
-            const index = input.dataset.index;
-            inputData[`guess_${index}`] = input.value.trim().toLowerCase();     // Retrieve index and value
-    });
+      .filter(input => input.dataset.attempts === attempts)
+      .forEach(input => {
+        const index = input.dataset.index;
+        inputData[`guess_${index}`] = input.value.trim().toLowerCase();
+      });
 
-    console.log("Input data:", inputData); // Log input data to check values
+    console.log("Input data:", inputData);
 
-    fetch(`/games/${gameId}/guess_word`, {                                                        // Fetch API request
+    fetch(`/games/${gameId}/guess_word`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content") // Needed for rails to validate the source
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
       },
       body: JSON.stringify(inputData)
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);                                                                          // debugging
-      console.log(`word_array: ${data.word_array}`)                                               // debugging
+      .then(response => response.json())
+      .then(data => {
+        let correctGuessCount = 0;
 
-      this.inputTargets
-        .filter(input => input.dataset.attempts === attempts)
-        .forEach((input, index) => {
-          const guessedLetter = inputData[`guess_${index}`];
-          if (data.correct_guesses.includes(index)) {                           // green color for letters included in correct_guesses backend array
-            input.style.backgroundColor = "lightgreen";
-          } else if (data.wrong_position.includes(index)) {                     // orange color for letters included in wrong_position backend array
-            input.style.backgroundColor = "orange";
-          } else {
-            input.style.backgroundColor = "red";                                // red for all other letters
+        this.inputTargets
+          .filter(input => input.dataset.attempts === attempts)
+          .forEach((input, index) => {
+            if (data.correct_guesses.includes(index)) {
+              input.style.backgroundColor = "lightgreen";
+              correctGuessCount++;
+            } else if (data.wrong_position.includes(index)) {
+              input.style.backgroundColor = "orange";
+            } else {
+              input.style.backgroundColor = "red";
+            }
+          });
+
+        if (correctGuessCount === data.word_array.length) {
+          alert("You won!");
+          this.inputTargets.forEach(input => {
+            input.disabled = true;
+          });
+          return; // Exit function after alerting "You won!"
+        }
+
+        // Check if it's the last line and all lines are filled
+        if (this.currentLine === this.inputLines - 1) {
+          const allFilled = this.inputTargets.every(input => input.value.trim() !== "");
+          if (allFilled) {
+            alert("You failed!");
           }
-      });
-
-    })
-    .catch(error => console.error("Error:", error));
+        }
+      })
+      .catch(error => console.error("Error:", error));
   }
 }
