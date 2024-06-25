@@ -36,6 +36,8 @@ export default class extends Controller {
         this.updateGuessContainer(data.word_array);         // triggers the update of the guess container using selected word_array
         this.disableInputsForLine(this.currentLine);        // calls the method that will disable second and third lines
         this.addInputListeners();
+      } else if (data.message) {
+        alert(data.message);
       } else if (data.error) {
         alert("Game creation failed: " + data.error);
       } else {
