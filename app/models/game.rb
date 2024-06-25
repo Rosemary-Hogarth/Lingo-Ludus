@@ -23,11 +23,10 @@ class Game < ApplicationRecord
   # end
 
   def select_word(level, category_id, last_words_id)
-    if last_words_id.blank? # if last_words_id is empty, selects the word depending on selected category and level
-      words = Word.where(level: level, category_id: category_id)
-    else                    # same but rejects words contained in last_words_id array
-      words = Word.where(level: level, category_id: category_id).where.not(id: last_words_id)
-    end
+   last_words_id ||= []  # ensure last_words_id is an empty array if nil
+
+    words = Word.where(level: level, category_id: category_id).where.not(id: last_words_id)  # selects words not in last_words_id
+
     words.sample  # returns a single random word
   end
 

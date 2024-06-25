@@ -3,11 +3,9 @@
     <%= link_to "/", class: "navbar-brand" do %>
         <p class="app-name"><span style="color:white">Lingo</span> <span style="color: #FF6042">L</span><span style="color: #F9BF3A">u</span><span style="color: #9163EA">d</span><span style="color: #F6B26B">u</span><span style="color: #17BBB0">s</span></p>
     <% end %>
-
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
@@ -15,7 +13,7 @@
             <%= link_to "Home", "#", class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#rulesModal">Game Rules</a>
           </li>
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

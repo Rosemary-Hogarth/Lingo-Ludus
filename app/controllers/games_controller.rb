@@ -14,7 +14,7 @@ class GamesController < ApplicationController
   def create
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current         # sets a starting time for scoring
-    last_words_id = session[:used_word_ids] # retrieves word_ids store in user session
+    last_words_id = session[:used_word_ids] ||= [] # initializes the array of used word if not allready existing
     word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, last_words_id) # calls select_word method from game model
 
     if word_to_guess.nil?   # checks if there is word to guess remaining
@@ -23,7 +23,6 @@ class GamesController < ApplicationController
       @game.word_id = word_to_guess.id # sets the word_id attribute of the game to the id of selected word
 
       if @game.save
-        session[:used_word_ids] ||= [] # initializes the array of used word if not allready existing
         session[:used_word_ids] << word_to_guess.id # pushes the id of the word to the array to not be used again
         # next line builds the JSON with all relevant attributes for the stimulus controller to use
         render json: { word_array: word_to_guess.name.chars, game_id: @game.id, definition: word_to_guess.definition }, status: :created
