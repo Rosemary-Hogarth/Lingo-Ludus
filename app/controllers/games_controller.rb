@@ -13,21 +13,24 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.new(game_params)
-    @game.start_time = Time.current         # sets a starting time for scoring
-    last_words_id = session[:used_word_ids] ||= [] # initializes the array of used word if not allready existing
-    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, last_words_id) # calls select_word method from game model
+    @game.start_time = Time.current
+    last_words_id = session[:used_word_ids] ||= []
 
-    if word_to_guess.nil?   # checks if there is word to guess remaining
-      render json: { error: 'No words available for the selected difficulty level.' }, status: :unprocessable_entity
+    if all_words_used?(@game.difficulty_level, @game.category_id, last_words_id)
+      session[:used_word_ids] -= last_words_id
+      render json: { message: 'You have done all words for this category and level.' }, status: :ok
     else
-      @game.word_id = word_to_guess.id # sets the word_id attribute of the game to the id of selected word
-
-      if @game.save
-        session[:used_word_ids] << word_to_guess.id # pushes the id of the word to the array to not be used again
-        # next line builds the JSON with all relevant attributes for the stimulus controller to use
-        render json: { word_array: word_to_guess.name.chars, game_id: @game.id, definition: word_to_guess.definition }, status: :created
+      word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, last_words_id)
+      if word_to_guess.nil?
+        render json: { error: 'No words available for the selected difficulty level.' }, status: :unprocessable_entity
       else
-        render json: { error: @game.errors.full_messages.to_sentence }, status: :unprocessable_entity
+        @game.word_id = word_to_guess.id
+        if @game.save
+          session[:used_word_ids] << word_to_guess.id
+          render json: { word_array: word_to_guess.name.chars, game_id: @game.id, definition: word_to_guess.definition }, status: :created
+        else
+          render json: { error: @game.errors.full_messages.to_sentence }, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -90,5 +93,10 @@ class GamesController < ApplicationController
   def set_categories_and_levels
     @categories = Category.all
     @levels = %w[Beginner Intermediate Advanced]
+  end
+
+  def all_words_used?(difficulty_level, category_id, used_word_ids)
+    words = Word.where(level: difficulty_level, category_id: category_id)
+    words.count == used_word_ids.count { |id| words.pluck(:id).include?(id) }
   end
 end
