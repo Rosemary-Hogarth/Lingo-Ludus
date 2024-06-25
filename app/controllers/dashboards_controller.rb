@@ -7,6 +7,7 @@ class DashboardsController < ApplicationController
     start_date = 1.week.ago.beginning_of_hour
     end_date = Time.now.end_of_day
 
+
     # Filters games to only include those played within the last week.
     @games = @user.games.where(date: start_date..end_date)
 
@@ -26,7 +27,7 @@ class DashboardsController < ApplicationController
     @average_score = @user.games.average(:score).to_f
 
     # get total number of games
-    @number_of_games = Game.count
+    @number_of_games = @user.games.count
 
     # fetch all games and find the minimum duration by comparing the game duration of each game. Check that time is not nil
     @best_game = Game.all.reject { |game| game.game_duration.nil? }.min_by(&:game_duration)

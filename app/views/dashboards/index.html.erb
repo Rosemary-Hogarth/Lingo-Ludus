@@ -1,7 +1,7 @@
 <div class="container dashboard">
 <div class="banner">
   <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
-  <%= button_to "Continue playing", new_game_path, method: :post, class: "dashboard-btn" %>
+  <%= button_to "Continue playing", play_path, method: :get, class: "dashboard-btn" %>
   </div>
 
 

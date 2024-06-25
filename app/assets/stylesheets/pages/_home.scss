@@ -1,1 +1,82 @@
-// Specific CSS for your home-page
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 80vh;
+
+  .row {
+    display: flex;
+    width: 100%
+  }
+
+  .app-home-title {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: raleway dots;
+    font-size: 70px;
+    text-shadow: 1px 1px 2px rgb(188, 184, 185);
+  }
+  p {
+    font-family: roboto;
+    text-align: center;
+  }
+}
+
+.title-container {
+  margin-bottom: 30px;
+}
+.square {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  display: inline-block;
+  transform: translateX(-100vw);
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.square-container1 {
+  background-color: #FF6042;
+
+}
+.square-container2 {
+  background-color: #F9BF3B
+}
+.square-container3 {
+  background-color: #9163EA;
+
+}
+.square-container4 {
+  background-color: #1097E1;
+
+}
+.square-container5 {
+  background-color: #18BBB1;
+
+}
+.square-container6 {
+  background-color: #F9BF3B
+
+}
+.square-container7 {
+  background-color: #FF6042;
+}
+.square-container8 {
+  background-color: #9163EA;
+}
+
+.squares-wrapper {
+  display: flex;
+  justify-content: center; /* Center the squares horizontally */
+  flex-wrap: wrap; /* Allow wrapping to new lines if needed */
+}
+
+.fade-out {
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
+}
