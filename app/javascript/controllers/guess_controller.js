@@ -11,6 +11,9 @@ export default class extends Controller {
     const difficultyLevel = this.difficultyTarget.value; // sets difficulty from the dropdown input field
     const categoryId = this.categoryTarget.value;        // sets category from the dropdown input field
 
+    this.currentLine = 0;     // Track the current line (attempt) of inputs
+    this.inputLines = 3;      // Total number of lines (attempts)
+
     fetch("/games", {
       method: "POST",
       headers: {
@@ -32,6 +35,9 @@ export default class extends Controller {
         this.element.dataset.gameId = data.game_id;         // extracts the game_id
         this.updateGuessContainer(data.word_array);         // triggers the update of the guess container using selected word_array
         this.disableInputsForLine(this.currentLine);        // calls the method that will disable second and third lines
+        this.addInputListeners();                           // calls method to add event listener on each input field
+      } else if (data.message) {
+        alert(data.message);        // just here for now to have feedback displayed on the browser when exhausting all words
       } else if (data.error) {
         alert("Game creation failed: " + data.error);
       } else {
@@ -39,12 +45,6 @@ export default class extends Controller {
       }
     })
     .catch(error => console.error("Error:", error));
-  }
-
-  initialize() {
-    this.currentLine = 0;     // Track the current line (attempt) of inputs
-    this.inputLines = 3;      // Total number of lines (attempts)
-    this.addInputListeners(); // Initialize input listeners
   }
 
   disableInputsForLine(line) { // method for disabling lines preventing the user to input in another line than its current attempt
@@ -96,69 +96,80 @@ export default class extends Controller {
     });
   }
 
-  checkFields(event) {  // triggers the check of input fields when all on the same line are filled
+  checkFields(event) {
     if (!event) return;
 
-    const attempts = event.target.dataset.attempts; // extracts the attempt value from the data-attempts so attemps variable now hold the identifier of the current line checked
-    const rowInputs = this.inputTargets.filter(input => parseInt(input.dataset.attempts) === this.currentLine); // defines an array of input element corresponding to a specific line
-                                                                                              // by filtering inputs by inputs by matching data-attempts attribute
-    const allFilled = rowInputs.every(input => input.value.trim() !== "");  // checks if all input fields in current line are all filled
+    const attempts = event.target.dataset.attempts; // accessing data attempts attribute from "data-attempts" in the DOM
+    const rowInputs = this.inputTargets.filter(input => parseInt(input.dataset.attempts) === this.currentLine); // retrieve all inputs on a specific line defines by its attempts index
+    const allFilled = rowInputs.every(input => input.value.trim() !== ""); // checks if all retrieved inputs are filled
 
-    if (allFilled) { // if allfilled is true, calls the check method on all inputs from a specific attempt
-        this.check(attempts);
-        if (this.currentLine < this.inputLines - 1) {  // and disable filled input line
-          this.currentLine++;
-          this.disableInputsForLine();
-        }
+    if (allFilled) {
+      this.check(attempts);
+      if (this.currentLine < this.inputLines - 1) {   // if it is not the last line
+        this.currentLine++;                           // increment current line to get to the next one
+        this.disableInputsForLine();                  // calls method to only have one line enabled at any time
+      }
     }
   }
 
-  check(attempts) { // method to check correctness of a letter by using the arrays defines in the guess_word backend method
-    const gameId = this.element.dataset.gameId; // retrieves game_id from data-game-id
-    console.log(`${gameId}`);
+  check(attempts) {
+    const gameId = this.element.dataset.gameId; // retrieves the game_id from the data-game-id
 
     if (!gameId) {
       console.error("Game ID is not set.");
       return;
     }
 
-    const inputData = {};                                                       // Empty object to store data
+    const inputData = {}; // empty array where we will store the inputs
     this.inputTargets
-        .filter(input => input.dataset.attempts === attempts)                   // filters the inputTarget to get the one belonging to current attempt
-        .forEach(input => {                                                     // Iterate through input
-            const index = input.dataset.index;
-            inputData[`guess_${index}`] = input.value.trim().toLowerCase();     // Retrieve index and value
-    });
+      .filter(input => input.dataset.attempts === attempts)   // filter received data to only get the one with data-attempts index that matches the attempts parameter
+      .forEach(input => { // for each filtered input
+        const index = input.dataset.index; //retrieve index from data-index
+        inputData[`guess_${index}`] = input.value.trim().toLowerCase(); // sanitize data and store as value in inputData with key :"guess_index"
+      });
 
-    console.log("Input data:", inputData); // Log input data to check values
+    console.log("Input data:", inputData); // debugging
 
-    fetch(`/games/${gameId}/guess_word`, {                                                        // Fetch API request
+    fetch(`/games/${gameId}/guess_word`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content") // Needed for rails to validate the source
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
       },
       body: JSON.stringify(inputData)
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);                                                                          // debugging
-      console.log(`word_array: ${data.word_array}`)                                               // debugging
+      .then(response => response.json())
+      .then(data => {
+        let correctGuessCount = 0; // initialize count of correct guesses to later compare it to the length of the array containing the letters of the word to be guessed
 
-      this.inputTargets
-        .filter(input => input.dataset.attempts === attempts)
-        .forEach((input, index) => {
-          const guessedLetter = inputData[`guess_${index}`];
-          if (data.correct_guesses.includes(index)) {                           // green color for letters included in correct_guesses backend array
-            input.style.backgroundColor = "lightgreen";
-          } else if (data.wrong_position.includes(index)) {                     // orange color for letters included in wrong_position backend array
-            input.style.backgroundColor = "orange";
-          } else {
-            input.style.backgroundColor = "red";                                // red for all other letters
+        this.inputTargets
+          .filter(input => input.dataset.attempts === attempts) // filter received data to only get the one with data-attempts index that matches the attempts parameter
+          .forEach((input, index) => { // for each filtered input
+            if (data.correct_guesses.includes(index)) {
+              input.style.backgroundColor = "lightgreen"; // green background if correct
+              correctGuessCount++;                        // increment the count of correct guesses
+            } else if (data.wrong_position.includes(index)) {
+              input.style.backgroundColor = "orange"; // orange background if misplaced
+            } else {
+              input.style.backgroundColor = "red"; // red background if incorrect
+            }
+          });
+
+        if (correctGuessCount === data.word_array.length) { // compares count of correct letters with length of array containing letters of the word to be guessed
+          alert("You won!"); // browser message
+          this.inputTargets.forEach(input => {
+            input.disabled = true;              // as game is won, disable all input fields
+          });
+          return;   // exit method so what follows is not run
+        }
+
+        if (this.currentLine === this.inputLines - 1) { // check if it's the last line and all lines are filled
+          const allFilled = this.inputTargets.every(input => input.value.trim() !== "");
+          if (allFilled) {
+            alert("You failed!");   // if this is triggered it means you haven't found the word within 3 attempts
           }
-      });
-
-    })
-    .catch(error => console.error("Error:", error));
+        }
+      })
+      .catch(error => console.error("Error:", error)); // debugging
   }
 }

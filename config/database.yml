@@ -79,6 +79,4 @@ test:
 #
 production:
   <<: *default
-  database: lingo_ludus_production
-  username: lingo_ludus
-  password: <%= ENV["LINGO_LUDUS_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
