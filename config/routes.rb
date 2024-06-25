@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboards#index'
   get "play", to: "games#game"
 
+  resources :chatrooms, only: :show do
+    resources :messages, only: :create
+  end
+
   resources :games, only: [:index, :show, :create, :new] do
     post "guess_word", on: :member
     post "next", on: :member

@@ -257,3 +257,11 @@ games_attributes.each do |attrs|
     puts "Missing data for game creation: category: #{category}, user: #{user}, word: #{word}"
   end
 end
+
+chatroom_names = ["Language tips", "Hardest words", "Random chat", "Career & Language"]
+
+chatroom_names.each do |name|
+  Chatroom.create(name: name)
+end
+
+puts "Seeded #{chatroom_names.count} chatrooms."

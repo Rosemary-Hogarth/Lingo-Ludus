@@ -72,8 +72,8 @@
 
 .squares-wrapper {
   display: flex;
-  justify-content: center; /* Center the squares horizontally */
-  flex-wrap: wrap; /* Allow wrapping to new lines if needed */
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .fade-out {
