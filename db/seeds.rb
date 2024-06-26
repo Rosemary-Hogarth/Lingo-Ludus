@@ -1,3 +1,11 @@
+puts "Cleaning up database..."
+User.destroy_all
+Category.destroy_all
+Word.destroy_all
+Game.destroy_all
+puts "Database cleaned"
+
+
 current_time = DateTime.now - 7.days
 
 # Create Users
@@ -67,15 +75,41 @@ words_attributes = [
   { name: 'Aubergine', definition: 'A dark purple color.', category_name: 'Colors', level: 'Advanced' },
 
   # Numbers
+  # Numbers - Beginner
   { name: 'One', definition: 'The number after zero.', category_name: 'Numbers', level: 'Beginner' },
   { name: 'Two', definition: 'The number after one.', category_name: 'Numbers', level: 'Beginner' },
   { name: 'Three', definition: 'The number after two.', category_name: 'Numbers', level: 'Beginner' },
-  { name: 'Four', definition: 'The number after three.', category_name: 'Numbers', level: 'Intermediate' },
-  { name: 'Five', definition: 'The number after four.', category_name: 'Numbers', level: 'Intermediate' },
-  { name: 'Six', definition: 'The number after five.', category_name: 'Numbers', level: 'Intermediate' },
-  { name: 'Seven', definition: 'The number after six.', category_name: 'Numbers', level: 'Advanced' },
-  { name: 'Eight', definition: 'The number after seven.', category_name: 'Numbers', level: 'Advanced' },
-  { name: 'Nine', definition: 'The number after eight.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Four', definition: 'The number after three.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Five', definition: 'The number after four.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Six', definition: 'The number after five.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Seven', definition: 'The number after six.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Eight', definition: 'The number after seven.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Nine', definition: 'The number after eight.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Ten', definition: 'The number after nine.', category_name: 'Numbers', level: 'Beginner' },
+
+  # Numbers - Intermediate
+  { name: 'Eleven', definition: 'The product of five times two plus one.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Twelve', definition: 'The number of months in a year.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Thirteen', definition: 'The atomic number of aluminum.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Fourteen', definition: 'The number of days in two weeks.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Fifteen', definition: 'The number representing a quarter-hour.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Sixteen', definition: 'A square number, 4 squared.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Seventeen', definition: 'A prime number following sixteen.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Eighteen', definition: 'The product of three times six.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Nineteen', definition: 'A prime number following eighteen.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Twenty', definition: 'The product of five times four.', category_name: 'Numbers', level: 'Intermediate' },
+
+  # Numbers - Advanced
+  { name: 'Twenty-One', definition: 'The number of spots on a standard six-sided die.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Twenty-Two', definition: 'The number of players on a soccer field during a match.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Thirty', definition: 'The number of degrees in each angle of an equilateral triangle.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Forty', definition: 'The number of weeks in a typical human pregnancy.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Fifty', definition: 'Half of one hundred.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Sixty', definition: 'The number of seconds in a minute.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Seventy', definition: 'The number of years in seven decades.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Eighty', definition: 'The number of minutes in one hour and twenty minutes.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Ninety', definition: 'The number of degrees in a right angle.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'One Hundred', definition: 'A number representing a century.', category_name: 'Numbers', level: 'Advanced' }
 
   # Time
   { name: 'Clock', definition: 'A device used to measure time.', category_name: 'Time', level: 'Beginner' },
