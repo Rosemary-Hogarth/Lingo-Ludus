@@ -80,7 +80,13 @@ class GamesController < ApplicationController
         end
       end
 
-      render json: { correct_guesses: correct_guesses, wrong_position: wrong_position, word_array: @word_array, incorrect_guesses: incorrect_guesses } # build JSON for Stimulus controller
+      if correct_guesses.length == @word_array.length
+        end_game(@game)
+      elsif @game.attempts == 3 && correct_guesses != @word_array.length
+        end_game(@game)
+      end
+
+      render json: { correct_guesses: correct_guesses, wrong_position: wrong_position, word_array: @word_array, incorrect_guesses: incorrect_guesses, score: @game.score } # build JSON for Stimulus controller
     end
   end
 
@@ -97,6 +103,17 @@ class GamesController < ApplicationController
 
   def all_words_used?(difficulty_level, category_id, used_word_ids)
     words = Word.where(level: difficulty_level, category_id: category_id) # search for words with the right category/level combo
-    words.count == used_word_ids.count { |id| words.pluck(:id).include?(id) } # returns true if the count of word for a specific combo matches the count of
-  end                                                                         # same words in the used_words_id meaning all words have allready been pushed into
-end                                                                           # used_words_id
+    words.count == used_word_ids.count { |id| words.pluck(:id).include?(id) } # returns true if the count of word for a specific combo matches the count of same words
+  end                                                                         # (using ids) in the used_words_id meaning all words have allready been pushed into used_words_id
+
+  def end_game(game)
+    if game.attempts == 1
+      game.update(score: 3)
+    elsif game.attempts == 2
+      game.update(score: 2)
+    else
+      game.update(score: 1)
+    end
+    game.update(end_time: Time.current)
+  end
+end
