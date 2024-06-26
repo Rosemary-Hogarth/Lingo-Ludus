@@ -7,7 +7,7 @@
 
   <!-- Second row with game layout and dropdowns-->
   <div class="row guess-row">
-    <div class="col-md-1">
+    <div class="col-md-2">
       <div class="field difficulty">
         <%= label_tag 'difficulty_level', 'Difficulty' %>
         <select id="difficulty_level" data-guess-target="difficulty" class="form-control">
@@ -17,12 +17,19 @@
         </select>
       </div>
     </div>
-    <div class="guess-container-layout col-md-4" data-guess-target="guessContainer">
-      <% 20.times do %>
-      <div class="grid-item"></div>
+    <div class="guess-container col-md-8" data-guess-target="guessContainer">
+      <% 3.times do |attempt| %>
+        <div class="guess-field">
+          <% 6.times do |index| %>
+            <div class="flex-fill">
+              <input type="text" size="1" maxlength="1"
+                     class="form-control guess" disabled>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
       <div class="field category ">
         <%= label_tag 'category', 'Category' %>
           <select id="category_id" data-guess-target="category" class="form-control">
@@ -35,9 +42,10 @@
   </div>
   <div class="row button-row">
     <div class="button-container">
-      <button class="btn">Score</button>
-      <button id="create-game-btn" data-action="guess#createGame" class="btn btn-primary">Play</button>
-      <button id="next-game-btn" data-action="guess#createGame" class="btn btn-secondary">Next</button>
+      <button class="btn score-btn">Score</button>
+      <div class="feedback-container" data-guess-target="feedback">
+      </div>
+      <button id="next-game-btn" data-action="guess#createGame" data-guess-target="next" class="btn">Play</button>
     </div>
   </div>
 </div>
