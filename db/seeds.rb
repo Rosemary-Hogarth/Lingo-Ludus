@@ -109,7 +109,7 @@ words_attributes = [
   { name: 'Seventy', definition: 'The number of years in seven decades.', category_name: 'Numbers', level: 'Advanced' },
   { name: 'Eighty', definition: 'The number of minutes in one hour and twenty minutes.', category_name: 'Numbers', level: 'Advanced' },
   { name: 'Ninety', definition: 'The number of degrees in a right angle.', category_name: 'Numbers', level: 'Advanced' },
-  { name: 'One Hundred', definition: 'A number representing a century.', category_name: 'Numbers', level: 'Advanced' }
+  { name: 'One Hundred', definition: 'A number representing a century.', category_name: 'Numbers', level: 'Advanced' },
 
   # Time
   { name: 'Clock', definition: 'A device used to measure time.', category_name: 'Time', level: 'Beginner' },
