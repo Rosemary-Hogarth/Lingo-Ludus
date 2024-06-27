@@ -3,8 +3,6 @@ Game.destroy_all
 Word.destroy_all
 Category.destroy_all
 User.destroy_all
-Message.destroy_all
-Chatroom.destroy_all
 puts "Database cleaned"
 
 
@@ -122,7 +120,7 @@ words_attributes = [
   { name: 'Evening', definition: 'The later part of the day, from the end of the afternoon until night.', category_name: 'Time', level: 'Beginner' },
   { name: 'Night', definition: 'The period of time when it is dark outside, typically from sunset to sunrise.', category_name: 'Time', level: 'Beginner' },
   { name: 'Midnight', definition: 'Twelve o\'clock at night.', category_name: 'Time', level: 'Beginner' },
-
+  
 
   # Time - Intermediate
   { name: 'Minute', definition: 'A period of time equal to sixty seconds or a sixtieth of an hour.', category_name: 'Time', level: 'Intermediate' },
@@ -329,7 +327,7 @@ words_attributes = [
   { name: 'Fish', definition: 'A limbless cold-blooded vertebrate animal with gills and fins and living wholly in water.', category_name: 'Animals', level: 'Beginner' },
   { name: 'Rabbit', definition: 'A burrowing, gregarious, plant-eating mammal with long ears, long hind legs, and a short tail.', category_name: 'Animals', level: 'Beginner' },
   { name: 'Horse', definition: 'A large plant-eating domesticated mammal with solid hoofs and a flowing mane and tail, used for riding, racing, and to carry and pull loads.', category_name: 'Animals', level: 'Beginner' },
-
+  
   # Animals - Intermediate
   { name: 'Elephant', definition: 'A large mammal with a trunk, native to Africa and southern Asia.', category_name: 'Animals', level: 'Intermediate' },
   { name: 'Giraffe', definition: 'An African mammal with a very long neck and forelegs, having a coat patterned with brown patches separated by lighter lines. It is the tallest living animal.', category_name: 'Animals', level: 'Intermediate' },
@@ -418,7 +416,7 @@ words_attributes = [
   { name: 'Team', definition: 'A group of people working together.', category_name: 'Work', level: 'Intermediate' },
   { name: 'Client', definition: 'A person or organization using the services of a professional person or company.', category_name: 'Work', level: 'Intermediate' },
   { name: 'Document', definition: 'A piece of written, printed, or electronic matter that provides information.', category_name: 'Work', level: 'Intermediate' },
-
+  
   # Work - Advanced
   { name: 'Presentation', definition: 'A talk or display to explain something.', category_name: 'Work', level: 'Advanced' },
   { name: 'Conference', definition: 'A formal meeting for discussion.', category_name: 'Work', level: 'Advanced' },
@@ -521,7 +519,7 @@ words_attributes = [
   { name: 'Medicine', definition: 'A substance used to treat illness or injury.', category_name: 'Health', level: 'Beginner' },
   { name: 'Bandage', definition: 'A strip of material used to bind a wound or to protect an injured part of the body.', category_name: 'Health', level: 'Beginner' },
   { name: 'Exercise', definition: 'Physical activity that is done to become stronger and healthier.', category_name: 'Health', level: 'Beginner' },
-
+  
   # Health - Intermediate
   { name: 'Vaccine', definition: 'A substance used to stimulate the production of antibodies and provide immunity against diseases.', category_name: 'Health', level: 'Intermediate' },
   { name: 'Therapy', definition: 'Treatment intended to relieve or heal a disorder.', category_name: 'Health', level: 'Intermediate' },
@@ -545,8 +543,8 @@ words_attributes = [
   { name: 'Referee', definition: 'An official who watches a game or match closely to ensure that the rules are adhered to.', category_name: 'Sports', level: 'Beginner' },
   { name: 'Player', definition: 'A person who takes part in a game or sport.', category_name: 'Sports', level: 'Beginner' },
   { name: 'Score', definition: 'The number of points achieved in a game or test.', category_name: 'Sports', level: 'Beginner' },
-
-
+  
+  
   # Sports - Intermediate
   { name: 'Soccer', definition: 'A sport in which two teams of eleven players each try to score by kicking a ball into the other team\'s goal.', category_name: 'Sports', level: 'Intermediate' },
   { name: 'Basketball', definition: 'A game played between two teams of five players each on a rectangular court, usually indoors. Each team tries to score by tossing the ball through the opponent\'s goal, an elevated horizontal hoop and net.', category_name: 'Sports', level: 'Intermediate' },
@@ -652,7 +650,7 @@ words_attributes = [
 
   # Technology - Advanced
   { name: 'Artificial Intelligence', definition: 'The theory and development of computer systems able to perform tasks that normally require human intelligence, such as visual perception, speech recognition, decision-making, and translation between languages.', category_name: 'Technology', level: 'Advanced' },
-  { name: 'Quantum Computing', definition: 'The use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.', category_name: 'Technology', level: 'Advanced' },
+  { name: 'Quantum Computing', definition: 'The use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.', category_name: 'Technology', level: 'Advanced' }, 
   { name: 'Blockchain', definition: 'A system in which a record of transactions made in bitcoin or another cryptocurrency is maintained across several computers that are linked in a peer-to-peer network.', category_name: 'Technology', level: 'Advanced' },
   { name: 'Quantum Computing', definition: 'The use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.', category_name: 'Technology', level: 'Advanced' },
   { name: 'Big Data', definition: 'Extremely large data sets that may be analyzed computationally to reveal patterns, trends, and associations.', category_name: 'Technology', level: 'Advanced' },
