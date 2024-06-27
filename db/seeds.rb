@@ -152,9 +152,7 @@ words_attributes = [
   { name: 'Snow', definition: 'Frozen water vapor falling in light white flakes.', category_name: 'Seasons & Weather', level: 'Beginner' },
   { name: 'Sunshine', definition: 'The light and warmth that come from the sun.', category_name: 'Seasons & Weather', level: 'Beginner' },
   { name: 'Rain', definition: 'Water that falls from clouds in drops.', category_name: 'Seasons & Weather', level: 'Beginner' },
-  { name: 'Hot', definition: 'Having a high temperature.', category_name: 'Seasons & Weather', level: 'Beginner' },
-  { name: 'Cold', definition: 'Having a low temperature.', category_name: 'Seasons & Weather', level: 'Beginner' },
-
+  { name: 'Cloud', definition: 'A visible mass of condensed water vapor floating in the atmosphere.', category_name: 'Seasons & Weather', level: 'Beginner' },
 
   # Seasons & Weather - Intermediate
   { name: 'Winter', definition: 'The coldest season of the year.', category_name: 'Seasons & Weather', level: 'Intermediate' },
