@@ -2,9 +2,9 @@ puts "Cleaning up database..."
 Game.destroy_all
 Word.destroy_all
 Category.destroy_all
-User.destroy_all
 Message.destroy_all
 Chatroom.destroy_all
+User.destroy_all
 puts "Database cleaned"
 
 
