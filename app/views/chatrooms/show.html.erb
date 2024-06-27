@@ -1,5 +1,7 @@
-<div class="container" data-controller="chatroom-subscription" data-chatroom-subscription-target="header"
-data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
+<div class="container"
+data-controller="chatroom-subscription"
+data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
+data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
 
 <!-- one row, two columns -->
 <div class="row">
@@ -30,7 +32,11 @@ data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
   <h1>#<%= @chatroom.name %></h1>
   <div class="messages" data-chatroom-subscription-target="messages">
     <% @chatroom.messages.each do |message| %>
+      <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
+      <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
       <%= render "messages/message", message: message %>
+        </div>
+      </div>
     <% end %>
   </div>
         <%# when form is submitted it triggers the resetForm function  %>

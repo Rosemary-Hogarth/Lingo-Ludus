@@ -3,8 +3,8 @@ import { createConsumer } from "@rails/actioncable"
 
 // Connects to data-controller="chatroom-subscription"
 export default class extends Controller {
-  static values = { chatroomId: Number }
-  static targets = ["messages", "header"]
+  static values = { chatroomId: Number, currentUserId: Number }
+  static targets = ["messages"]
 
   connect() {
     // subscribe to channel
@@ -12,10 +12,9 @@ export default class extends Controller {
       { channel: "ChatroomChannel", id:this.chatroomIdValue },
       { received: (data) => { this.#insertMessage(data) } }
     )
-    this.addColor()
   }
   disconnect() {
-    console.log("disconnecting from th channel...")
+    console.log("disconnecting from the channel...")
     this.channel.unsubscribe()
   }
   // clears input field after message is sent
@@ -25,24 +24,40 @@ export default class extends Controller {
 
   // add message
   #insertMessage(data) {
-    this.messagesTarget.insertAdjacentHTML("beforeend", data)
-    // scroll to bottom of list
-    this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
+    console.log("Received data: ", data);
+    console.log("Received data: ", data.message);
+
+    const currentUserIsSender = this.currentUserIdValue === data.sender_id;
+    if (!data) {
+      console.error("Received data is undefined or empty.");
+      return;
+    }
+    // Use either data directly or construct messageElement
+    const messageElement = this.#buildMessageElement(currentUserIsSender, data);
+
+
+    // Inserting the messageElement in the DOM
+    this.messagesTarget.insertAdjacentHTML("beforeend", messageElement);
+    this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight);
   }
 
-  addColor() {
-    const header = this.headerTarget
-    console.log("Header target:", this.headerTarget);
-    switch (this.chatroomIdValue) {
-      case 1:
-        header.classList.add('color-1')
-        break;
-      case 2:
-        header.classList.add('color-2')
-        break;
-      case 3:
-        header.classList.add('color-3')
-        break;
-    }
+
+  #buildMessageElement(currentUserIsSender, message) {
+    return `
+    <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
+      <div class="${this.#userStyleClass(currentUserIsSender)}">
+        ${message}
+      </div>
+    </div>
+  `
   }
+
+  #justifyClass(currentUserIsSender) {
+    return currentUserIsSender ? "justify-content-end" : "justify-content-start"
+  }
+
+  #userStyleClass(currentUserIsSender) {
+    return currentUserIsSender ? "sender-style" : "receiver-style"
+  }
+
 }

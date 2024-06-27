@@ -22,6 +22,7 @@ class DashboardsController < ApplicationController
     # .order --> active record method
     @recent_games = @user.games.order(end_time: :desc).limit(5)
 
+
     # Calculates the average score of all game details associated with the user
     # .average --> active record method
     @average_score = @user.games.average(:score).to_f
