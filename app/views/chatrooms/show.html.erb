@@ -1,4 +1,4 @@
-<div class="container"
+<div class="container whole-screen"
 data-controller="chatroom-subscription"
 data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
 data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
@@ -28,7 +28,7 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
 
 <!-- Right column -->
 <div class="col-md-9">
-  <div class="chatroom">
+  <div class="chatroom-container">
   <h1>#<%= @chatroom.name %></h1>
   <div class="messages" data-chatroom-subscription-target="messages">
     <% @chatroom.messages.each do |message| %>
@@ -47,7 +47,7 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
       placeholder: "Message ##{@chatroom.name}",
       wrapper_html: {class: "form-control flex-grow-1"}
     %>
-    <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+    <%= f.submit "Send", class: "btn btn-chat mb-3" %>
   <% end %>
   </div>
   </div>

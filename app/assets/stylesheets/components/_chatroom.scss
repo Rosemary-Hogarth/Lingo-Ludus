@@ -1,3 +1,7 @@
+.container.whole-screen {
+  max-width: 100%;
+}
+
 .welcome-message {
   font-size: 22px;
   font-weight: 500;
@@ -5,7 +9,7 @@
   border-bottom: 3px solid #F5BC3A;
 }
 
-.chatroom {
+.chatroom-container {
   background: white;
   margin-top: 9px;
   height: calc(100vh - 75px);
@@ -13,7 +17,7 @@
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 1rem;
   border: 1px solid #ccc;
@@ -30,6 +34,8 @@
     height: 100%;
     overflow: scroll;
     padding: 1rem;
+    margin-left: 70px;
+    margin-right: 70px;
   }
 
   #new_message {
@@ -90,13 +96,8 @@
   border-bottom: 3px solid#5C3F95;
 }
 
-.color-1 {
-  background-color: #17BBB0;
 
-}
-.color-2 {
-
-}
-.color-2 {
-
+.btn-chat {
+background-color: black;
+color: white;
 }

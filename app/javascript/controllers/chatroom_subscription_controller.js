@@ -25,14 +25,13 @@ export default class extends Controller {
   // add message
   #insertMessage(data) {
     console.log("Received data: ", data);
-    console.log("Received data: ", data.message);
 
     const currentUserIsSender = this.currentUserIdValue === data.sender_id;
     if (!data) {
       console.error("Received data is undefined or empty.");
       return;
     }
-    // Use either data directly or construct messageElement
+
     const messageElement = this.#buildMessageElement(currentUserIsSender, data);
 
 
@@ -43,6 +42,7 @@ export default class extends Controller {
 
 
   #buildMessageElement(currentUserIsSender, message) {
+
     return `
     <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
       <div class="${this.#userStyleClass(currentUserIsSender)}">
