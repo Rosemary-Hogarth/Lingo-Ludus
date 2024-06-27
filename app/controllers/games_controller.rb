@@ -13,24 +13,25 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.new(game_params)
-    @game.start_time = Time.current
-    last_words_id = session[:used_word_ids] ||= []
+    @game.start_time = Time.current                 # starts the "timer"
+    last_words_id = session[:used_word_ids] ||= []  # makes sure last_words_id is an array, empty if session is empty
 
-    if all_words_used?(@game.difficulty_level, @game.category_id, last_words_id) # calls method to check if all words from a category/level combo have been used
-      session[:used_word_ids] -= last_words_id # if they are all used, flush them from stored used words and give a message to stimulus controller for feedback
-      render json: { message: 'You have done all words for this category and level.' }, status: :ok
+    if all_words_used?(@game.difficulty_level, @game.category_id, session[:used_word_ids]) # if all words from a category/level combo have been exhausted
+      session[:used_word_ids].delete_if do |word_id|                                       # deletes them from the session so they can be displayed again
+        Word.find_by(id: word_id, level: @game.difficulty_level, category_id: @game.category_id) # using these conditions
+      end
+    end
+
+    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, last_words_id) # calls select_word method from the game model
+    if word_to_guess.nil?
+      render json: { error: 'No words available for the selected difficulty level.' }, status: :unprocessable_entity
     else
-      word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, last_words_id) # calls select_word method from the game model
-      if word_to_guess.nil?
-        render json: { error: 'No words available for the selected difficulty level.' }, status: :unprocessable_entity
+      @game.word_id = word_to_guess.id # sets the right word for this game
+      if @game.save
+        session[:used_word_ids] << word_to_guess.id # stores the word_id of this game for future exclusion
+        render json: { word_array: word_to_guess.name.chars, game_id: @game.id, definition: word_to_guess.definition }, status: :created # send relevant information to the stimulus controller
       else
-        @game.word_id = word_to_guess.id # sets the right word for this game
-        if @game.save
-          session[:used_word_ids] << word_to_guess.id # stores the word_id of this game for future exclusion
-          render json: { word_array: word_to_guess.name.chars, game_id: @game.id, definition: word_to_guess.definition }, status: :created # send relevant information to the stimulus controller
-        else
-          render json: { error: @game.errors.full_messages.to_sentence }, status: :unprocessable_entity
-        end
+        render json: { error: @game.errors.full_messages.to_sentence }, status: :unprocessable_entity
       end
     end
   end
@@ -43,48 +44,78 @@ class GamesController < ApplicationController
     correct_guesses = []
     wrong_position = []                       # initiates 3 arrays used to sort letters
     incorrect_guesses = []
+    all_words_used = all_words_used?(@game.difficulty_level, @game.category_id, session[:used_word_ids])
 
     word_letter_counts = Hash.new(0)          # initiates a hash that will contain letters as key and amount of each letter as value
     @word_array.each { |letter| word_letter_counts[letter.downcase] += 1 } # Iterate through word_array and increment count of each letter for later comparison
+    @game.increment!(:attempts)
 
-    if @game.attempts < 3
-      @game.update(attempts: @game.attempts + 1)
+    # First check for correct guesses
 
-      # First check for correct guesses
+    params.each do |key, value|                         # iterate through user input
+      next unless key.start_with?("guess_")             # filter params to only get the guess ones
+      index = key.gsub("guess_", "").to_i               # extract the index from the guessed letter
+      guessed_letter = value.downcase.strip             # sanitize data
 
-      params.each do |key, value|                         # iterate through user input
-        next unless key.start_with?("guess_")             # filter params to only get the guess ones
-        index = key.gsub("guess_", "").to_i               # extract the index from the guessed letter
-        guessed_letter = value.downcase.strip             # sanitize data
-
-        if guessed_letter == @word_array[index].downcase  # compare guessed letter with its corresponding counterpart in word_array
-          correct_guesses << index                        # push index of correct letters into correct_guess array
-          word_letter_counts[guessed_letter] -= 1         # decrement count of correct letter so we know how many left are in word_array
-        end
+      if guessed_letter == @word_array[index].downcase  # compare guessed letter with its corresponding counterpart in word_array
+        correct_guesses << index                        # push index of correct letters into correct_guess array
+        word_letter_counts[guessed_letter] -= 1         # decrement count of correct letter so we know how many left are in word_array
       end
-
-      # Second check for incorrect and misplaced
-
-      params.each do |key, value|
-        next unless key.start_with?("guess_")
-        index = key.gsub("guess_", "").to_i
-        guessed_letter = value.downcase.strip
-
-        next if correct_guesses.include?(index)           # Skip next step if the letter is allready correct
-
-        if @word_array.include?(guessed_letter) && word_letter_counts[guessed_letter] > 0 # ensure misplaced letter are only counted if there are still indentical letters to be guessed
-          wrong_position << index                         # push to wrong position if there are still occurences of this letter to be found
-          word_letter_counts[guessed_letter] -= 1         # updates remaining count of this specific letter
-        else
-          incorrect_guesses << index
-        end
-      end
-
-      render json: { correct_guesses: correct_guesses, wrong_position: wrong_position, word_array: @word_array, incorrect_guesses: incorrect_guesses } # build JSON for Stimulus controller
     end
+
+    # Second check for incorrect and misplaced
+
+    params.each do |key, value|
+      next unless key.start_with?("guess_")
+      index = key.gsub("guess_", "").to_i
+      guessed_letter = value.downcase.strip
+
+      next if correct_guesses.include?(index)           # Skip next step if the letter is allready correct
+
+      if @word_array.include?(guessed_letter) && word_letter_counts[guessed_letter] > 0 # ensure misplaced letter are only counted if there are still indentical letters to be guessed
+        wrong_position << index                         # push to wrong position if there are still occurences of this letter to be found
+        word_letter_counts[guessed_letter] -= 1         # updates remaining count of this specific letter
+      else
+        incorrect_guesses << index
+      end
+    end
+
+    if correct_guesses.length == @word_array.length #if there are as many correct guesses as letter to find, end the game and calls method to update score
+      win_game(@game)
+    elsif @game.attempts == 3 && correct_guesses != @word_array.length #if all three attempts are exhausted end game
+      @game.update(end_time: Time.current)
+    end
+
+    render json: {      # build JSON for Stimulus controller
+      category: @game.category.name,
+      level: @game.difficulty_level,
+      correct_guesses: correct_guesses,
+      wrong_position: wrong_position,
+      incorrect_guesses: incorrect_guesses,
+      word_array: @word_array,
+      attempts: @game.attempts,
+      score: @game.score,
+      all_words_used: all_words_used }
   end
 
   private
+
+  def all_words_used?(difficulty_level, category_id, used_word_ids)
+    words = Word.where(level: difficulty_level, category_id: category_id) # search for words with the right category/level combo
+    words.count == used_word_ids.count { |id| words.pluck(:id).include?(id) } # returns true if the count of word for a specific combo matches the count of same words
+  end                                                                         # (using ids) in the used_words_id meaning all words have allready been pushed into used_words_id
+
+  def win_game(game)
+    if game.attempts == 1
+      game.update(score: 3) # 3 points if guessed on first try
+    elsif game.attempts == 2
+      game.update(score: 2) # 2 points if guessed on second try
+    elsif game.attempts == 3
+      game.update(score: 1) # 1 point if guessed on third try
+    else
+    end
+    game.update(end_time: Time.current) # stores end_time for future score computation
+  end
 
   def game_params
     params.require(:game).permit(:category_id, :difficulty_level, :attempts)
@@ -94,9 +125,4 @@ class GamesController < ApplicationController
     @categories = Category.all
     @levels = %w[Beginner Intermediate Advanced]
   end
-
-  def all_words_used?(difficulty_level, category_id, used_word_ids)
-    words = Word.where(level: difficulty_level, category_id: category_id) # search for words with the right category/level combo
-    words.count == used_word_ids.count { |id| words.pluck(:id).include?(id) } # returns true if the count of word for a specific combo matches the count of
-  end                                                                         # same words in the used_words_id meaning all words have allready been pushed into
-end                                                                           # used_words_id
+end

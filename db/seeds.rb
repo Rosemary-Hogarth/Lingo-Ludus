@@ -1,5 +1,12 @@
-current_time = DateTime.now - 7.days
+puts "Cleaning up database..."
+User.destroy_all
+Category.destroy_all
+Word.destroy_all
+Game.destroy_all
+puts "Database cleaned"
 
+
+current_time = DateTime.now - 7.days
 
 # Create Users
 users = [
@@ -23,6 +30,7 @@ category_names = [
   'Animals', 'Education', 'Emotions', 'Nature', 'Health', 'Sports', 'Art', 'Literature', 'Technology'
 ]
 
+# Iterate over each category name and create or find a category with that name
 categories = category_names.map do |name|
   Category.find_or_create_by!(name: name)
 end
@@ -30,26 +38,78 @@ end
 # Create Words
 words_attributes = [
   # Colors
+  # Colors - Beginner
   { name: 'Red', definition: 'The color of blood.', category_name: 'Colors', level: 'Beginner' },
   { name: 'Blue', definition: 'The color of the sky.', category_name: 'Colors', level: 'Beginner' },
   { name: 'Green', definition: 'The color of grass.', category_name: 'Colors', level: 'Beginner' },
+  { name: 'Yellow', definition: 'The color of the sun.', category_name: 'Colors', level: 'Beginner' },
+  { name: 'Pink', definition: 'A pale red color.', category_name: 'Colors', level: 'Beginner' },
+  { name: 'Orange', definition: 'A color between red and yellow in the spectrum.', category_name: 'Colors', level: 'Beginner' },
+  { name: 'Purple', definition: 'A color intermediate between red and blue.', category_name: 'Colors', level: 'Beginner' },
+  { name: 'Brown', definition: 'A color produced by mixing red, yellow, and blue.', category_name: 'Colors', level: 'Beginner' },
+  { name: 'Black', definition: 'The color of coal or night.', category_name: 'Colors', level: 'Beginner' },
+  { name: 'White', definition: 'The color of milk or fresh snow.', category_name: 'Colors', level: 'Beginner' },
+
+  # Colors - Intermediate
   { name: 'Cyan', definition: 'A shade of blue.', category_name: 'Colors', level: 'Intermediate' },
   { name: 'Magenta', definition: 'A shade of pink.', category_name: 'Colors', level: 'Intermediate' },
-  { name: 'Yellow', definition: 'The color of the sun.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Lime', definition: 'A bright green color.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Teal', definition: 'A dark greenish-blue color.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Violet', definition: 'A bluish-purple color.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Lavender', definition: 'A pale purple color.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Maroon', definition: 'A dark brownish-red color.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Olive', definition: 'A yellowish-green color.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Peach', definition: 'A pale yellowish-pink color.', category_name: 'Colors', level: 'Intermediate' },
+  { name: 'Navy', definition: 'A dark blue color.', category_name: 'Colors', level: 'Intermediate' },
+
+  # Colors - Advanced
   { name: 'Crimson', definition: 'A deep red color.', category_name: 'Colors', level: 'Advanced' },
   { name: 'Indigo', definition: 'A deep blue color.', category_name: 'Colors', level: 'Advanced' },
   { name: 'Turquoise', definition: 'A blue-green color.', category_name: 'Colors', level: 'Advanced' },
+  { name: 'Chartreuse', definition: 'A color halfway between yellow and green.', category_name: 'Colors', level: 'Advanced' },
+  { name: 'Amber', definition: 'A honey-yellow color.', category_name: 'Colors', level: 'Advanced' },
+  { name: 'Coral', definition: 'A pinkish-orange color.', category_name: 'Colors', level: 'Advanced' },
+  { name: 'Saffron', definition: 'A golden-yellow color.', category_name: 'Colors', level: 'Advanced' },
+  { name: 'Cerulean', definition: 'A deep sky blue color.', category_name: 'Colors', level: 'Advanced' },
+  { name: 'Ochre', definition: 'An earthy yellow or red color.', category_name: 'Colors', level: 'Advanced' },
+  { name: 'Aubergine', definition: 'A dark purple color.', category_name: 'Colors', level: 'Advanced' },
 
   # Numbers
+  # Numbers - Beginner
   { name: 'One', definition: 'The number after zero.', category_name: 'Numbers', level: 'Beginner' },
   { name: 'Two', definition: 'The number after one.', category_name: 'Numbers', level: 'Beginner' },
   { name: 'Three', definition: 'The number after two.', category_name: 'Numbers', level: 'Beginner' },
-  { name: 'Four', definition: 'The number after three.', category_name: 'Numbers', level: 'Intermediate' },
-  { name: 'Five', definition: 'The number after four.', category_name: 'Numbers', level: 'Intermediate' },
-  { name: 'Six', definition: 'The number after five.', category_name: 'Numbers', level: 'Intermediate' },
-  { name: 'Seven', definition: 'The number after six.', category_name: 'Numbers', level: 'Advanced' },
-  { name: 'Eight', definition: 'The number after seven.', category_name: 'Numbers', level: 'Advanced' },
-  { name: 'Nine', definition: 'The number after eight.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Four', definition: 'The number after three.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Five', definition: 'The number after four.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Six', definition: 'The number after five.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Seven', definition: 'The number after six.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Eight', definition: 'The number after seven.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Nine', definition: 'The number after eight.', category_name: 'Numbers', level: 'Beginner' },
+  { name: 'Ten', definition: 'The number after nine.', category_name: 'Numbers', level: 'Beginner' },
+
+  # Numbers - Intermediate
+  { name: 'Eleven', definition: 'The product of five times two plus one.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Twelve', definition: 'The number of months in a year.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Thirteen', definition: 'The atomic number of aluminum.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Fourteen', definition: 'The number of days in two weeks.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Fifteen', definition: 'The number representing a quarter-hour.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Sixteen', definition: 'A square number, 4 squared.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Seventeen', definition: 'A prime number following sixteen.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Eighteen', definition: 'The product of three times six.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Nineteen', definition: 'A prime number following eighteen.', category_name: 'Numbers', level: 'Intermediate' },
+  { name: 'Twenty', definition: 'The product of five times four.', category_name: 'Numbers', level: 'Intermediate' },
+
+  # Numbers - Advanced
+  { name: 'Twenty-One', definition: 'The number of spots on a standard six-sided die.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Twenty-Two', definition: 'The number of players on a soccer field during a match.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Thirty', definition: 'The number of degrees in each angle of an equilateral triangle.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Forty', definition: 'The number of weeks in a typical human pregnancy.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Fifty', definition: 'Half of one hundred.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Sixty', definition: 'The number of seconds in a minute.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Seventy', definition: 'The number of years in seven decades.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Eighty', definition: 'The number of minutes in one hour and twenty minutes.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'Ninety', definition: 'The number of degrees in a right angle.', category_name: 'Numbers', level: 'Advanced' },
+  { name: 'One Hundred', definition: 'A number representing a century.', category_name: 'Numbers', level: 'Advanced' },
 
   # Time
   { name: 'Clock', definition: 'A device used to measure time.', category_name: 'Time', level: 'Beginner' },
@@ -206,9 +266,12 @@ words_attributes = [
   { name: 'Quantum Computing', definition: 'The use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.', category_name: 'Technology', level: 'Advanced' }
 ]
 
+# Seed Words
 words_attributes.each do |word_attr|
+  # Find the category by name
   category = Category.find_by(name: word_attr[:category_name])
   if category
+    # Create a new word with the provided attributes if the category exists
     Word.create!(
       name: word_attr[:name],
       definition: word_attr[:definition],
@@ -216,6 +279,7 @@ words_attributes.each do |word_attr|
       level: word_attr[:level]
     )
   else
+    # Log a message if the category does not exist
     puts "Category not found for #{word_attr[:name]}"
   end
 end
@@ -236,9 +300,41 @@ games_attributes = [
     category_name: 'Time', difficulty_level: 'Beginner', user_email: 'carol@example.com',
     score: 9, date: current_time, start_time: current_time - 1.day + 1.hour, end_time: current_time - 1.day + 2.hours,
     word_name: 'Clock', attempts: 1
+  },
+  # Additional Beginner game
+  {
+    category_name: 'Colors', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 12, date: current_time, start_time: current_time - 1.hour, end_time: current_time,
+    word_name: 'Red', attempts: 1
+  },
+  # Intermediate game
+  {
+    category_name: 'Seasons', difficulty_level: 'Intermediate', user_email: 'bob@example.com',
+    score: 15, date: current_time, start_time: current_time - 3.hours, end_time: current_time - 2.hours,
+    word_name: 'Winter', attempts: 2
+  },
+  # Additional Intermediate game
+  {
+    category_name: 'Food', difficulty_level: 'Intermediate', user_email: 'carol@example.com',
+    score: 17, date: current_time, start_time: current_time - 5.hours, end_time: current_time - 4.hours,
+    word_name: 'Pasta', attempts: 1
+  },
+  # Advanced game
+  {
+    category_name: 'Health', difficulty_level: 'Advanced', user_email: 'alice@example.com',
+    score: 20, date: current_time, start_time: current_time - 1.day, end_time: current_time - 1.day + 1.hour,
+    word_name: 'Cardiology', attempts: 3
+  },
+  # Additional Advanced game
+  {
+    category_name: 'Technology', difficulty_level: 'Advanced', user_email: 'bob@example.com',
+    score: 22, date: current_time, start_time: current_time - 2.days, end_time: current_time - 2.days + 1.hour,
+    word_name: 'Quantum Computing', attempts: 2
   }
 ]
 
+
+# Seed Games (with the defined games_attributes array)
 games_attributes.each do |attrs|
   category = Category.find_by(name: attrs[:category_name])
   user = User.find_by(email: attrs[:user_email])
