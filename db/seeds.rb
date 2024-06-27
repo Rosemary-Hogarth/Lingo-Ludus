@@ -1,8 +1,8 @@
 puts "Cleaning up database..."
-User.destroy_all
-Category.destroy_all
-Word.destroy_all
 Game.destroy_all
+Word.destroy_all
+Category.destroy_all
+User.destroy_all
 puts "Database cleaned"
 
 
