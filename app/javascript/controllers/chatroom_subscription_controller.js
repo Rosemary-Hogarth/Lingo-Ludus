@@ -9,17 +9,29 @@ export default class extends Controller {
   connect() {
     // subscribe to channel
     this.channel = createConsumer().subscriptions.create(
-      { channel: "ChatroomChannel", id:this.chatroomIdValue },
+      { channel: "ChatroomChannel", id :this.chatroomIdValue },
       { received: (data) => { this.#insertMessage(data) } }
     )
+    console.log(`Subscribed to the chatroom with the id ${this.chatroomIdValue}.`)
   }
-  disconnect() {
-    console.log("disconnecting from the channel...")
-    this.channel.unsubscribe()
+
+  #justifyClass(currentUserIsSender) {
+    return currentUserIsSender ? "justify-content-end" : "justify-content-start"
   }
-  // clears input field after message is sent
-  resetForm(event) {
-    event.target.reset()
+
+  #userStyleClass(currentUserIsSender) {
+    return currentUserIsSender ? "sender-style" : "receiver-style"
+  }
+
+  #buildMessageElement(currentUserIsSender, message) {
+
+    return `
+    <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
+      <div class="${this.#userStyleClass(currentUserIsSender)}">
+        ${message}
+      </div>
+    </div>
+  `
   }
 
   // add message
@@ -40,24 +52,13 @@ export default class extends Controller {
     this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight);
   }
 
-
-  #buildMessageElement(currentUserIsSender, message) {
-
-    return `
-    <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
-      <div class="${this.#userStyleClass(currentUserIsSender)}">
-        ${message}
-      </div>
-    </div>
-  `
+   // clears input field after message is sent
+  resetForm(event) {
+    event.target.reset()
   }
 
-  #justifyClass(currentUserIsSender) {
-    return currentUserIsSender ? "justify-content-end" : "justify-content-start"
+  disconnect() {
+    console.log("disconnecting from the channel...")
+    this.channel.unsubscribe()
   }
-
-  #userStyleClass(currentUserIsSender) {
-    return currentUserIsSender ? "sender-style" : "receiver-style"
-  }
-
 }
