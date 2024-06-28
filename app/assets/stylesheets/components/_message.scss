@@ -27,9 +27,9 @@
 
 /* Styling for sender's speech bubble pointer */
 .sender-style::before {
-  border-color: #69B6EA transparent transparent transparent; /* Border colors for the triangle */
+  border-color: #5c3f959d transparent transparent transparent; /* Border colors for the triangle */
   border-width: 20px 0px 2px 20px; /* Border widths to form the triangle shape */
-  bottom: -20px; /* Position the triangle below the message container */
+  bottom: -22px; /* Position the triangle below the message container */
   left: 20px; /* Position the triangle towards the left */
 }
 
@@ -42,7 +42,7 @@
 }
 
 .sender-style {
-  background-color:#69B6EA;
+  background-color: #5c3f959d;
 }
 
 .receiver-style {

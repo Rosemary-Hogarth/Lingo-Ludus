@@ -1,10 +1,10 @@
 .container.whole-screen {
   max-width: 100%;
+  background: white;
 }
 
 .welcome-message {
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 23px;
   margin-bottom: 20px;
   border-bottom: 3px solid #F5BC3A;
   font-family: roboto;
@@ -21,7 +21,8 @@
   flex-grow: 1;
   max-width: 100%;
   margin: 0 auto;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   border: 1px solid #ccc;
 
 
@@ -87,22 +88,43 @@
   font-family: roboto;
 }
 
-.channel-link:hover {
-  text-decoration: underline;
-  font-family: roboto;
+.channel-link.color-1:hover {
+  background-color: #FF6042;
+  padding: 5px;
+  text-decoration: none;
 }
+
+.channel-link.color-2:hover {
+  background-color: #1097E1;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.channel-link.color-3:hover {
+  background-color: #18BBB1;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.channel-link.color-4:hover {
+  background-color: #9163EA;
+  padding: 5px;
+  text-decoration: none;
+}
+
 
 .person {
   margin-bottom: 20px;
   border-bottom: 3px solid #17BBB0;
   font-family: roboto;
-
 }
 
-.chat-section-header {
+.chat-section-header h3 {
   border-bottom: 3px solid#5C3F95;
   font-family: roboto;
   margin-bottom: 20px;
+  font-weight: 300;
+  font-size: 22px;
 }
 
 
@@ -115,6 +137,18 @@ transition: background-color 0.5s ease, color 0.5s ease;
 
 .btn-chat:hover {
   color:white;
-  background-color: grey;
+  background-color: black;
   border: 1px solid black;
+}
+
+.chat-btn {
+  margin-top: 30px;
+  padding: 10px 23px;
+  border: 1px solid black;
+  background-color: black;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 30px;
+  color: white;
+  font-size: 12px;
+  font-family: roboto;
 }
