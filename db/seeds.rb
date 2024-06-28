@@ -185,12 +185,8 @@ words_attributes = [
   { name: 'Tomato', definition: 'A glossy red or yellow edible fruit that is typically eaten as a vegetable or in salad.', category_name: 'Food', level: 'Beginner' },
   { name: 'Potato', definition: 'A starchy plant tuber that is one of the most important food crops, cooked and eaten as a vegetable.', category_name: 'Food', level: 'Beginner' },
   { name: 'Fish', definition: 'A cold-blooded vertebrate animal that lives in water and has gills, fins, and scales.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Asparagus', definition: 'A green vegetable with long, thin stems and a pointed tip.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Beets', definition: 'A round root vegetable with dark red skin and sweet flesh.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Bell Peppers', definition: 'A large, mild pepper that can be green, red, yellow, or orange.', category_name: 'Food', level: 'Beginner' },
+  { name: 'Bell Pepper', definition: 'A large, mild pepper that can be green, red, yellow, or orange.', category_name: 'Food', level: 'Beginner' },
   { name: 'Berries', definition: 'Small, juicy fruits with seeds, such as strawberries, blueberries, and raspberries.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Blueberries', definition: 'A small, round, dark blue fruit that grows on bushes.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Carrots', definition: 'A long, thin, orange vegetable that grows underground.', category_name: 'Food', level: 'Beginner' },
   { name: 'Celery', definition: 'A crunchy, green vegetable with long, fibrous stalks.', category_name: 'Food', level: 'Beginner' },
   { name: 'Cucumber', definition: 'A long, green vegetable with a crisp, watery flesh.', category_name: 'Food', level: 'Beginner' },
   { name: 'Garlic', definition: 'A strong-smelling bulb used as a flavoring in cooking.', category_name: 'Food', level: 'Beginner' },
@@ -199,30 +195,27 @@ words_attributes = [
   { name: 'Lime', definition: 'A small, green citrus fruit with a sour taste.', category_name: 'Food', level: 'Beginner' },
   { name: 'Onion', definition: 'A vegetable with a strong smell and taste, made up of several layers.', category_name: 'Food', level: 'Beginner' },
   { name: 'Pear', definition: 'A sweet fruit with a round bottom and a narrow top.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Strawberries', definition: 'A sweet, red fruit with tiny seeds on its surface.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Sweet Potato', definition: 'A root vegetable with a sweet, orange flesh.', category_name: 'Food', level: 'Beginner' },
   { name: 'Zucchini', definition: 'A green summer squash with a mild flavor.', category_name: 'Food', level: 'Beginner' },
   { name: 'Coffee', definition: 'A beverage made from roasted coffee beans.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Tea', definition: 'A beverage made by steeping tea leaves in hot water.', category_name: 'Food', level: 'Beginner' },
+  { name: 'Tea', definition: 'A beverage made by steeping herbal leaves in hot water.', category_name: 'Food', level: 'Beginner' },
   { name: 'Butter', definition: 'A solid dairy product made by churning cream.', category_name: 'Food', level: 'Beginner' },
-  { name: 'Cheese', definition: 'A food made from the pressed curds of milk.', category_name: 'Food', level: 'Beginner' },
-
-
-
+  
+  
+  
   # Food - Intermediate
+  { name: 'Beets', definition: 'A round root vegetable with dark red skin and sweet flesh.', category_name: 'Food', level: 'Intermediate' },
+  { name: 'Blueberry', definition: 'A small, round, dark blue fruit that grows on bushes.', category_name: 'Food', level: 'Intermediate' },
+  { name: 'Asparagus', definition: 'A green vegetable with long, thin stems and a pointed tip.', category_name: 'Food', level: 'Intermediate' },
+  { name: 'Strawberry', definition: 'A sweet, red fruit with tiny seeds on its surface.', category_name: 'Food', level: 'Intermediate' },
+  { name: 'Sweet Potato', definition: 'A root vegetable with a sweet, orange flesh.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Pasta', definition: 'A dish originally from Italy consisting of dough made from durum wheat and water, extruded or stamped into various shapes and typically cooked in boiling water.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Pizza', definition: 'A dish of Italian origin consisting of a flat, round base of dough baked with a topping of tomatoes and cheese, typically with added meat or vegetables.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Salad', definition: 'A cold dish of various mixtures of raw or cooked vegetables, usually seasoned with oil, vinegar, or other dressing.', category_name: 'Food', level: 'Intermediate' },
-  { name: 'Yogurt', definition: 'A thick, creamy food made from milk soured by the addition of bacteria.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Avocado', definition: 'A green, pear-shaped fruit with a large pit and creamy flesh.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Mushroom', definition: 'A type of fungus with a cap on a stem, some of which are edible.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Broccoli', definition: 'A green vegetable with a thick stem and a dense cluster of flower buds.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Chicken', definition: 'Meat from a domesticated bird often raised for eggs and meat.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Yogurt', definition: 'A thick, creamy food made from milk soured by the addition of bacteria.', category_name: 'Food', level: 'Intermediate' },
-  { name: 'Avocado', definition: 'A green, pear-shaped fruit with a large pit and creamy flesh.', category_name: 'Food', level: 'Intermediate' },
-  { name: 'Mushroom', definition: 'A type of fungus with a cap on a stem, some of which are edible.', category_name: 'Food', level: 'Intermediate' },
-  { name: 'Broccoli', definition: 'A green vegetable with a thick stem and a dense cluster of flower buds.', category_name: 'Food', level: 'Intermediate' },
-  { name: 'Chicken', definition: 'Meat from a domesticated bird often raised for eggs and meat.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Ketchup', definition: 'A sweet and tangy sauce made from tomatoes, vinegar, sugar, and spices.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Mustard', definition: 'A condiment made from the seeds of a mustard plant, typically yellow or brown.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Olive Oil', definition: 'A liquid fat obtained from olives, used in cooking and dressings.', category_name: 'Food', level: 'Intermediate' },
@@ -234,7 +227,6 @@ words_attributes = [
   { name: 'Sushi', definition: 'A Japanese dish consisting of small balls or rolls of vinegar-flavored cold rice served with a garnish of vegetables, egg, or raw seafood.', category_name: 'Food', level: 'Advanced' },
   { name: 'Steak', definition: 'High-quality beef taken from the hindquarters of the animal, typically cut into thick slices that are cooked by grilling or frying.', category_name: 'Food', level: 'Advanced' },
   { name: 'Taco', definition: 'A Mexican dish consisting of a folded or rolled tortilla filled with various mixtures, such as seasoned meat, beans, lettuce, and tomatoes.', category_name: 'Food', level: 'Advanced' },
-  { name: 'Quinoa', definition: 'A high-protein grain from the Andean region, used as a food staple.', category_name: 'Food', level: 'Advanced' },
   { name: 'Prosciutto', definition: 'An Italian dry-cured ham that is thinly sliced and served uncooked.', category_name: 'Food', level: 'Advanced' },
   { name: 'Chutney', definition: 'A spicy condiment made of fruits or vegetables with vinegar, spices, and sugar.', category_name: 'Food', level: 'Advanced' },
   { name: 'Tiramisu', definition: 'An Italian dessert made with layers of sponge cake soaked in coffee and brandy or liqueur, with powdered chocolate and mascarpone cheese.', category_name: 'Food', level: 'Advanced' },
@@ -283,7 +275,6 @@ words_attributes = [
   { name: 'Customs', definition: 'The place at an airport, border, etc., where government officials check people and goods entering a country.', category_name: 'Travel', level: 'Advanced' },
   { name: 'Embassy', definition: 'The official residence or offices of an ambassador.', category_name: 'Travel', level: 'Advanced' },
   { name: 'Transit', definition: 'The carrying of people, goods, or materials from one place to another.', category_name: 'Travel', level: 'Advanced' },
-  { name: 'Travel Insurance', definition: 'Insurance that covers trip cancellation, lost luggage, flight accident and other losses incurred while traveling.', category_name: 'Travel', level: 'Advanced' },
 
 
   # Home
@@ -370,7 +361,6 @@ words_attributes = [
 
 
   # Clothing - Advanced
-  { name: 'Trench Coat', definition: 'A long, double-breasted coat.', category_name: 'Clothing', level: 'Advanced' },
   { name: 'Tuxedo', definition: 'A formal evening suit.', category_name: 'Clothing', level: 'Advanced' },
   { name: 'Blazer', definition: 'A lightweight jacket, typically in a solid color, worn as part of a uniform or as smart casual wear.', category_name: 'Clothing', level: 'Advanced' },
   { name: 'Cardigan', definition: 'A knitted sweater that opens at the front.', category_name: 'Clothing', level: 'Advanced' },
@@ -395,7 +385,6 @@ words_attributes = [
   # Work
   # Work - Beginner
   { name: 'Office', definition: 'A room, set of rooms, or building used as a place for commercial, professional, or bureaucratic work.', category_name: 'Work', level: 'Beginner' },
-  { name: 'Job', definition: 'A paid position of regular employment.', category_name: 'Work', level: 'Beginner' },
   { name: 'Desk', definition: 'A piece of furniture with a flat top for writing or working.', category_name: 'Work', level: 'Beginner' },
   { name: 'Computer', definition: 'An electronic device for storing and processing data.', category_name: 'Work', level: 'Beginner' },
   { name: 'Pen', definition: 'A writing instrument using ink.', category_name: 'Work', level: 'Beginner' },
@@ -458,7 +447,6 @@ words_attributes = [
   { name: 'Thesis', definition: 'A statement or theory that is put forward as a premise to be maintained or proved.', category_name: 'Education', level: 'Advanced' },
   { name: 'Dissertation', definition: 'A long essay on a particular subject, especially one written for a university degree or diploma.', category_name: 'Education', level: 'Advanced' },
   { name: 'Syllabus', definition: 'An outline of the subjects in a course of study or teaching.', category_name: 'Education', level: 'Advanced' },
-  { name: 'Pedagogy', definition: 'The method and practice of teaching, especially as an academic subject or theoretical concept.', category_name: 'Education', level: 'Advanced' },
   { name: 'Research', definition: 'The systematic investigation into and study of materials and sources in order to establish facts and reach new conclusions.', category_name: 'Education', level: 'Advanced' },
 
   # Emotions
@@ -483,7 +471,6 @@ words_attributes = [
   { name: 'Frustrated', definition: 'Feeling or expressing distress and annoyance resulting from an inability to change or achieve something.', category_name: 'Emotions', level: 'Advanced' },
   { name: 'Content', definition: 'In a state of peaceful happiness.', category_name: 'Emotions', level: 'Advanced' },
   { name: 'Anxious', definition: 'Experiencing worry, unease, or nervousness, typically about an imminent event or something with an uncertain outcome.', category_name: 'Emotions', level: 'Advanced' },
-  { name: 'Ecstatic', definition: 'Feeling or expressing overwhelming happiness or joyful excitement.', category_name: 'Emotions', level: 'Advanced' },
 
   # Nature
   # Nature - Beginner
@@ -497,7 +484,6 @@ words_attributes = [
 
   # Nature - Intermediate
   { name: 'Mountain', definition: 'A large natural elevation of the earth\'s surface rising abruptly from the surrounding level; a large steep hill.', category_name: 'Nature', level: 'Intermediate' },
-  { name: 'Forest', definition: 'A large area covered chiefly with trees and undergrowth.', category_name: 'Nature', level: 'Intermediate' },
   { name: 'Forest', definition: 'A large area covered chiefly with trees and undergrowth.', category_name: 'Nature', level: 'Intermediate' },
   { name: 'River', definition: 'A large natural stream of water flowing in a channel to the sea, a lake, or another river.', category_name: 'Nature', level: 'Intermediate' },
   { name: 'Hill', definition: 'A naturally raised area of land, not as high or craggy as a mountain.', category_name: 'Nature', level: 'Intermediate' },
@@ -555,7 +541,6 @@ words_attributes = [
   { name: 'Marathon', definition: 'A long-distance running race, strictly one of 26 miles 385 yards (42.195 km).', category_name: 'Sports', level: 'Advanced' },
   { name: 'Triathlon', definition: 'An athletic contest consisting of three different events, typically swimming, cycling, and long-distance running.', category_name: 'Sports', level: 'Advanced' },
   { name: 'Decathlon', definition: 'An athletic event taking place over two days, in which each competitor takes part in the same prescribed ten events.', category_name: 'Sports', level: 'Advanced' },
-  { name: 'Triathlon', definition: 'An athletic contest consisting of three different events, typically swimming, cycling, and long-distance running.', category_name: 'Sports', level: 'Advanced' },
   { name: 'Endurance', definition: 'The ability to endure an unpleasant or difficult process or situation without giving way.', category_name: 'Sports', level: 'Advanced' },
   { name: 'Rehabilitation', definition: 'The action of restoring someone to health or normal life through training and therapy after imprisonment, addiction, or illness.', category_name: 'Sports', level: 'Advanced' },
   { name: 'Biomechanics', definition: 'The study of the mechanical laws relating to the movement or structure of living organisms.', category_name: 'Sports', level: 'Advanced' },
@@ -652,7 +637,6 @@ words_attributes = [
   { name: 'Artificial Intelligence', definition: 'The theory and development of computer systems able to perform tasks that normally require human intelligence, such as visual perception, speech recognition, decision-making, and translation between languages.', category_name: 'Technology', level: 'Advanced' },
   { name: 'Quantum Computing', definition: 'The use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.', category_name: 'Technology', level: 'Advanced' }, 
   { name: 'Blockchain', definition: 'A system in which a record of transactions made in bitcoin or another cryptocurrency is maintained across several computers that are linked in a peer-to-peer network.', category_name: 'Technology', level: 'Advanced' },
-  { name: 'Quantum Computing', definition: 'The use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.', category_name: 'Technology', level: 'Advanced' },
   { name: 'Big Data', definition: 'Extremely large data sets that may be analyzed computationally to reveal patterns, trends, and associations.', category_name: 'Technology', level: 'Advanced' },
   { name: 'Virtual Reality', definition: 'The computer-generated simulation of a three-dimensional image or environment.', category_name: 'Technology', level: 'Advanced' },
   { name: 'Augmented Reality', definition: 'An enhanced version of reality created by the use of technology to overlay digital information on an image of something being viewed through a device.', category_name: 'Technology', level: 'Advanced' },
