@@ -21,6 +21,7 @@ export default class extends Controller {
 
   #userStyleClass(currentUserIsSender) {
     return currentUserIsSender ? "sender-style" : "receiver-style"
+
   }
 
   #buildMessageElement(currentUserIsSender, message) {
@@ -45,8 +46,7 @@ export default class extends Controller {
     }
 
     const messageElement = this.#buildMessageElement(currentUserIsSender, data);
-
-
+      console.log("messageElement:", messageElement);
     // Inserting the messageElement in the DOM
     this.messagesTarget.insertAdjacentHTML("beforeend", messageElement);
     this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight);

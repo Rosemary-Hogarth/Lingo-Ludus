@@ -20,7 +20,7 @@ class DashboardsController < ApplicationController
 
     # Fetches the 5 most recent games played by the user, ordered by end time
     # .order --> active record method
-    @recent_games = @user.games.order(end_time: :desc).limit(5)
+    @recent_games = @user.games.order(start_time: :desc).limit(5)
 
 
     # Calculates the average score of all game details associated with the user
