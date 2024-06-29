@@ -40,6 +40,10 @@ export default class extends Controller {
         this.updateGuessContainer(data.word_array);         // triggers the update of the guess container using selected word_array
         this.disableInputsForLine(this.currentLine);        // calls the method that will disable second and third lines
         this.updateButtonToNext();
+
+        this.startTimer(data.start_time);                  // Call method to insert timer element
+
+
         if (!this.addedInputListeners) {
           this.addInputListeners(); // calls method to add event listener on each input field
           this.addedInputListeners = true; // Ensure listeners are added only once
@@ -54,6 +58,26 @@ export default class extends Controller {
     })
     .catch(error => console.error("Error:", error));
   }
+
+  
+  // Method to insert timer element dynamically
+  startTimer(startTime) {
+  // Before creating a new timer, remove the existing timer if it exists
+  const existingTimer = document.querySelector("[data-controller='timer']");
+  if (existingTimer) {
+    existingTimer.remove(); // Remove the existing timer from the DOM
+  }
+
+  // Create a new timer element
+  const timerElement = document.createElement("div");
+  timerElement.setAttribute("data-controller", "timer");
+  timerElement.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
+  timerElement.innerHTML = `<span data-timer-target="time">00:00:00</span>`;
+
+  // Insert the timer element into the DOM
+  this.element.appendChild(timerElement);
+}
+
 
   disableInputsForLine(line) { // method for disabling lines preventing the user to input in another line than its current attempt
     this.inputTargets.forEach(input => {              // iterates through the inputTargets array
@@ -212,6 +236,8 @@ export default class extends Controller {
       this.updateButtonToPlay();
     }
 
-    this.nextTarget.classList.remove("disabled")
+    this.nextTarget.classList.remove("disabled");
+        // Remove the timer when the game ends
+    this.timerContainerTarget.innerHTML = '';
   }
 }
