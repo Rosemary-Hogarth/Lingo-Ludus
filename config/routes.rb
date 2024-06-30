@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboards#index'
   get "play", to: "games#game"
 
-  resources :chatrooms, only: :show do
+  resources :chatrooms, only: [:show, :new, :create, :destroy] do
     resources :messages, only: :create
   end
 

@@ -1,4 +1,5 @@
 <div class="container whole-screen flex-grow-1"
+data-controller="add-chatroom"
 data-controller="chatroom-subscription"
 data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
 data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
@@ -17,6 +18,7 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
           <h3>Channels</h3>
         </div>
 
+
         <% @chatrooms.each_with_index do |chatroom, index| %>
           <div class="channel">
             <span class="chat-icon"><i class="fa-regular fa-comments"></i></span>
@@ -24,14 +26,20 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
         </div>
       <% end %>
     </div>
+
+  <button id="chat-name" data-action="click->add-chatroom#fire" class="mb-3"><i class="fa-solid fa-plus"></i> Add a new chatroom</button>
+  <div class="d-none" data-add-chatroom-target="toggleableElement">
+    <%= render "chat_form", chatroom: @new_chatroom %>
   </div>
-  <%= button_to "Continue playing", play_path, method: :get, class: "chat-btn" %>
+  </div>
 </div>
+
 
 <!-- Right column -->
 <div class="col-md-9">
   <div class="chatroom-container">
     <h1>#<%= @chatroom.name %></h1>
+
 
     <div class="messages" data-chatroom-subscription-target="messages">
       <% @chatroom.messages.each do |message| %>
@@ -42,6 +50,7 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
       </div>
     <% end %>
   </div>
+
 
 
         <%# when form is submitted it triggers the resetForm function  %>
