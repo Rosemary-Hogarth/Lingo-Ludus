@@ -87,7 +87,7 @@ export default class extends Controller {
     const timerElement = document.createElement("div");
     timerElement.setAttribute("data-controller", "timer");
     timerElement.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
-    timerElement.innerHTML = `<p class="text-center h4"><span class="text-center" data-timer-target="time">00:00:00</span></p>`;
+    timerElement.innerHTML = `<div class="timer"><span data-timer-target="time">00:00:00</span></div>`;
 
     // Insert the timer element into the DOM
     this.element.appendChild(timerElement);
