@@ -14,7 +14,7 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
       </div>
       <div class="chat-section">
         <div class="chat-section-header">
-          <h3>Channels</h3>
+          <h3>Chatrooms</h3>
         </div>
 
 
@@ -39,7 +39,10 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
 <!-- Right column -->
 <div class="col-md-9">
   <div class="chatroom-container">
-    <h1>#<%= @chatroom.name %></h1>
+    <div class="chat-header">
+      <h1>#<%= @chatroom.name %></h1>
+      <%= button_to "Continue playing", play_path, method: :get, class: "chatroom-btn" %>
+    </div>
 
     <div class="messages" data-chatroom-subscription-target="messages">
       <% @chatroom.messages.each do |message| %>

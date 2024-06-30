@@ -210,3 +210,22 @@ transition: background-color 0.5s ease, color 0.5s ease;
     cursor: pointer;
   }
 }
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header h1 {
+  margin: 0;
+}
+
+.chatroom-btn {
+  padding: 10px 15px;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  font-size: 12px;
+  font-family: roboto;
+}
