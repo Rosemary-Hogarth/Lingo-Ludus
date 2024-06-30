@@ -1,4 +1,5 @@
 class ChatroomsController < ApplicationController
+  before_action :set_list, only: [:show, :edit, :update]
   def show
     @chatrooms = Chatroom.all
     @chatroom = Chatroom.find(params[:id])
@@ -20,15 +21,31 @@ class ChatroomsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @chatroom = Chatroom.find(params[:id])
-  #   @chatroom.destroy
-  #   redirect_to chatroom_path(@chatroom.first), notice: 'Chatroom was successfully deleted.'
-  # end
+  def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def update
+    if @chatroom.update(chatroom_params)
+      respond_to do |format|
+        format.html { redirect_to chatroom_path(@chatroom), notice: 'Chatroom name updated successfully.' }
+        format.js
+      end
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   private
 
   def chatroom_params
     params.require(:chatroom).permit(:name)
+  end
+
+  def set_list
+    @chatroom = Chatroom.find(params[:id])
   end
 end
