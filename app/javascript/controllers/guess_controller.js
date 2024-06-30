@@ -14,6 +14,13 @@ export default class extends Controller {
 
   connect() {
     this.addedInputListeners = false; // Track if input listeners have been added
+    // Add an event listener for the timer checkbox
+    this.handleTimerCheckboxChange();
+    // Listen for the custom timerToggled event
+    document.addEventListener(
+      "timerToggled",
+      this.handleTimerVisibilityChange.bind(this)
+    );
   }
 
   createGame(event) {
@@ -80,7 +87,7 @@ export default class extends Controller {
     const timerElement = document.createElement("div");
     timerElement.setAttribute("data-controller", "timer");
     timerElement.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
-    timerElement.innerHTML = `<span class="d-block h5 text-center" data-timer-target="time">00:00:00</span>`;
+    timerElement.innerHTML = `<p class="text-center h4"><span class="text-center" data-timer-target="time">00:00:00</span></p>`;
 
     // Insert the timer element into the DOM
     this.element.appendChild(timerElement);

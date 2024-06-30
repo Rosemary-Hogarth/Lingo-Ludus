@@ -21,25 +21,44 @@ export default class extends Controller {
 
     if (isChecked) {
       this.startTimer();
+      this.timeTarget.style.display = ""; // Show the timer
     } else {
       this.stopTimer();
+      this.timeTarget.style.display = "none"; // Hide the timer
     }
+
+    // Custom event to signal timer visibility change
+    const event = new CustomEvent("timerToggled", {
+      detail: { isVisible: isChecked },
+    });
+    document.dispatchEvent(event);
   }
 
   startTimer() {
-    // Attempt to get the start time from the data attribute or use the current time if not provided
+    // Clear any existing timer to avoid duplicates
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+
     const startTimeStr = this.data.get("startTime");
     this.startTime = startTimeStr ? new Date(startTimeStr) : new Date();
-    // Update the time immediately
     this.updateTime();
-    // Set an interval to update the time every second
     this.timer = setInterval(() => this.updateTime(), 1000);
-    document.getElementById("timerContainer").style.display = ""; // Show timer
+
+    const timerContainer = document.getElementById("timerContainer");
+    if (timerContainer) {
+      timerContainer.style.display = "";
+    }
   }
 
   stopTimer() {
-    clearInterval(this.timer); // Stops the timer
-    document.getElementById("timerContainer").style.display = "none"; // Hide timer
+    console.log("Stopping timer");
+    clearInterval(this.timer);
+
+    const timerContainer = document.getElementById("timerContainer");
+    if (timerContainer) {
+      timerContainer.style.display = "none";
+    }
   }
 
   disconnect() {
