@@ -39,7 +39,6 @@ export default class extends Controller {
   #insertMessage(data) {
     console.log("Received data: ", data);
 
-
     const currentUserIsSender = this.currentUserIdValue === data.sender_id;
     console.log(currentUserIsSender)
     console.log(this.currentUserIdValue)

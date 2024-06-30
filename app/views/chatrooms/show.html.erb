@@ -25,7 +25,7 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
 
           <!-- Kebab Menu -->
           <div class="dropdown ms-auto">
-            <a href="#" class="no-underline" data-bs-toggle="modal" data-bs-target="#renameChatroomModal" data-bs-chatroom-id="<%= chatroom.id %>" data-bs-chatroom-name="<%= chatroom.name %>">
+            <a href="#" class="no-underline" data-bs-toggle="modal" data-bs-target="#renameChatroomModal<%= chatroom.id %>">
               <i class="fa-solid fa-ellipsis"></i>
             </a>
           </div>
@@ -78,27 +78,4 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
   </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="renameChatroomModal" tabindex="-1" aria-labelledby="renameChatroomModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="renameChatroomModalLabel">Rename Chatroom</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= form_with model: @chatroom, url: chatroom_path(@chatroom), method: :patch, local: true, id: 'renameChatroomForm' do |f| %>
-          <div class="mb-3">
-            <%= f.label :name, "New Chatroom Name" %>
-            <%= f.text_field :name, class: 'form-control', placeholder: 'Enter new chatroom name' %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <%= f.submit 'Rename', class: 'btn btn-primary' %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render "chat_modal", chatroom: @new_chatroom %>
