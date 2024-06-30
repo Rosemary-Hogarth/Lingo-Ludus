@@ -1,10 +1,8 @@
 <div data-controller="guess" data-guess-game-id="<%= @game.id %>">
   <h1>Game</h1>
-
   <p>Category: <%= @game.category.name %></p>
   <p>Difficulty: <%= @game.difficulty_level %></p>
   <p>Attempts: <%= @game.attempts %></p>
-
   <% if @word_to_guess %>
     <p>Definition: <%= @word_to_guess.definition %></p>
     <div class="field" style="display: flex; gap: 10px;">
@@ -21,5 +19,7 @@
     <p>No word available for this game.</p>
   <% end %>
 </div>
-
+<!-- Begin timer -->
+<div id="timerContainer" class="timerContainer" data-controller="timer"></div>
+<!-- End timer -->
 <%= link_to 'Back', games_path %>
