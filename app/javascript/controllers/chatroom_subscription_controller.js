@@ -10,9 +10,23 @@ export default class extends Controller {
     // subscribe to channel
     this.channel = createConsumer().subscriptions.create(
       { channel: "ChatroomChannel", id :this.chatroomIdValue },
-      { received: (data) => { this.#insertMessage(data) } }
+      { received: (data) => { this.#receive(data) } }
     )
     console.log(`Subscribed to the chatroom with the id ${this.chatroomIdValue}.`)
+  }
+
+  #receive(data) {
+    if (data.sender_id) {
+      this.#insertMessage(data)
+    } else if (data.deletedMessageId) {
+      this.#deleteMessage(data)
+    }
+  }
+
+  #deleteMessage(data) {
+    const messageId = `#message-${data.deletedMessageId}`
+    const message = this.messagesTarget.querySelector(messageId).parentElement
+    message.remove()
   }
 
   #justifyClass(currentUserIsSender) {

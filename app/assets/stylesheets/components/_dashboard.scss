@@ -29,7 +29,10 @@ body {
   border: 1px solid black;
   margin-bottom: 15px;
   margin-top: 40px;
-  padding: 20px;
+  padding: 20px 80px;
+  // padding-bottom: 20px;
+  // padding-right: 70px;
+  // padding-left: 70px;
   border-radius: 30px;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -47,6 +50,8 @@ body {
     .message {
       font-size: 18px;
       font-weight: 300;
+      border-top: 3px solid #F5BC3A;
+      padding-top: 7px;
     }
 }
 
@@ -70,12 +75,12 @@ body {
   border-radius: 30px;
   padding: 20px;
   margin-top: 40px;
-  min-height: 541px;
+  min-height: 500px;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .average-over-time-header {
-    font-family: "Work Sans", Helvetica, "sans-serif";
-    font-weight: 100;
+    font-family: "Roboto";
+    font-weight: 400;
     letter-spacing: 3px;
     font-size: 20px;
     margin-bottom: 20px;
@@ -88,11 +93,15 @@ body {
 }
 
 td {
-  background-color: #ccccff7c !important;
+  background-color: rgba(153, 102, 255, 0.2) !important;
 }
 
 th {
   font-weight: 400;
+}
+
+thead, tbody, tfoot, tr, td, th {
+  border-color: white;
 }
 
 

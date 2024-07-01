@@ -23,6 +23,10 @@ class MessagesController < ApplicationController
     @message = @chatroom.messages.find(params[:id])
     if @message.user == current_user
       @message.destroy
+      ChatroomChannel.broadcast_to(
+        @chatroom,
+        deletedMessageId: @message.id
+      )
       redirect_to @chatroom, notice: "Message was successfully deleted."
     else
       redirect_to @chatroom, notice: "Not permitted."

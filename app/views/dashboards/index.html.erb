@@ -10,7 +10,7 @@
     <!-- Left column -->
     <div class="col-md-6">
       <div class="average-over-time-container">
-        <div class="average-over-time-header">Attempts by level</div>
+        <div class="average-over-time-header">Attempts per level</div>
       <div class="chart">
         <canvas data-controller="dashboard-chart"
                 data-dashboard-chart-data-value="<%= @difficulty_attempts.to_json %>"
@@ -37,7 +37,7 @@
   </div>
 
     <div class="overview-container">
-      <p>Overview of recent activity <i class="fa-regular fa-calendar"></i></p>
+      <p>Overview of recent games <i class="fa-regular fa-calendar"></i></p>
         <table class="table">
           <thead>
             <tr>

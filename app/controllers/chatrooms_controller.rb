@@ -2,7 +2,7 @@ class ChatroomsController < ApplicationController
   before_action :set_chatroom, only: [:show, :edit, :update]
 
   def show
-    @chatrooms = Chatroom.all
+    @chatrooms = Chatroom.all.order(:id)
     @message = Message.new
     @user = current_user
     @new_chatroom = Chatroom.new
