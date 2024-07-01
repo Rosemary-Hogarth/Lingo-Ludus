@@ -201,9 +201,9 @@ words_attributes = [
   { name: 'Coffee', definition: 'A beverage made from roasted coffee beans.', category_name: 'Food', level: 'Beginner' },
   { name: 'Tea', definition: 'A beverage made by steeping herbal leaves in hot water.', category_name: 'Food', level: 'Beginner' },
   { name: 'Butter', definition: 'A solid dairy product made by churning cream.', category_name: 'Food', level: 'Beginner' },
-  
-  
-  
+
+
+
   # Food - Intermediate
   { name: 'Beets', definition: 'A round root vegetable with dark red skin and sweet flesh.', category_name: 'Food', level: 'Intermediate' },
   { name: 'Blueberry', definition: 'A small, round, dark blue fruit that grows on bushes.', category_name: 'Food', level: 'Intermediate' },

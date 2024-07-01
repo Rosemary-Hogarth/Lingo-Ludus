@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "play", to: "games#game"
 
   resources :chatrooms, only: [:show, :new, :create, :edit, :update] do
-    resources :messages, only: :create
+    resources :messages, only: [:create, :destroy]
   end
 
   resources :games, only: [:index, :show, :create, :new] do

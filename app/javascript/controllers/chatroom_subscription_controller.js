@@ -27,9 +27,9 @@ export default class extends Controller {
   #buildMessageElement(currentUserIsSender, message) {
 
     return `
-    <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
-      <div class="${this.#userStyleClass(currentUserIsSender)}">
-        ${message}
+      <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
+        <div class="${this.#userStyleClass(currentUserIsSender)}">
+          ${message}
       </div>
     </div>
   `
@@ -53,6 +53,7 @@ export default class extends Controller {
     this.messagesTarget.insertAdjacentHTML("beforeend", messageElement);
     this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight);
   }
+
 
    // clears input field after message is sent
   resetForm(event) {

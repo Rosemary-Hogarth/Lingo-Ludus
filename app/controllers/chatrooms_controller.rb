@@ -1,8 +1,8 @@
 class ChatroomsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update]
+  before_action :set_chatroom, only: [:show, :edit, :update]
+
   def show
     @chatrooms = Chatroom.all
-    @chatroom = Chatroom.find(params[:id])
     @message = Message.new
     @user = current_user
     @new_chatroom = Chatroom.new
@@ -45,7 +45,7 @@ class ChatroomsController < ApplicationController
     params.require(:chatroom).permit(:name)
   end
 
-  def set_list
+  def set_chatroom
     @chatroom = Chatroom.find(params[:id])
   end
 end
