@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "@kurkle/color": "^0.3.2",
-    "chart.js": "^4.4.3",
-    "moment": "^2.30.1"
+    "chart.js": "^4.4.3"
   }
 }
