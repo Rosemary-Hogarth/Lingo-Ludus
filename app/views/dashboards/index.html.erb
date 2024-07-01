@@ -10,24 +10,31 @@
     <!-- Left column -->
     <div class="col-md-6">
       <div class="average-over-time-container">
-        <div class="average-over-time-header">Average scores this week</div>
+        <div class="average-over-time-header">Attempts by level</div>
       <div class="chart">
         <canvas data-controller="dashboard-chart"
-                data-dashboard-chart-data-value="<%= @average_scores_over_time %>"
+                data-dashboard-chart-data-value="<%= @difficulty_attempts.to_json %>"
                 width="400" height="414">
         </canvas>
       </div>
     </div>
   </div>
 
-
-  <!-- Right column -->
-  <div class="col-md-6">
-    <div class="total-average-score-container">
-      <div class="average-score-header">Average overall score <div class="score"><%= @average_score.round %></div></div>
-      <div class="message">Amazing 💜</div>
+<!-- Right column -->
+<div class="col-md-6">
+  <div class="total-score-container">
+    <div class="score-header">Total score
+      <div class="score"><i class="fa-regular fa-star"></i>
+        <% if @total_score <= 20 %>
+          <%= @total_score %><div class="message">Keep up the good work!</div>
+        <% elsif @total_score > 20 && @total_score <= 50 %>
+          <%= @total_score %><div class="message">Great score. Keep going!</div>
+        <% else %>
+          <%= @total_score %><div class="message">Excellent. Try some harder words!</div>
+        <% end %>
+      </div>
     </div>
-
+  </div>
 
     <div class="overview-container">
       <p>Overview of recent activity <i class="fa-regular fa-calendar"></i></p>
@@ -70,7 +77,7 @@
             <p>Total games <i class="fa-solid fa-crown"></i> <div><%= @number_of_games %></div></p>
         </div>
         <div class="info total_score">
-            <p>Total score <i class="fa-solid fa-award"></i><div class="score"><%= @total_score %></div></p>
+            <p>Average attempts per game <i class="fa-solid fa-award"></i><div class="score"><%= @average_attempts_per_game %></div></p>
         </div>
         <div class="info best_time">
             <% if @best_time_game.present? %>

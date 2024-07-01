@@ -25,7 +25,7 @@ body {
   flex-grow: 1;
 }
 
-.total-average-score-container {
+.total-score-container {
   border: 1px solid black;
   margin-bottom: 15px;
   margin-top: 40px;
@@ -34,35 +34,19 @@ body {
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-align: center;
-    .average-score-header {
+    .score-header {
       font-family: "Roboto", sans-serif;
       font-size: 20px;
       letter-spacing: 3px;
       font-weight: 400;
       margin-bottom: 0;
-
-    }
-
-      @keyframes pulse {
-        0%, 100% {
-          transform: scale(1);
-          color: #5C3F95;
-        }
-        50% {
-          transform: scale(1.1);
-          color: #17BBB0;
-        }
-
       }
-
       .score {
         font-weight: 500;
-        animation: pulse 2s ease-in-out infinite;
       }
-
     .message {
       font-size: 18px;
-      font-weight: 100;
+      font-weight: 300;
     }
 }
 
@@ -86,13 +70,15 @@ body {
   border-radius: 30px;
   padding: 20px;
   margin-top: 40px;
+  min-height: 541px;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .average-over-time-header {
     font-family: "Work Sans", Helvetica, "sans-serif";
     font-weight: 100;
     letter-spacing: 3px;
-    font-size: 25px;
+    font-size: 20px;
+    margin-bottom: 20px;
   }
 }
 

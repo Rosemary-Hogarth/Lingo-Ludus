@@ -273,8 +273,8 @@ transition: background-color 0.5s ease, color 0.5s ease;
 
 .message-remove-link {
   color: white;
-  border-radius: 50%;
-  border: 1px solid white;
+  // border-radius: 50%;
+  // border: 1px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -287,6 +287,7 @@ transition: background-color 0.5s ease, color 0.5s ease;
   transform: rotate(45deg);
   font-weight: lighter;
   text-decoration: none;
+  font-size: 25px;
 
   &:hover {
     color: white;
