@@ -9,7 +9,7 @@ export default class extends Controller {
     "definition",
     "guessContainer",
     "feedback",
-    "next",
+    "next"
   ];
 
   connect() {
