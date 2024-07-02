@@ -1,4 +1,4 @@
-<div class="container whole-screen"
+<div class="container whole-screen flex-grow-1"
 data-controller="chatroom-subscription"
 data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
 data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
@@ -7,49 +7,75 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
 <div class="row">
 <!-- Left column -->
 <div class="col-md-3 mt-4">
-<div class="conversations-sidebar">
-<div class="welcome-message">Chat with other players!</div>
-    <div class="person">
-          <span><i class="fa-regular fa-user me-2"></i><%= @user.first_name %> is currently online.</span>
+  <div class="conversations-sidebar">
+    <div class="welcome-message">Chat with other players!</div>
+      <div class="person">
+        <span><i class="fa-regular fa-user me-2"></i><%= @user.first_name %> is currently online.</span>
+      </div>
+
+      <div class="chat-section">
+        <div class="chat-section-header">
+          <h3>Chatrooms</h3>
         </div>
-        <div class="chat-section">
-          <div class="chat-section-header">
-            <h3>Channels</h3>
-          </div>
-          <% @chatrooms.each do |chatroom| %>
-          <div class="channel">
+
+        <% @chatrooms.each_with_index do |chatroom, index| %>
+          <div class="channel d-flex">
             <span class="chat-icon"><i class="fa-regular fa-comments"></i></span>
-              <%= link_to chatroom.name, chatroom_path(chatroom), class: "channel-link" %>
+              <%= link_to chatroom.name, chatroom_path(chatroom), class: "channel-link color-#{index + 1}" %>
+
+          <!-- Kebab Menu -->
+          <div class="dropdown ms-auto">
+            <a href="#" class="no-underline" data-bs-toggle="modal" data-bs-target="#renameChatroomModal<%= chatroom.id %>">
+              <i class="fa-solid fa-ellipsis"></i>
+            </a>
           </div>
+        </div>
         <% end %>
-  </div>
-</div>
-</div>
+      </div>
+
+
+      <div data-controller="add-chatroom">
+        <button id="chat-name" data-action="click->add-chatroom#fire" class="mb-3"><i class="fa-solid fa-plus"></i> Add a new chatroom</button>
+          <div class="d-none" data-add-chatroom-target="toggleableElement">
+            <%= render "chat_form", chatroom: @new_chatroom %>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 <!-- Right column -->
 <div class="col-md-9">
   <div class="chatroom-container">
-  <h1>#<%= @chatroom.name %></h1>
-  <div class="messages" data-chatroom-subscription-target="messages">
-    <% @chatroom.messages.each do |message| %>
-      <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
-      <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
-      <%= render "messages/message", message: message %>
+    <div class="chat-header">
+      <h1>#<%= @chatroom.name %></h1>
+      <%= button_to "Continue playing", play_path, method: :get, class: "chatroom-btn" %>
+    </div>
+
+    <div class="messages" data-chatroom-subscription-target="messages">
+      <% @chatroom.messages.each do |message| %>
+        <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
+          <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
+          <%= render "messages/message", message: message %>
         </div>
       </div>
     <% end %>
   </div>
-        <%# when form is submitted it triggers the resetForm function  %>
-        <%= simple_form_for [@chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f|
-  %>
-    <%= f.input :content,
-      label: false,
-      placeholder: "Message ##{@chatroom.name}",
-      wrapper_html: {class: "form-control flex-grow-1"}
+
+
+        <!-- when form is submitted it triggers the resetForm function -->
+    <%= simple_form_for [@chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f|
     %>
-    <%= f.submit "Send", class: "btn btn-chat mb-3" %>
-  <% end %>
-  </div>
-  </div>
+        <%= f.input :content,
+          label: false,
+          placeholder: "Message ##{@chatroom.name}",
+          wrapper_html: {class: "form-control flex-grow-1"}
+        %>
+        <%= f.submit "Send", class: "btn btn-chat mb-3" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
+
+<%= render "chat_modal", chatroom: @new_chatroom %>

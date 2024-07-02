@@ -24,11 +24,6 @@ export default class extends Controller {
   animateSquares() {
     this.shapesTargets.forEach((shape, index) => {
       console.log(`Shape: ${shape}, Index: ${index}`);
-      // Start outside the viewport
-      shape.style.transform = index % 2 === 0 ? 'translateX(-100vw)' : 'translateX(100vw)';
-      // start fast and then slow down
-      shape.style.transition = 'transform 5s cubic-bezier(0.25, 1, 0.5, 1)';
-
 
     // Trigger animation
       setTimeout(() => {
