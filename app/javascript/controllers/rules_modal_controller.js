@@ -11,7 +11,7 @@ export default class extends Controller {
 
   showModalOnGamePage() {
     console.log("showModalOnGamePage called");
-    if (this.isOnGamePage()) {
+    if (this.isOnGamePage() && !this.hasModalBeenShown()) {
       // Retrieve the modal element
       const modalElement = this.modalTarget;
 
@@ -24,21 +24,28 @@ export default class extends Controller {
           console.log("hidden.bs.modal event triggered");
           this.modal.dispose();
           console.log("Modal disposed");
-          console.log("Before resetting modal:", this.modal);
           this.modal = null; // Reset modal instance
-          console.log("After resetting modal:", this.modal);
         });
       }
 
-      // Show the modal if it's not already shown
-      if (!modalElement.classList.contains('show')) {
-        console.log("Showing the modal");
-        this.modal.show();
-      }
+      // Show the modal
+      console.log("Showing the modal");
+      this.modal.show();
+
+      // Mark the modal as shown
+      this.markModalAsShown();
     }
   }
 
   isOnGamePage() {
     return window.location.pathname === '/play';
+  }
+
+  hasModalBeenShown() {
+    return sessionStorage.getItem('rulesModalShown') === 'true';
+  }
+
+  markModalAsShown() {
+    sessionStorage.setItem('rulesModalShown', 'true');
   }
 }
