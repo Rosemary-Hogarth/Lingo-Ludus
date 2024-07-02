@@ -14,6 +14,9 @@ export default class extends Controller {
 
   connect() {
     this.addedInputListeners = false; // Track if input listeners have been added
+
+    document.addEventListener("keyup", this.enterKeyUp.bind(this));
+    console.log("event connected")
     // Add an event listener for the timer checkbox
     this.handleTimerCheckboxChange();
     // Listen for the custom timerToggled event
@@ -21,6 +24,22 @@ export default class extends Controller {
       "timerToggled",
       this.handleTimerVisibilityChange.bind(this)
     );
+
+    document.addEventListener("keyup", this.enterKeyUp.bind(this));
+    console.log("event connected")
+  }
+
+  // Method to handle keydown events
+  enterKeyUp(event) {
+    // Check if the key pressed is Enter (key code 13)
+    if (event.keyCode === 13) {
+      // Prevent default behavior of the Enter key (form submission)
+      event.preventDefault();
+
+      // Trigger click on the "Next" button
+      console.log("keyup")
+      this.nextTarget.click();
+    }
   }
 
   createGame(event) {
@@ -57,13 +76,21 @@ export default class extends Controller {
           this.updateGuessContainer(data.word_array); // triggers the update of the guess container using selected word_array
           this.disableInputsForLine(this.currentLine); // calls the method that will disable second and third lines
           this.updateButtonToNext();
-
           this.startTimer(data.start_time); // Call method to insert timer element
 
           if (!this.addedInputListeners) {
             this.addInputListeners(); // calls method to add event listener on each input field
             this.addedInputListeners = true; // Ensure listeners are added only once
           }
+
+           // Automatically focus the first input field
+           const firstInput = this.inputTargets.find(
+            (input) => parseInt(input.dataset.attempts) === 0
+          );
+          if (firstInput) {
+            firstInput.focus();
+          }
+
         } else if (data.message) {
           alert(data.message); // just here for now to have feedback displayed on the browser when exhausting all words
         } else if (data.error) {
