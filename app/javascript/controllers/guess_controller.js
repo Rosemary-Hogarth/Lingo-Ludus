@@ -94,43 +94,45 @@ export default class extends Controller {
   }
 
   disableInputsForLine(line) {
-    // method for disabling lines preventing the user to input in another line than its current attempt
+    // Method for disabling inputs based on current line and whitespace condition
     this.inputTargets.forEach((input) => {
-      // iterates through the inputTargets array
-      const line = parseInt(input.dataset.attempts); // retrieve the value of data-attempts from current input element
-      if (line === this.currentLine) {
-        // if the line extracted from data-attempts matches the current line
-        input.disabled = false; // allows inputs
+      const attempts = parseInt(input.dataset.attempts);
+
+      // Check if it's a whitespace character
+      if (input.dataset.char === " ") {
+        input.disabled = true; // Always disable whitespace inputs
+      } else if (attempts === this.currentLine) {
+        input.disabled = false; // Enable for current line
       } else {
-        input.disabled = true; // if not, disable inputs
+        input.disabled = true; // Disable for other lines
       }
     });
   }
 
   updateGuessContainer(wordArray) {
-    // transition between first static page and game
-    this.guessContainerTarget.innerHTML = ""; // clear the html
-    this.guessContainerTarget.classList.remove("guess-container-layout"); // remove layout class
-    this.guessContainerTarget.classList.add("guess-container"); // applies new styling class
+    // Transition between the first static page and the game
+    this.guessContainerTarget.innerHTML = ""; // Clear the HTML
+    this.guessContainerTarget.classList.remove("guess-container-layout"); // Remove layout class
+    this.guessContainerTarget.classList.add("guess-container"); // Apply new styling class
 
-    let html = ""; // initiate an html variable
+    let html = ""; // Initialize an HTML variable
     for (let attempts = 0; attempts < 3; attempts++) {
-      // start a loop that will iterate 3 times
-      html += `<div class="guess-field" data-attempts="${attempts}">`; // div containing a line of inputs, has an attempts data index attribute used in other methods
+      // Start a loop that will iterate 3 times
+      html += `<div class="guess-field" data-attempts="${attempts}">`; // Div containing a line of inputs, has an attempts data index attribute used in other methods
       wordArray.forEach((char, index) => {
-        // creates as many input field on a line that there are letter in the word to guess
+        // Create as many input fields on a line as there are letters in the word to guess
         html += `
-          <div class= "flex-fill">
+          <div class="flex-fill">
             <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1"
                   data-guess-target="input" data-index="${index}" data-attempts="${attempts}"
-                  class="form-control guess">
+                  data-char="${char}" class="form-control guess">
           </div>
-        `; // sets the html for each input field, giving them and index in their line and the attempt of their line
-      }); // also sets the maxlength used in addEventListener method and the target "input" used throughout this controller
-      html += "</div>"; // closes the div
+        `;
+      });
+      html += "</div>"; // Close the div
     }
-    this.guessContainerTarget.innerHTML = html; // inserts generated html
-    this.addInputListeners(); // calls the method responsible for automatic typing without clicking on input fields
+    this.guessContainerTarget.innerHTML = html; // Insert generated HTML
+    this.addInputListeners(); // Call the method responsible for automatic typing without clicking on input fields
   }
 
   addInputListeners() {
@@ -156,18 +158,24 @@ export default class extends Controller {
   checkFields(event) {
     if (!event) return;
 
-    const attempts = event.target.dataset.attempts; // accessing data attempts attribute from "data-attempts" in the DOM
+    const attempts = event.target.dataset.attempts; // Accessing data-attempts attribute from the target input
+
+    // Filter inputs for the current line and only include enabled inputs
     const rowInputs = this.inputTargets.filter(
-      (input) => parseInt(input.dataset.attempts) === this.currentLine
-    ); // retrieve all inputs on a specific line defines by its attempts index
-    const allFilled = rowInputs.every((input) => input.value.trim() !== ""); // checks if all retrieved inputs are filled
+      (input) =>
+        parseInt(input.dataset.attempts) === this.currentLine &&
+        !input.disabled
+    );
+
+    // Check if all enabled inputs on the current line are filled
+    const allFilled = rowInputs.every((input) => input.value.trim() !== "");
 
     if (allFilled) {
-      this.check(attempts);
+      this.check(attempts); // Trigger your logic when all inputs are filled
       if (this.currentLine < this.inputLines - 1) {
-        // if it is not the last line
-        this.currentLine++; // increment current line to get to the next one
-        this.disableInputsForLine(); // calls method to only have one line enabled at any time
+        // Move to the next line if it's not the last line
+        this.currentLine++;
+        this.disableInputsForLine(this.currentLine); // Disable inputs for the new current line
       }
     }
   }
@@ -181,13 +189,19 @@ export default class extends Controller {
     }
 
     const inputData = {}; // empty array where we will store the inputs
-    this.inputTargets
-      .filter((input) => input.dataset.attempts === attempts) // filter received data to only get the one with data-attempts index that matches the attempts parameter
-      .forEach((input) => {
-        // for each filtered input
-        const index = input.dataset.index; //retrieve index from data-index
-        inputData[`guess_${index}`] = input.value.trim().toLowerCase(); // sanitize data and store as value in inputData with key :"guess_index"
-      });
+    this.inputTargets.forEach((input) => {
+      const index = input.dataset.index;
+      if (input.dataset.attempts === attempts) {
+        if (input.disabled) {
+          // Treat disabled inputs as whitespace
+          inputData[`guess_${index}`] = " ";
+        } else {
+          inputData[`guess_${index}`] = input.value.trim().toLowerCase();
+        }
+      }
+    });
+
+
 
     console.log("Input data:", inputData); // debugging
 
@@ -291,6 +305,6 @@ export default class extends Controller {
 
     this.nextTarget.classList.remove("disabled");
     // Remove the timer when the game ends
-    this.timerContainerTarget.innerHTML = "";
+    // this.timerContainerTarget.innerHTML = "";
   }
 }

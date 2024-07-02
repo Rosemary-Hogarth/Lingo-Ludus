@@ -63,7 +63,11 @@ class GamesController < ApplicationController
       next unless key.start_with?("guess_")             # filter params to only get the guess ones
 
       index = key.gsub("guess_", "").to_i               # extract the index from the guessed letter
-      guessed_letter = value.downcase.strip             # sanitize data
+      guessed_letter = value.downcase                   # sanitize data
+
+      if guessed_letter == " "
+        guessed_letter = " "
+      end
 
       if guessed_letter == @word_array[index].downcase  # compare guessed letter with its corresponding counterpart in word_array
         correct_guesses << index                        # push index of correct letters into correct_guess array
@@ -77,7 +81,11 @@ class GamesController < ApplicationController
       next unless key.start_with?("guess_")
 
       index = key.gsub("guess_", "").to_i
-      guessed_letter = value.downcase.strip
+      guessed_letter = value.downcase
+
+      if guessed_letter == " "
+        guessed_letter = " "
+      end
 
       next if correct_guesses.include?(index) # Skip next step if the letter is allready correct
 
