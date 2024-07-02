@@ -675,49 +675,107 @@ end
 games_attributes = [
   {
     category_name: 'Animals', difficulty_level: 'Beginner', user_email: 'alice@example.com',
-    score: 10, date: current_time, start_time: current_time - 1.hour, end_time: current_time,
+    score: 3, date: current_time, start_time: current_time - 5.seconds, end_time: current_time,
     word_name: 'Dog', attempts: 1
   },
   {
     category_name: 'Numbers', difficulty_level: 'Beginner', user_email: 'bob@example.com',
-    score: 8, date: current_time, start_time: current_time - 2.hours, end_time: current_time - 1.hour,
+    score: 2, date: current_time, start_time: current_time - 10.seconds, end_time: current_time,
     word_name: 'Two', attempts: 2
   },
   {
     category_name: 'Time', difficulty_level: 'Beginner', user_email: 'carol@example.com',
-    score: 9, date: current_time, start_time: current_time - 1.day + 1.hour, end_time: current_time - 1.day + 2.hours,
-    word_name: 'Clock', attempts: 1
+    score: 1, date: current_time, start_time: current_time - 18.seconds, end_time: current_time,
+    word_name: 'Clock', attempts: 3
   },
-  # Additional Beginner game
   {
     category_name: 'Colors', difficulty_level: 'Beginner', user_email: 'alice@example.com',
-    score: 12, date: current_time, start_time: current_time - 1.hour, end_time: current_time,
+    score: 3, date: current_time, start_time: current_time - 5.seconds, end_time: current_time,
     word_name: 'Red', attempts: 1
   },
   # Intermediate game
   {
     category_name: 'Seasons & Weather', difficulty_level: 'Intermediate', user_email: 'bob@example.com',
-    score: 15, date: current_time, start_time: current_time - 3.hours, end_time: current_time - 2.hours,
-    word_name: 'Winter', attempts: 2
+    score: 3, date: current_time, start_time: current_time - 5.seconds, end_time: current_time,
+    word_name: 'Winter', attempts: 1
   },
-  # Additional Intermediate game
   {
     category_name: 'Food', difficulty_level: 'Intermediate', user_email: 'carol@example.com',
-    score: 17, date: current_time, start_time: current_time - 5.hours, end_time: current_time - 4.hours,
-    word_name: 'Pasta', attempts: 1
+    score: 2, date: current_time, start_time: current_time - 15.seconds, end_time: current_time,
+    word_name: 'Pasta', attempts: 2
   },
   # Advanced game
   {
     category_name: 'Health', difficulty_level: 'Advanced', user_email: 'alice@example.com',
-    score: 20, date: current_time, start_time: current_time - 1.day, end_time: current_time - 1.day + 1.hour,
-    word_name: 'Cardiology', attempts: 3
+    score: 3, date: current_time, start_time: current_time - 7.seconds, end_time: current_time,
+    word_name: 'Cardiology', attempts: 1
   },
-  # Additional Advanced game
   {
     category_name: 'Technology', difficulty_level: 'Advanced', user_email: 'bob@example.com',
-    score: 22, date: current_time, start_time: current_time - 2.days, end_time: current_time - 2.days + 1.hour,
-    word_name: 'Quantum Computing', attempts: 2
-  }
+    score: 3, date: current_time, start_time: current_time - 9.seconds, end_time: current_time,
+    word_name: 'Quantum Computing', attempts: 1
+  },
+  # Alice
+  {
+    category_name: 'Education', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 1, date: DateTime.new(2024, 6, 19), start_time: DateTime.new(2024, 6, 19) - 5.seconds, end_time: DateTime.new(2024, 6, 19),
+    word_name: 'Book', attempts: 3
+  },
+  {
+    category_name: 'Emotions', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 3, date: DateTime.new(2024, 6, 20), start_time: DateTime.new(2024, 6, 20) - 5.seconds, end_time: DateTime.new(2024, 6, 20),
+    word_name: 'Happy', attempts: 1
+  },
+  {
+    category_name: 'Nature', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 2, date: DateTime.new(2024, 6, 21), start_time: DateTime.new(2024, 6, 21) - 5.seconds, end_time: DateTime.new(2024, 6, 21),
+    word_name: 'Tree', attempts: 2
+  },
+  {
+    category_name: 'Health', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 1, date: DateTime.new(2024, 6, 22), start_time: DateTime.new(2024, 6, 22) - 5.seconds, end_time: DateTime.new(2024, 6, 22),
+    word_name: 'Exercise', attempts: 3
+  },
+  {
+    category_name: 'Sports', difficulty_level: 'Intermediate', user_email: 'alice@example.com',
+    score: 3, date: DateTime.new(2024, 6, 23), start_time: DateTime.new(2024, 6, 23) - 5.seconds, end_time: DateTime.new(2024, 6, 23),
+    word_name: 'Soccer', attempts: 1
+  },
+  {
+    category_name: 'Technology', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 2, date: DateTime.new(2024, 6, 24), start_time: DateTime.new(2024, 6, 24) - 5.seconds, end_time: DateTime.new(2024, 6, 24),
+    word_name: 'Computer', attempts: 2
+  },
+      {
+    category_name: 'Animals', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 3, date: DateTime.new(2024, 6, 10), start_time: DateTime.new(2024, 6, 25) - 5.seconds, end_time: DateTime.new(2024, 6, 25),
+    word_name: 'Dog', attempts: 1
+  },
+  {
+    category_name: 'Colors', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 3, date: DateTime.new(2024, 6, 11), start_time: DateTime.new(2024, 6, 26) - 5.seconds, end_time: DateTime.new(2024, 6, 26),
+    word_name: 'Blue', attempts: 1
+  },
+  {
+    category_name: 'Numbers', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 2, date: DateTime.new(2024, 6, 12), start_time: DateTime.new(2024, 6, 27) - 5.seconds, end_time: DateTime.new(2024, 6, 27),
+    word_name: 'One', attempts: 2
+  },
+  {
+    category_name: 'Seasons & Weather', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 1, date: DateTime.new(2024, 6, 13), start_time: DateTime.new(2024, 6, 28) - 5.seconds, end_time: DateTime.new(2024, 6, 28),
+    word_name: 'Spring', attempts: 3
+  },
+  {
+    category_name: 'Food', difficulty_level: 'Intermediate', user_email: 'alice@example.com',
+    score: 3, date: DateTime.new(2024, 6, 14), start_time: DateTime.new(2024, 6, 29) - 5.seconds, end_time: DateTime.new(2024, 6, 29),
+    word_name: 'Apple', attempts: 1
+  },
+  {
+    category_name: 'Travel', difficulty_level: 'Beginner', user_email: 'alice@example.com',
+    score: 2, date: DateTime.new(2024, 6, 15), start_time: DateTime.new(2024, 6, 30) - 5.seconds, end_time: DateTime.new(2024, 6, 30),
+    word_name: 'Train', attempts: 2
+  },
 ]
 
 
