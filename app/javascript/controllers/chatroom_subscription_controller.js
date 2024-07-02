@@ -13,6 +13,8 @@ export default class extends Controller {
       { received: (data) => { this.#receive(data) } }
     )
     console.log(`Subscribed to the chatroom with the id ${this.chatroomIdValue}.`)
+
+
   }
 
   #receive(data) {
@@ -38,12 +40,13 @@ export default class extends Controller {
 
   }
 
-  #buildMessageElement(currentUserIsSender, message) {
+  #buildMessageElement(currentUserIsSender, message, messageId) {
 
     return `
       <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
         <div class="${this.#userStyleClass(currentUserIsSender)}">
           ${message}
+
       </div>
     </div>
   `
