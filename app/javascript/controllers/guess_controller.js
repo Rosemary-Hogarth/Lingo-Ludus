@@ -136,19 +136,24 @@ export default class extends Controller {
   }
 
   addInputListeners() {
-    // automatically let's you input in the next field
     this.inputTargets.forEach((input, index) => {
-      // starts a loop that iterates over each element inside inputTargets array
       input.addEventListener("input", (event) => {
-        // for each element, an event listener is added "input" event happens when the value of input field is changed
-        this.checkFields(event); // call the checkField method to check if all input fields are filled
+        this.checkFields(event);
 
         if (input.value.length === input.maxLength) {
-          // checks if input field is filled comparing its length value to its maxLength attribute (which is 1)
-          const nextInput = this.inputTargets[index + 1]; // retrieves the next input field
+          let nextInput = null;
+          for (let i = index + 1; i < this.inputTargets.length; i++) {
+            const next = this.inputTargets[i];
+            if (
+              parseInt(next.dataset.attempts) === this.currentLine &&
+              !next.disabled
+            ) {
+              nextInput = next;
+              break;
+            }
+          }
           if (nextInput) {
-            // if there is a next input available
-            nextInput.focus(); // allows user to type in the next field without clicking on it
+            nextInput.focus();
           }
         }
       });
