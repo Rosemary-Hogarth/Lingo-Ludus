@@ -1,5 +1,6 @@
 body {
-  background-color: #FFFCF9;
+  background-color: white;
+  font-family: Roboto, sans-serif;
 }
 .banner {
   display: flex;
@@ -14,7 +15,6 @@ body {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 10px;
   color: white;
-  font-family: roboto;
   font-size: 12px;
 }
 
@@ -30,15 +30,11 @@ body {
   margin-bottom: 15px;
   margin-top: 40px;
   padding: 20px 80px;
-  // padding-bottom: 20px;
-  // padding-right: 70px;
-  // padding-left: 70px;
   border-radius: 30px;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-align: center;
     .score-header {
-      font-family: "Roboto", sans-serif;
       font-size: 20px;
       letter-spacing: 3px;
       font-weight: 400;
@@ -63,9 +59,9 @@ body {
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   min-height: 331.2px;
+  overflow-x: auto;
 
   p {
-    font-family: "Roboto", sans-serif;
     letter-spacing: 2px;
   }
 }
@@ -79,7 +75,6 @@ body {
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .average-over-time-header {
-    font-family: "Roboto";
     font-weight: 400;
     letter-spacing: 3px;
     font-size: 20px;
@@ -88,8 +83,9 @@ body {
 }
 
 .table {
-  font-family: "Roboto", sans-serif;
   font-weight: 100;
+  max-width: 100%;
+  table-layout: fixed;
 }
 
 td {
@@ -140,7 +136,6 @@ thead, tbody, tfoot, tr, td, th {
 }
 
 .extra-info-header {
-  font-family: Roboto, sans-serif;
   font-size: 20px;
   letter-spacing: 3px;
   font-weight: 500;
@@ -153,19 +148,36 @@ thead, tbody, tfoot, tr, td, th {
   justify-content: space-evenly;
 }
 
-.leaderboard {
-  border: 1px solid black;
-  padding: 18px;
-  border-radius: 30px;
-  background-color: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  margin-top: 30px;
-  display: column;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 40px;
+@media (max-width: 1199px)  {
+  .table {
+    font-size: 14px;
+  }
+    .total-score-container {
+      padding: 15px;
+    }
 }
 
-.card {
-  margin: 10px;
+@media (max-width: 991px) {
+  .table {
+    font-size: 10px;
+  }
+  .total-score-container {
+    padding: 15px;
+  }
+  .total-score-container .score-header .message {
+    font-size: 14px;
+}
+}
+@media (max-width: 769px) {
+  .table {
+    font-size: 14px;
+  }
+  .header-message {
+    font-size: 25px;
+  }
+  .dashboard-btn {
+    padding: 8px 13px;
+    font-size: 10px;
+  }
+
 }

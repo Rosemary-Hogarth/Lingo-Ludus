@@ -8,6 +8,7 @@ class DashboardsController < ApplicationController
     fetch_recent_games
     fetch_extra_info
     fetch_rankings
+    fetch_best_times
   end
 
   private
@@ -44,5 +45,16 @@ class DashboardsController < ApplicationController
             .select('users.*, COALESCE(SUM(games.score), 0) AS total_score') # coalesce makes score default to 0 if null
             .group('users.id')
             .order('total_score DESC')
+            .limit(10)
+  end
+
+  def fetch_best_times
+    @best_times = {}
+
+    User.includes(:games).each do |user|
+      best_game = user.games.where.not(start_time: nil, end_time: nil).min_by { |game| game.game_duration || Float::INFINITY }
+      @best_times[user.id] = best_game.game_duration if best_game.present? && best_game.game_duration.present?
+      @users = @users.sort_by { |user| @best_times[user.id] || Float::INFINITY }
+    end
   end
 end
