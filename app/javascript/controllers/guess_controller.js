@@ -8,7 +8,6 @@ export default class extends Controller {
     "category",
     "definition",
     "guessContainer",
-    "feedback",
     "next",
   ];
 
@@ -309,37 +308,40 @@ export default class extends Controller {
   updateButtonToNext() {
     // turn "play button into next button"
     this.nextTarget.textContent = "Next";
-    this.nextTarget.classList.add("disabled");
+    this.nextTarget.disabled = true;
+    this.nextTarget.classList.add("disabled")
   }
 
   updateButtonToPlay() {
     this.nextTarget.textContent = "Play";
-    this.nextTarget.classList.remove("disabled");
+    this.nextTarget.disabled = false;
+    this.nextTarget.classList.remove("disabled")
   }
 
   endGame(win, score, word_array, all_words_used, category, level) {
     // Provides feedback about winning or failing, giving a score if winning, giving the word if failing
     const word = word_array.join("");
-    const feedback = win
-      ? `Congratulations! You got ${score} points!`
-      : `Better luck next time! The answer was "${word}"`;
-    const feedbackContainer = this.feedbackTarget;
-    feedbackContainer.innerHTML = "";
+    // const feedback = win
+    //   ? `Congratulations! You got ${score} points!`
+    //   : `Better luck next time! The answer was "${word}"`;
+    // const feedbackContainer = this.feedbackTarget;
+    // feedbackContainer.innerHTML = "";
 
-    const feedbackElement = document.createElement("p");
-    feedbackElement.textContent = feedback;
-    feedbackContainer.appendChild(feedbackElement);
+    // const feedbackElement = document.createElement("p");
+    // feedbackElement.textContent = feedback;
+    // feedbackContainer.appendChild(feedbackElement);
 
     // Provides feedback if all words from category/level combo are exhausted
     const allWordsUsed = all_words_used;
     if (allWordsUsed) {
-      const allWordsUsedElement = document.createElement("p");
-      allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
-      feedbackContainer.appendChild(allWordsUsedElement);
+      // const allWordsUsedElement = document.createElement("p");
+      // allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
+      // feedbackContainer.appendChild(allWordsUsedElement);
       this.updateButtonToPlay();
     }
 
     this.nextTarget.classList.remove("disabled");
+    this.nextTarget.disabled = false;
     // Remove the timer when the game ends
     // this.timerContainerTarget.innerHTML = "";
   }
