@@ -45,7 +45,9 @@ class DashboardsController < ApplicationController
             .select('users.*, COALESCE(SUM(games.score), 0) AS total_score') # coalesce makes score default to 0 if null
             .group('users.id')
             .order('total_score DESC')
-            .limit(10)
+
+
+            @users.each { |user| Rails.logger.debug "User: #{user.id}, Total Score: #{user.total_score}" }
   end
 
   def fetch_best_times
