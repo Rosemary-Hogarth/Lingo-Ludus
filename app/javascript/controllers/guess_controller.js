@@ -16,13 +16,7 @@ export default class extends Controller {
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     console.log("event connected")
-    // Add an event listener for the timer checkbox
-    this.handleTimerCheckboxChange();
-    // Listen for the custom timerToggled event
-    document.addEventListener(
-      "timerToggled",
-      this.handleTimerVisibilityChange.bind(this)
-    );
+
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     console.log("event connected")
@@ -342,7 +336,5 @@ export default class extends Controller {
 
     this.nextTarget.classList.remove("disabled");
     this.nextTarget.disabled = false;
-    // Remove the timer when the game ends
-    // this.timerContainerTarget.innerHTML = "";
   }
 }
