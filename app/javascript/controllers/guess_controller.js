@@ -152,7 +152,7 @@ export default class extends Controller {
           <div class="flex-fill">
             <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1"
                   data-guess-target="input" data-index="${index}" data-attempts="${attempts}"
-                  data-char="${char}" class="form-control guess">
+                  data-char="${char}" class="form-control guess-big guess-big-${attempts} border border-dark rounded-2">
           </div>
         `;
       });
@@ -256,13 +256,17 @@ export default class extends Controller {
           .filter((input) => input.dataset.attempts === attempts) // filter received data to only get the one with data-attempts index that matches the attempts parameter
           .forEach((input, index) => {
             // for each filtered input
+            input.style.opacity = "100%"
             if (data.correct_guesses.includes(index)) {
               input.style.backgroundColor = "#18BBB1"; // green background if correct
+              // input.style.opacity = "100%"
               correctGuessCount++; // increment the count of correct guesses
             } else if (data.wrong_position.includes(index)) {
               input.style.backgroundColor = "#F9BF3B"; // orange background if misplaced
+              // input.style.opacity = "100%"
             } else {
-              input.style.backgroundColor = "#FF6042"; // red background if incorrect
+              input.style.backgroundColor = "#FF6042 "; // red background if incorrect
+              // input.style.opacity = "100%"
             }
           });
 
