@@ -1,20 +1,91 @@
+.game-main-container {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+/* DEFINITION */
+
+.definition-row {
+  align-items: center;
+  justify-content: center;
+}
+
 .definition-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  min-height: 300px;
+  text-align: center;
+  border-top: 4px solid black;
+  border-left: 4px solid black;
+  border-bottom: 8px solid black;
+  border-right: 8px solid black;
+  height: 30%;
+  min-height: 360px;
   margin-top: 64px;
   text-align: center;
+  width: 40%;
+  border-radius: 15px;
+  padding: 10px;
+  position: relative;
+  margin-bottom: 20px; /* Just for spacing in the example */
+  background-color: white;
+  p {
+    font-size: xx-large;
+    row-gap: 16px;
+  }
 }
+
+
+/* Styling for sender's speech bubble pointer */
+.definition-container::before {
+  content: ""; /* Required to generate the pseudo-element */
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: black transparent transparent transparent; /* Border colors for the triangle */
+  border-width: 60px 0px 2px 64px; /* Border widths to form the triangle shape */
+  bottom: calc(0% - 62px); /* Position the triangle below the message container */
+  left: calc(50% - 32px); /* Center the white triangle horizontally */
+}
+
+.definition-container::after {
+  content: ""; /* Required to generate the pseudo-element */
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: white transparent transparent transparent; /* Border colors for the triangle */
+  border-width: 52px 0px 2px 56px;
+  bottom: calc(0% - 54px); /* Position the triangle below the message container */
+  left: calc(50% - 32px); /* Center the white triangle horizontally */
+}
+
+.field {
+  &.difficulty,
+  &.category {
+    flex: 1;
+    width: auto;
+  }
+}
+
+.form-control.drop {
+  text-align: center;
+  font-size: larger;
+}
+
+/* INPUT FIELDS */
 
 .guess-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding: 16px;
+  justify-content: center;
+  align-items: center;
   margin-top: 32px;
-  margin-bottom: 32px;
+  overflow: hidden;
+  width: 100% !important;
 }
 
 .guess-container {
@@ -24,68 +95,104 @@
   justify-content: center;
   align-items: center;
   margin-top: 32px;
+  overflow: hidden;
+  padding: 4px;
 }
 
-// .grid-item {
-//   padding: 20px;
-//   text-align: center;
-//   border: 1px solid black;
-// }
-
-.field {
-  flex: 1;
-  width: auto;
-  text-align: center;
-}
-
-.button-container {
+.guess-field {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  max-width: 100%;
+  margin-left: 32px;
 }
 
-.btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: 1px solid black;
+.guess-big-0 {
+  background-color: rgba($color: #FF6042, $alpha: 0.5);
+  &:disabled {
+    background-color: rgba($color: #FF6042, $alpha: 0.5);
+  }
+  &:focus {
+    background-color: rgba($color: #FF6042, $alpha: 0.5);
+  }
+}
+
+.guess-big-1 {
+  background-color: rgba($color: #F9BF3B, $alpha: 0.5);
+  &:disabled {
+    background-color: rgba($color: #F9BF3B, $alpha: 0.5);
+  }
+  &:focus {
+    background-color: rgba($color: #F9BF3B, $alpha: 0.5);
+  }
+}
+
+.guess-big-2 {
+  background-color: rgba($color: #18BBB1, $alpha: 0.5);
+  &:disabled {
+    background-color: rgba($color: #18BBB1, $alpha: 0.5);
+  }
+  &:focus {
+    background-color: rgba($color: #18BBB1, $alpha: 0.5);
+  }
 }
 
 .flex-fill {
   flex: 1 1 auto;
 }
 
-.guess-field {
-  display: flex;
+.guess-big {
+  width: 48px;
+  height: 48px;
   justify-content: center;
-  gap: 24px;
-}
-
-.feedback-container {
-  text-align: center;
-  padding: 32px;
-  max-width: 400px;
-}
-
-#next-game-btn {
-  background-color: #9163ea;
-  margin-right: 80px;
-}
-
-.score-btn {
-  margin-left: 80px;
-}
-
-.guess {
-  width: 32px;
-  height: 32px;
   text-align: center;
   margin-bottom: 48px;
   padding: 0;
+  font-size: xx-large;
 }
 
-.form-control {
-  text-align: center;
+.form-control.guess {
+    text-align: center;
+  }
+
+#line-0 {
+  background-color: #FF6042 !important;
+}
+
+#line-1 {
+  background-color: #F9BF3B !important;
+}
+
+#line-2 {
+  background-color: #18BBB1 !important;
+}
+
+/* SCORE FEEDBACK TIMER */
+
+.button-row {
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-game {
+  min-width: 160px;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: x-large;
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: #9163ea;
+  border-radius: 4px;
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 
 // .fade-in {
@@ -102,4 +209,31 @@
   font-size: 1.3rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+@media (max-width: 1200px) {
+  .definition-container {
+    min-height: 300px; /* Min-height for screens up to 1200px */
+  }
+}
+
+@media (max-width: 992px) {
+  .definition-container {
+    min-height: 300px; /* Min-height for screens up to 992px */
+    min-width: 550px;
+  }
+}
+
+@media (max-width: 768px) {
+  .definition-container {
+    min-height: 200pxpx; /* Min-height for screens up to 768px */
+    min-width: 450px;
+  }
+}
+
+@media (max-width: 576px) {
+  .definition-container {
+    min-height: 175px; /* Min-height for screens up to 576px */
+    min-width: 300px;
+  }
 }
