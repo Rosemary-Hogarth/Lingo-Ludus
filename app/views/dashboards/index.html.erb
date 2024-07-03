@@ -108,6 +108,7 @@
   <div id="top-scores" class="tab-pane fade show active">
     <div class="cards">
       <% @users.each_with_index do |user, index| %>
+      <% if index < 10 %>
         <% Rails.logger.debug "Rendering User: #{user.id}, Total Score: #{user.total_score}" %>
         <div class="card <%= 'highlight' if user == @user %>">
           <div class="card-body">
@@ -130,6 +131,7 @@
             </div>
           </div>
         </div>
+      <% end %>
       <% end %>
     </div>
   </div>
