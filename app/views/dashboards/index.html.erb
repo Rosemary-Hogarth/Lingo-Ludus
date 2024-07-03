@@ -88,3 +88,95 @@
         </div>
     </div>
 </div>
+
+<div class="leaderboard">
+  <div class="leaderboard-header">Leaderboard</div>
+    <!-- Nav Tabs--->
+  <ul id="dashboard-navbar" class="nav nav-tabs bg-light text-black d-flex justify-content-center mt-4 mb-5">
+    <!-- Top scores-->
+    <li class="nav-item">
+      <a class="nav-link active text-black" data-bs-toggle="tab" href="#top-scores">Top scores</a>
+    </li>
+    <!-- Top times -->
+    <li class="nav-item">
+      <a class="nav-link text-black" data-bs-toggle="tab" href="#top-times">Top times</a>
+    </li>
+  </ul>
+
+<div class="tab-content">
+  <!-- Top scores -->
+  <div id="top-scores" class="tab-pane fade show active">
+    <div class="cards">
+      <% @users.each_with_index do |user, index| %>
+      <% if index < 10 %>
+        <% Rails.logger.debug "Rendering User: #{user.id}, Total Score: #{user.total_score}" %>
+        <div class="card <%= 'highlight' if user == @user %>">
+          <div class="card-body">
+            <div class="left-side">
+              <div class="index"><%= index + 1 %></div>
+              <div class="avatar">
+                <%= image_tag "https://api.dicebear.com/9.x/pixel-art/svg?seed=#{CGI.escape(user.email)}", alt: 'avatar', class: 'avatar-img' %>
+              </div>
+              <div class="name">
+                <% if user == @user %>
+                  You
+                <% else %>
+                  <%= user.first_name %>
+                <% end %>
+              </div>
+            </div>
+            <div class="total-score">
+              <i class="fa-regular fa-star"></i>
+              Total score: <%= user.total_score %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+
+
+
+
+    <!-- Top times -->
+    <div id="top-times" class="tab-pane fade">
+      <div class="cards">
+        <% @users.each_with_index do |user, index| %>
+          <% if index < 10 %>
+          <div class="card <%= 'highlight' if user == @user %>">
+            <div class="card-body">
+              <div class="left-side">
+                <div class="index"><%= index + 1 %></div>
+                <div class="avatar">
+                  <%= image_tag "https://api.dicebear.com/9.x/pixel-art/svg?seed=#{CGI.escape(user.email)}", alt: 'avatar', class: 'avatar-img' %>
+                </div>
+                <div class="name">
+                  <% if user == @user %>
+                    You
+                  <% else %>
+                    <%= user.first_name %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="best-time-game">
+                <i class="fa-regular fa-clock"></i>
+                <% if @best_times[user.id].present? %>
+                  <% if @best_times[user.id] == 1 %>
+                    Best time: <%= @best_times[user.id] %> sec
+                  <% else %>
+                    Best time: <%= @best_times[user.id] %> secs
+                  <% end %>
+                <% else %>
+                  No games yet.
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
