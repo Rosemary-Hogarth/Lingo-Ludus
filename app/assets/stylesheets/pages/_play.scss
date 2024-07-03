@@ -30,9 +30,13 @@
   padding: 10px;
   position: relative;
   margin-bottom: 20px; /* Just for spacing in the example */
-  display: inline-block; /* Ensures inline display */
   background-color: white;
+  p {
+    font-size: x-large;
+    row-gap: 16px;
+  }
 }
+
 
 /* Styling for sender's speech bubble pointer */
 .definition-container::before {
@@ -69,6 +73,7 @@
 
 .form-control.drop {
   text-align: center;
+  font-size: larger;
 }
 
 /* INPUT FIELDS */
