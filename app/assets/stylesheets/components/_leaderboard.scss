@@ -65,7 +65,7 @@
   font-size: 20px;
 }
 
-.avatar {
+.avatar-leaderboard {
   width: 40px;
   height: 40px;
   margin-right: 20px;
@@ -86,7 +86,7 @@
 }
 
 .best-time-game {
-  font-size: 18px;
+  font-size: 16px;
   margin-right: 45px;
 }
 
@@ -97,5 +97,22 @@
   }
   .card-body .total-score {
     margin-right: 10px;
+  }
+  .best-time-game {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 991px) {
+  .best-time-game {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-left: 50px;
   }
 }
