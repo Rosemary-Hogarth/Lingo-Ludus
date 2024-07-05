@@ -4,19 +4,47 @@
   padding: 8px;
 }
 
-// To style the message itself
 .sender-style, .receiver-style {
   width: 70%;
   max-width: 400px;
-  border-radius: 4px;
-  padding: 8px;
+  border-radius: 15px;
+  padding: 10px;
   min-height: 80px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  position: relative;
+  margin-bottom: 20px; /* Just for spacing in the example */
+  display: inline-block; /* Ensures inline display */
+}
+
+/* Pseudo-element ::before for speech bubble pointer */
+.sender-style::before, .receiver-style::before {
+  content: ""; /* Required to generate the pseudo-element */
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Styling for sender's speech bubble pointer */
+.sender-style::before {
+  border-color: #5c3f959d transparent transparent transparent; /* Border colors for the triangle */
+  border-width: 20px 0px 2px 20px; /* Border widths to form the triangle shape */
+  bottom: -22px; /* Position the triangle below the message container */
+  left: 20px; /* Position the triangle towards the left */
+}
+
+/* Styling for receiver's speech bubble pointer */
+.receiver-style::before {
+  border-color: #18bbb0 transparent transparent transparent;
+  border-width: 20px 0px 2px 20px;
+  bottom: -20px;
+  right: 20px;
 }
 
 .sender-style {
-  background-color: #1098e1b5;
+  background-color: #5c3f959d;
 }
 
 .receiver-style {
-  background-color:  #18bbb0ba;
+  background-color: #18bbb0;
 }

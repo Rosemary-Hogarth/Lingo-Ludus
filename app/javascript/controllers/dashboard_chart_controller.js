@@ -7,22 +7,56 @@ export default class extends Controller {
   connect() {
     const dashboardChartData = JSON.parse(this.element.dataset.dashboardChartDataValue);
     console.log(dashboardChartData);
+
+
+    const difficultyLevels = Object.keys(dashboardChartData);
+    const attemptsData = Object.values(dashboardChartData);
+
+       // Define colors for each difficulty level
+      const backgroundColors = [
+        'rgba(201, 203, 207, 0.2)',  // Beginner
+        'rgba(201, 203, 207, 0.2)',  // Intermediate
+        'rgba(201, 203, 207, 0.2)',  // Advanced
+      ];
+
+      const borderColors = [
+        'rgba(75, 192, 192)',    // Beginner
+        'rgba(75, 192, 192)',    // Intermediate
+        'rgba(75, 192, 192)',    // Advanced
+      ];
+
     // Create the chart
     new Chart(this.element, {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: Object.keys(dashboardChartData),   // Use the days as labels --> see dashboard#index
+        labels: difficultyLevels,
         datasets: [{
-          label: 'Average Scores',
-          data: Object.values(dashboardChartData), // Use the scores as data  --> see dashboard#index
+          label: 'Attempts',
+          data: attemptsData,
           borderWidth: 1,
-          borderColor: 'pink',
-          backgroundColor: 'rgba(0, 0, 255, 0.2)'
+          borderColor: borderColors.slice(0, difficultyLevels.length),
+          backgroundColor: backgroundColors.slice(0, difficultyLevels.length)
         }]
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            stepSize: 1,
+            title: {
+              display: true,
+              text: 'Number of Attempts'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Difficulty Levels'
+            }
+          }
+        }
       }
     });
   }

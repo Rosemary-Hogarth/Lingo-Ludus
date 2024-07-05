@@ -1,18 +1,21 @@
-<div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+<div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true" data-controller="rules-modal" data-rules-modal-target="modal">
   <div class="modal-dialog">
     <div class="modal-content">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       <div class="modal-header">
-        <h5 class="modal-title" id="rulesModalLabel">How To Play</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="welcome-message-modal">Welcome to Lingo Ludus!</div>
       </div>
       <!-- BEGIN modal body -->
       <div class="modal-body">
-        <p class="modal-gues">Guess the correct word within 3 attempts.</p>
-        <ul>
-          <li>Choose a level and a category.</li>
-          <li>The tile color will change to show how close your guess is to the word.</li>
-        </ul>
-        <h6 class="mt-2">Example</h6>
+        <h5 class="game-modal-title" id="rulesModalLabel">How To Play</h5>
+        <div class="para-1">
+          <p class="modal-gues">Guess the correct word within 3 attempts.</p>
+          <ul>
+            <li>Choose a level and a category.</li>
+            <li>The tile color will change to show how close your guess is to the word.</li>
+          </ul>
+        </div>
+        <h6 class="example-title mt-2">Example</h6>
         <div class="modal-row">
           <div class="tile correct">P</div>
           <div class="tile present">A</div>
@@ -23,18 +26,18 @@
         <p class="ml-3 mt-2"><strong>P</strong> is in the word and in the correct spot.</p>
         <p class="ml-3"><strong>A</strong> is in the word but in the wrong spot.</p>
         <p class="ml-3"><strong>C</strong>, <strong>E</strong>, <strong>D</strong> are not in the word or in any spot.</p>
-        <div class="modal-row">
-          <div class="tile correct">P</div>
-          <div class="tile correct">L</div>
-          <div class="tile correct">A</div>
-          <div class="tile correct">N</div>
-          <div class="tile correct">T</div>
+        <div class="para-2">
+          <div class="modal-row">
+            <div class="tile correct">P</div>
+            <div class="tile correct">L</div>
+            <div class="tile correct">A</div>
+            <div class="tile correct">N</div>
+            <div class="tile correct">T</div>
+          </div>
         </div>
       </div>
-      <!-- END -->
-      <div class="modal-footer">
-        <!--<button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Close</button>-->
-      </div>
+      <!-- END modal body -->
+      <div class="modal-footer"></div>
     </div>
   </div>
 </div>

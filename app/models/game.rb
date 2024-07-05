@@ -30,15 +30,13 @@ class Game < ApplicationRecord
     words.sample  # returns a single random word
   end
 
+
   def game_duration
-    return nil if start_time.nil? || end_time.nil?
-
-    start_time = self.start_time
-    end_time = self.end_time
-
-    duration_seconds = (end_time - start_time).to_i
-    duration_seconds
+    return Float::INFINITY if start_time.nil? || end_time.nil?
+    (end_time - start_time).to_i
   end
+
+
 
   private
 
