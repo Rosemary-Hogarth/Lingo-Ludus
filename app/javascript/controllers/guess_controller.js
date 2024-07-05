@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import ConfettiController from "./confetti_controller"
 
 // Connects to data-controller="guess"
 export default class extends Controller {
@@ -8,7 +9,7 @@ export default class extends Controller {
     "category",
     "definition",
     "guessContainer",
-    "next",
+    "next"
   ];
 
   connect() {
@@ -21,6 +22,7 @@ export default class extends Controller {
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     console.log("event connected")
   }
+
 
   // Method to handle keydown events
   enterKeyUp(event) {
@@ -265,6 +267,8 @@ export default class extends Controller {
 
         if (correctGuessCount === data.word_array.length) {
           // compares count of correct letters with length of array containing letters of the word to be guessed
+
+
           this.endGame(
             true,
             data.score,
@@ -299,6 +303,8 @@ export default class extends Controller {
       .catch((error) => console.error("Error:", error)); // debugging
   }
 
+
+
   updateButtonToNext() {
     // turn "play button into next button"
     this.nextTarget.textContent = "Next";
@@ -332,7 +338,11 @@ export default class extends Controller {
       // allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
       // feedbackContainer.appendChild(allWordsUsedElement);
       this.updateButtonToPlay();
-    }
+
+        // Trigger confetti if all words are used
+        const confettiController = new ConfettiController();
+        confettiController.showConfetti();
+      }
 
     this.nextTarget.classList.remove("disabled");
     this.nextTarget.disabled = false;

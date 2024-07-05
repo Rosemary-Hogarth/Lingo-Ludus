@@ -10,3 +10,4 @@ pin "@popperjs/core", to: "popper.js", preload: true
 pin "chart.js", to: "https://ga.jspm.io/npm:chart.js@4.2.0/dist/chart.js"
 pin "@kurkle/color", to: "https://ga.jspm.io/npm:@kurkle/color@0.3.2/dist/color.esm.js"
 pin "@rails/actioncable", to: "@rails--actioncable.js" # @7.1.3
+pin "canvas-confetti", to: "https://ga.jspm.io/npm:canvas-confetti@1.9.3/dist/confetti.module.mjs"

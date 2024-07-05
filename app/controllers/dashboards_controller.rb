@@ -65,6 +65,4 @@ class DashboardsController < ApplicationController
 
     @top_time_users = @top_time_users.sort_by { |user| @average_times[user.id] == 'N/A' ? Float::INFINITY : @average_times[user.id] }.first(10)
   end
-
-
 end
