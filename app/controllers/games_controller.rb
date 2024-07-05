@@ -18,6 +18,7 @@ class GamesController < ApplicationController
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current # starts the "timer"
     @game.language_id ||= 1 # Default to English if no language is selected
+    @game.language_id ||= 1 # Default to English if no language is selected
 
     last_words_id = session[:used_word_ids] ||= [] # makes sure last_words_id is an array, empty if session is empty
 
