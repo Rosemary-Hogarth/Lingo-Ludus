@@ -8,31 +8,19 @@ export default class extends Controller {
     "category",
     "definition",
     "guessContainer",
+    "feedback",
     "next",
   ];
 
   connect() {
     this.addedInputListeners = false; // Track if input listeners have been added
-
-    document.addEventListener("keyup", this.enterKeyUp.bind(this));
-    console.log("event connected")
-
-
-    document.addEventListener("keyup", this.enterKeyUp.bind(this));
-    console.log("event connected")
-  }
-
-  // Method to handle keydown events
-  enterKeyUp(event) {
-    // Check if the key pressed is Enter (key code 13)
-    if (event.keyCode === 13) {
-      // Prevent default behavior of the Enter key (form submission)
-      event.preventDefault();
-
-      // Trigger click on the "Next" button
-      console.log("keyup")
-      this.nextTarget.click();
-    }
+    // Add an event listener for the timer checkbox
+    this.handleTimerCheckboxChange();
+    // Listen for the custom timerToggled event
+    document.addEventListener(
+      "timerToggled",
+      this.handleTimerVisibilityChange.bind(this)
+    );
   }
 
   createGame(event) {
@@ -69,21 +57,13 @@ export default class extends Controller {
           this.updateGuessContainer(data.word_array); // triggers the update of the guess container using selected word_array
           this.disableInputsForLine(this.currentLine); // calls the method that will disable second and third lines
           this.updateButtonToNext();
+
           this.startTimer(data.start_time); // Call method to insert timer element
 
           if (!this.addedInputListeners) {
             this.addInputListeners(); // calls method to add event listener on each input field
             this.addedInputListeners = true; // Ensure listeners are added only once
           }
-
-           // Automatically focus the first input field
-           const firstInput = this.inputTargets.find(
-            (input) => parseInt(input.dataset.attempts) === 0
-          );
-          if (firstInput) {
-            firstInput.focus();
-          }
-
         } else if (data.message) {
           alert(data.message); // just here for now to have feedback displayed on the browser when exhausting all words
         } else if (data.error) {
@@ -107,73 +87,66 @@ export default class extends Controller {
     const timerElement = document.createElement("div");
     timerElement.setAttribute("data-controller", "timer");
     timerElement.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
-    timerElement.innerHTML = `<div class="timer"><span data-timer-target="time">00:00:00</span></div>`;
+    timerElement.innerHTML = `<p class="text-center h4"><span class="text-center" data-timer-target="time">00:00:00</span></p>`;
 
     // Insert the timer element into the DOM
     this.element.appendChild(timerElement);
   }
 
   disableInputsForLine(line) {
-    // Method for disabling inputs based on current line and whitespace condition
+    // method for disabling lines preventing the user to input in another line than its current attempt
     this.inputTargets.forEach((input) => {
-      const attempts = parseInt(input.dataset.attempts);
-
-      // Check if it's a whitespace character
-      if (input.dataset.char === " ") {
-        input.disabled = true; // Always disable whitespace inputs
-      } else if (attempts === this.currentLine) {
-        input.disabled = false; // Enable for current line
+      // iterates through the inputTargets array
+      const line = parseInt(input.dataset.attempts); // retrieve the value of data-attempts from current input element
+      if (line === this.currentLine) {
+        // if the line extracted from data-attempts matches the current line
+        input.disabled = false; // allows inputs
       } else {
-        input.disabled = true; // Disable for other lines
+        input.disabled = true; // if not, disable inputs
       }
     });
   }
 
   updateGuessContainer(wordArray) {
-    // Transition between the first static page and the game
-    this.guessContainerTarget.innerHTML = ""; // Clear the HTML
-    this.guessContainerTarget.classList.remove("guess-container-layout"); // Remove layout class
-    this.guessContainerTarget.classList.add("guess-container"); // Apply new styling class
+    // transition between first static page and game
+    this.guessContainerTarget.innerHTML = ""; // clear the html
+    this.guessContainerTarget.classList.remove("guess-container-layout"); // remove layout class
+    this.guessContainerTarget.classList.add("guess-container"); // applies new styling class
 
-    let html = ""; // Initialize an HTML variable
+    let html = ""; // initiate an html variable
     for (let attempts = 0; attempts < 3; attempts++) {
-      // Start a loop that will iterate 3 times
-      html += `<div class="guess-field" data-attempts="${attempts}">`; // Div containing a line of inputs, has an attempts data index attribute used in other methods
+      // start a loop that will iterate 3 times
+      html += `<div class="guess-field" data-attempts="${attempts}">`; // div containing a line of inputs, has an attempts data index attribute used in other methods
       wordArray.forEach((char, index) => {
-        // Create as many input fields on a line as there are letters in the word to guess
+        // creates as many input field on a line that there are letter in the word to guess
         html += `
-          <div class="flex-fill">
+          <div class= "flex-fill">
             <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1"
                   data-guess-target="input" data-index="${index}" data-attempts="${attempts}"
-                  data-char="${char}" class="form-control guess-big guess-big-${attempts} border border-dark rounded-2">
+                  class="form-control guess">
           </div>
-        `;
-      });
-      html += "</div>"; // Close the div
+        `; // sets the html for each input field, giving them and index in their line and the attempt of their line
+      }); // also sets the maxlength used in addEventListener method and the target "input" used throughout this controller
+      html += "</div>"; // closes the div
     }
-    this.guessContainerTarget.innerHTML = html; // Insert generated HTML
-    this.addInputListeners(); // Call the method responsible for automatic typing without clicking on input fields
+    this.guessContainerTarget.innerHTML = html; // inserts generated html
+    this.addInputListeners(); // calls the method responsible for automatic typing without clicking on input fields
   }
 
   addInputListeners() {
+    // automatically let's you input in the next field
     this.inputTargets.forEach((input, index) => {
+      // starts a loop that iterates over each element inside inputTargets array
       input.addEventListener("input", (event) => {
-        this.checkFields(event);
+        // for each element, an event listener is added "input" event happens when the value of input field is changed
+        this.checkFields(event); // call the checkField method to check if all input fields are filled
 
         if (input.value.length === input.maxLength) {
-          let nextInput = null;
-          for (let i = index + 1; i < this.inputTargets.length; i++) {
-            const next = this.inputTargets[i];
-            if (
-              parseInt(next.dataset.attempts) === this.currentLine &&
-              !next.disabled
-            ) {
-              nextInput = next;
-              break;
-            }
-          }
+          // checks if input field is filled comparing its length value to its maxLength attribute (which is 1)
+          const nextInput = this.inputTargets[index + 1]; // retrieves the next input field
           if (nextInput) {
-            nextInput.focus();
+            // if there is a next input available
+            nextInput.focus(); // allows user to type in the next field without clicking on it
           }
         }
       });
@@ -183,24 +156,18 @@ export default class extends Controller {
   checkFields(event) {
     if (!event) return;
 
-    const attempts = event.target.dataset.attempts; // Accessing data-attempts attribute from the target input
-
-    // Filter inputs for the current line and only include enabled inputs
+    const attempts = event.target.dataset.attempts; // accessing data attempts attribute from "data-attempts" in the DOM
     const rowInputs = this.inputTargets.filter(
-      (input) =>
-        parseInt(input.dataset.attempts) === this.currentLine &&
-        !input.disabled
-    );
-
-    // Check if all enabled inputs on the current line are filled
-    const allFilled = rowInputs.every((input) => input.value.trim() !== "");
+      (input) => parseInt(input.dataset.attempts) === this.currentLine
+    ); // retrieve all inputs on a specific line defines by its attempts index
+    const allFilled = rowInputs.every((input) => input.value.trim() !== ""); // checks if all retrieved inputs are filled
 
     if (allFilled) {
-      this.check(attempts); // Trigger your logic when all inputs are filled
+      this.check(attempts);
       if (this.currentLine < this.inputLines - 1) {
-        // Move to the next line if it's not the last line
-        this.currentLine++;
-        this.disableInputsForLine(this.currentLine); // Disable inputs for the new current line
+        // if it is not the last line
+        this.currentLine++; // increment current line to get to the next one
+        this.disableInputsForLine(); // calls method to only have one line enabled at any time
       }
     }
   }
@@ -214,19 +181,13 @@ export default class extends Controller {
     }
 
     const inputData = {}; // empty array where we will store the inputs
-    this.inputTargets.forEach((input) => {
-      const index = input.dataset.index;
-      if (input.dataset.attempts === attempts) {
-        if (input.disabled) {
-          // Treat disabled inputs as whitespace
-          inputData[`guess_${index}`] = " ";
-        } else {
-          inputData[`guess_${index}`] = input.value.trim().toLowerCase();
-        }
-      }
-    });
-
-
+    this.inputTargets
+      .filter((input) => input.dataset.attempts === attempts) // filter received data to only get the one with data-attempts index that matches the attempts parameter
+      .forEach((input) => {
+        // for each filtered input
+        const index = input.dataset.index; //retrieve index from data-index
+        inputData[`guess_${index}`] = input.value.trim().toLowerCase(); // sanitize data and store as value in inputData with key :"guess_index"
+      });
 
     console.log("Input data:", inputData); // debugging
 
@@ -249,17 +210,13 @@ export default class extends Controller {
           .filter((input) => input.dataset.attempts === attempts) // filter received data to only get the one with data-attempts index that matches the attempts parameter
           .forEach((input, index) => {
             // for each filtered input
-            input.style.opacity = "100%"
             if (data.correct_guesses.includes(index)) {
               input.style.backgroundColor = "#18BBB1"; // green background if correct
-              // input.style.opacity = "100%"
               correctGuessCount++; // increment the count of correct guesses
             } else if (data.wrong_position.includes(index)) {
               input.style.backgroundColor = "#F9BF3B"; // orange background if misplaced
-              // input.style.opacity = "100%"
             } else {
-              input.style.backgroundColor = "#FF6042 "; // red background if incorrect
-              // input.style.opacity = "100%"
+              input.style.backgroundColor = "#FF6042"; // red background if incorrect
             }
           });
 
@@ -302,39 +259,38 @@ export default class extends Controller {
   updateButtonToNext() {
     // turn "play button into next button"
     this.nextTarget.textContent = "Next";
-    this.nextTarget.disabled = true;
-    this.nextTarget.classList.add("disabled")
+    this.nextTarget.classList.add("disabled");
   }
 
   updateButtonToPlay() {
     this.nextTarget.textContent = "Play";
-    this.nextTarget.disabled = false;
-    this.nextTarget.classList.remove("disabled")
+    this.nextTarget.classList.remove("disabled");
   }
 
   endGame(win, score, word_array, all_words_used, category, level) {
     // Provides feedback about winning or failing, giving a score if winning, giving the word if failing
     const word = word_array.join("");
-    // const feedback = win
-    //   ? `Congratulations! You got ${score} points!`
-    //   : `Better luck next time! The answer was "${word}"`;
-    // const feedbackContainer = this.feedbackTarget;
-    // feedbackContainer.innerHTML = "";
+    const feedback = win
+      ? `Congratulations! You got ${score} points!`
+      : `Better luck next time! The answer was "${word}"`;
+    const feedbackContainer = this.feedbackTarget;
+    feedbackContainer.innerHTML = "";
 
-    // const feedbackElement = document.createElement("p");
-    // feedbackElement.textContent = feedback;
-    // feedbackContainer.appendChild(feedbackElement);
+    const feedbackElement = document.createElement("p");
+    feedbackElement.textContent = feedback;
+    feedbackContainer.appendChild(feedbackElement);
 
     // Provides feedback if all words from category/level combo are exhausted
     const allWordsUsed = all_words_used;
     if (allWordsUsed) {
-      // const allWordsUsedElement = document.createElement("p");
-      // allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
-      // feedbackContainer.appendChild(allWordsUsedElement);
+      const allWordsUsedElement = document.createElement("p");
+      allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
+      feedbackContainer.appendChild(allWordsUsedElement);
       this.updateButtonToPlay();
     }
 
     this.nextTarget.classList.remove("disabled");
-    this.nextTarget.disabled = false;
+    // Remove the timer when the game ends
+    this.timerContainerTarget.innerHTML = "";
   }
 }
