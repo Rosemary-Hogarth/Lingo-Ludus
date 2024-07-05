@@ -17,12 +17,12 @@ export default class extends Controller {
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     // console.log("event connected")
     // Add an event listener for the timer checkbox
-    this.handleTimerCheckboxChange();
-    // Listen for the custom timerToggled event
-    document.addEventListener(
-      "timerToggled",
-      this.handleTimerVisibilityChange.bind(this)
-    );
+    // this.handleTimerCheckboxChange();
+    // // Listen for the custom timerToggled event
+    // document.addEventListener(
+    //   "timerToggled",
+    //   this.handleTimerVisibilityChange.bind(this)
+    // );
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     console.log("event connected")
@@ -150,7 +150,7 @@ export default class extends Controller {
         html += `
           <div class="flex-fill">
             <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1"
-                  data-guess-target="input" data-index="${index}" data-attempts="${attempts}"
+                  data-guess-target="input" data-dark-mode-target="input" data-index="${index}" data-attempts="${attempts}"
                   data-char="${char}" class="form-control guess-big guess-big-${attempts} border border-dark rounded-2">
           </div>
         `;

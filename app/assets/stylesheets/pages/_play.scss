@@ -31,10 +31,15 @@
   position: relative;
   margin-bottom: 20px; /* Just for spacing in the example */
   background-color: white;
+
   p {
     font-size: xx-large;
     row-gap: 16px;
   }
+}
+
+.dark-mode .definition-container {
+  background-color: #FFFCF9;
 }
 
 
@@ -63,17 +68,29 @@
   left: calc(50% - 32px); /* Center the white triangle horizontally */
 }
 
+.row {
+  .field {
+    .form-control {
+      background-color: #FFFFFF;
+      color: #000000;
+      text-align: center;
+      font-size: larger;
+
+
+      .dark-mode & {
+        background-color: #FFFCF9;
+        border-color: #FFFFFF;
+      }
+    }
+  }
+}
+
 .field {
   &.difficulty,
   &.category {
     flex: 1;
     width: auto;
   }
-}
-
-.form-control.drop {
-  text-align: center;
-  font-size: larger;
 }
 
 /* INPUT FIELDS */
@@ -135,6 +152,22 @@
   }
   &:focus {
     background-color: rgba($color: #1097E1, $alpha: 0.25);
+  }
+}
+
+.dark-mode {
+  .guess-big-0,
+  .guess-big-1,
+  .guess-big-2 {
+    background-color: rgba($color: #1097E1, $alpha: 1);
+
+    &:disabled {
+      background-color: rgba($color: grey, $alpha: 1);
+    }
+
+    &:focus {
+      background-color: rgba($color: #1097E1, $alpha: 1);
+    }
   }
 }
 
