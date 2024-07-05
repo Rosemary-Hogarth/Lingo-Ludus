@@ -109,32 +109,32 @@
 }
 
 .guess-big-0 {
-  background-color: rgba($color: #FF6042, $alpha: 0.5);
+  background-color: rgba($color: #1097E1, $alpha: 0.25);
   &:disabled {
-    background-color: rgba($color: #FF6042, $alpha: 0.5);
+    background-color: rgba($color: grey, $alpha: 0.25);
   }
   &:focus {
-    background-color: rgba($color: #FF6042, $alpha: 0.5);
+    background-color: rgba($color: #1097E1, $alpha: 0.25);
   }
 }
 
 .guess-big-1 {
-  background-color: rgba($color: #F9BF3B, $alpha: 0.5);
+  background-color: rgba($color: #1097E1, $alpha: 0.25);
   &:disabled {
-    background-color: rgba($color: #F9BF3B, $alpha: 0.5);
+    background-color: rgba($color: grey, $alpha: 0.25);
   }
   &:focus {
-    background-color: rgba($color: #F9BF3B, $alpha: 0.5);
+    background-color: rgba($color: #1097E1, $alpha: 0.25);
   }
 }
 
 .guess-big-2 {
-  background-color: rgba($color: #18BBB1, $alpha: 0.5);
+  background-color: rgba($color: #1097E1, $alpha: 0.25);
   &:disabled {
-    background-color: rgba($color: #18BBB1, $alpha: 0.5);
+    background-color: rgba($color: grey, $alpha: 0.25);
   }
   &:focus {
-    background-color: rgba($color: #18BBB1, $alpha: 0.5);
+    background-color: rgba($color: #1097E1, $alpha: 0.25);
   }
 }
 
@@ -192,6 +192,7 @@
   border-radius: 4px;
   &.disabled {
     cursor: not-allowed;
+    background-color: rgba($color: #9163ea, $alpha: 0.5);
   }
 }
 
