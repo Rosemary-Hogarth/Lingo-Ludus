@@ -158,44 +158,42 @@
 
 
 
-   <!-- Top times -->
-<div id="top-times" class="tab-pane fade">
-  <div class="cards">
-    <% @top_time_users.each_with_index do |user, index| %>
-      <div class="card <%= 'highlight' if user == @user %>">
-        <div class="card-body">
-          <div class="left-side">
-            <div class="index">
-              <% if index < 3 %>
-                <i class="fa-solid fa-crown"></i>
-              <% else %>
-                <%= index + 1 %>
-              <% end %>
-            </div>
-            <div class="avatar-leaderboard">
-              <%= image_tag "https://api.dicebear.com/9.x/pixel-art/svg?seed=#{CGI.escape(user.email)}", alt: 'avatar', class: 'avatar-img' %>
-            </div>
-            <div class="name">
-              <% if user == @user %>
-                You
-              <% else %>
-                <%= user.first_name %>
-              <% end %>
+    <!-- Top times -->
+    <div id="top-times" class="tab-pane fade">
+      <div class="cards">
+        <% @top_time_users.each_with_index do |user, index| %>
+          <div class="card <%= 'highlight' if user == @user %>">
+            <div class="card-body">
+              <div class="left-side">
+                <div class="index">
+                  <% if index < 3 %>
+                    <i class="fa-solid fa-crown"></i>
+                  <% else %>
+                    <%= index + 1 %>
+                  <% end %>
+                </div>
+                <div class="avatar-leaderboard">
+                  <%= image_tag "https://api.dicebear.com/9.x/pixel-art/svg?seed=#{CGI.escape(user.email)}", alt: 'avatar', class: 'avatar-img' %>
+                </div>
+                <div class="name">
+                  <% if user == @user %>
+                    You
+                  <% else %>
+                    <%= user.first_name %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="best-time-game">
+                <% if @average_times[user.id].present? %>
+                  Average time over last 10 games: <i class="fa-regular fa-clock"></i><span> <%= @average_times[user.id] %><%= @average_times[user.id] == 1 ? ' sec' : ' secs' %></span>
+                <% else %>
+                  Average time over last 10 games: No games yet.
+                <% end %>
+              </div>
             </div>
           </div>
-          <div class="best-time-game">
-
-            <% if @average_times[user.id].present? %>
-              Average time over last 10 games: <i class="fa-regular fa-clock"></i><span> <%= @average_times[user.id] %><%= @average_times[user.id] == 1 ? ' sec' : ' secs' %></span>
-            <% else %>
-              Average time over last 10 games: No games yet.
-            <% end %>
-          </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-</div>
-
+    </div>
   </div>
 </div>
