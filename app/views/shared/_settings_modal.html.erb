@@ -7,19 +7,16 @@
       </div>
       <div class="modal-body">
         <!-- BEGIN Settings content -->
-        <form>
+        <%= form_for :game, url: games_path, html: { id: "gameSettingsForm" } do |f| %>
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="enableTimerCheckbox" data-action="change->timer#toggleTimer" checked>
             <label class="form-check-label" for="enableTimerCheckbox">Enable Timer</label>
           </div>
-          <div class="form-group">
-            <label for="language">Select Language:</label>
-            <select id="language" data-guess-target="language" class="form-control">
-              <option value="1">English</option>
-              <option value="2">German</option>
-            </select>
+          <div class="field" data-guess-target="language">
+            <%= f.label :language_id %>
+            <%= f.collection_select :language_id, Language.order(:name), :id, :name, { selected: Language.find_by(name: 'English')&.id, include_blank: true }, { id: "languageSelect", onchange: "submitForm()", 'data-guess-target': 'language' } %>
           </div>
-        </form>
+        <% end %>
       </div>
       <!-- END Settings content  -->
       <div class="modal-footer">
