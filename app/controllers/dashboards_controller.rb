@@ -41,12 +41,14 @@ class DashboardsController < ApplicationController
   end
 
   def fetch_rankings
+    avg_score_per_game =
     @top_score_users = User.left_joins(:games)
-                           .select('users.*, COALESCE(SUM(games.score), 0) AS total_score')
-                           .group('users.id')
-                           .order('total_score DESC, users.id')
-                           .limit(10)
+                            .select('users.*, COALESCE(SUM(games.score), 0) AS total_score')
+                            .group('users.id')
+                            .order('total_score DESC, users.id')
+                            .limit(10)
   end
+
 
   def fetch_best_times
     @best_times = {}
@@ -65,6 +67,4 @@ class DashboardsController < ApplicationController
 
     @top_time_users = @top_time_users.sort_by { |user| @average_times[user.id] == 'N/A' ? Float::INFINITY : @average_times[user.id] }.first(10)
   end
-
-
 end

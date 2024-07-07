@@ -7,6 +7,11 @@
   "resolved" "https://registry.npmjs.org/@kurkle/color/-/color-0.3.2.tgz"
   "version" "0.3.2"
 
+"canvas-confetti@^1.9.3":
+  "integrity" "sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g=="
+  "resolved" "https://registry.npmjs.org/canvas-confetti/-/canvas-confetti-1.9.3.tgz"
+  "version" "1.9.3"
+
 "chart.js@^4.4.3":
   "integrity" "sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw=="
   "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-4.4.3.tgz"
