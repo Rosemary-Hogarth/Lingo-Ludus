@@ -4,7 +4,7 @@ import { createConsumer } from "@rails/actioncable"
 // Connects to data-controller="chatroom-subscription"
 export default class extends Controller {
   static values = { chatroomId: Number, currentUserId: Number }
-  static targets = ["messages"]
+  static targets = ["messages", "message"]
 
   connect() {
     // subscribe to channel
@@ -41,15 +41,22 @@ export default class extends Controller {
   }
 
   #buildMessageElement(currentUserIsSender, message, messageId) {
-
+    console.log(messageId)
     return `
       <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
         <div class="${this.#userStyleClass(currentUserIsSender)}">
+          ${this.#buildDeleteLink(currentUserIsSender, messageId)}
           ${message}
 
       </div>
     </div>
   `
+  }
+
+  #buildDeleteLink(currentUserIsSender, messageId) {
+    if (currentUserIsSender) {
+      return `<a data-turbo-method="delete" data-turbo-confirm="Are you sure?" class="message-remove-link" href="messages/${messageId}">+</a>`
+    }
   }
 
   // add message
@@ -64,7 +71,7 @@ export default class extends Controller {
       return;
     }
 
-    const messageElement = this.#buildMessageElement(currentUserIsSender, data.message);
+    const messageElement = this.#buildMessageElement(currentUserIsSender, data.message, data.messageId);
       console.log("messageElement:", messageElement);
     // Inserting the messageElement in the DOM
     this.messagesTarget.insertAdjacentHTML("beforeend", messageElement);

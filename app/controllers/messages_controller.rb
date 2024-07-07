@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_chatroom
+  before_action :set_chatroom, only: [:create]
 
   def create
     # content, chatroom, user
@@ -14,22 +14,23 @@ class MessagesController < ApplicationController
         partial: "messages/message",
         locals: { message: @message }
       ),
-      sender_id: @message.user.id
+      sender_id: @message.user.id,
+      message_id: @message.id
     )
     head :ok
   end
 
   def destroy
-    @message = @chatroom.messages.find(params[:id])
+    @message = Message.find(params[:id])
     if @message.user == current_user
       @message.destroy
       ChatroomChannel.broadcast_to(
-        @chatroom,
+        @message.chatroom,
         deletedMessageId: @message.id
       )
-      redirect_to @chatroom, notice: "Message was successfully deleted."
+      redirect_to @message.chatroom, notice: "Message was successfully deleted."
     else
-      redirect_to @chatroom, notice: "Not permitted."
+      redirect_to @message.chatroom, notice: "Not permitted."
     end
   end
 

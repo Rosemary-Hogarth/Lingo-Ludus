@@ -52,10 +52,14 @@ data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
       <%= button_to "Continue playing", play_path, method: :get, class: "chatroom-btn" %>
     </div>
 
+
     <div class="messages" data-chatroom-subscription-target="messages">
       <% @chatroom.messages.each do |message| %>
-        <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
+        <div data-chatroom-subscription-target="message" class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
           <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
+          <% if current_user == message.user %>
+            <%= link_to "+", message_path(message), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "message-remove-link" %>
+          <% end %>
           <%= render "messages/message", message: message %>
         </div>
       </div>

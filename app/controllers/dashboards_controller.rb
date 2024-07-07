@@ -3,52 +3,68 @@ class DashboardsController < ApplicationController
 
   def index
     @user = current_user
+    calculate_difficulty_attempts
+    calculate_total_score
+    fetch_recent_games
+    fetch_extra_info
+    fetch_rankings
+    fetch_best_times
+  end
 
-    # graph #
+  private
+
+  def calculate_difficulty_attempts
     @difficulty_attempts = @user.games.group(:difficulty_level).sum(:attempts)
-
     @difficulty_attempts = {
       "Beginner" => @difficulty_attempts["Beginner"],
       "Intermediate" => @difficulty_attempts["Intermediate"],
       "Advanced" => @difficulty_attempts["Advanced"]
     }
-
-    puts "@average_scores_over_time: #{@average_scores_over_time}"
-    # total score container #
-
-    # Calculates the total score dynamically by summing the score column from games associated with the current user
-    @total_score = @user.games.sum(:score)
-
-    # Fetches the 5 most recent games played by the user, ordered by end time
-    @recent_games = @user.games.order(start_time: :desc).limit(5)
-
-    # extra info container #
-    # fetch all games and find the minimum duration by comparing the game duration of each game. Check that time is not nil
-    @best_game = Game.all.reject { |game| game.game_duration.nil? }.min_by(&:game_duration)
-    @best_time_game = @best_game if @best_game.present?
-
-    # get total number of games
-    @number_of_games = @user.games.count
-    # get total attempts
-    total_attempts = @user.games.sum(:attempts)
-
-    @average_attempts_per_game = @number_of_games.zero? ? 0 : total_attempts.to_f / @number_of_games
-
-    @average_attempts_per_game = @average_attempts_per_game.round
   end
+
+  def calculate_total_score
+    @total_score = @user.games.sum(:score)
+  end
+
+  def fetch_recent_games
+    @recent_games = @user.games.order(start_time: :desc).limit(5)
+  end
+
+  def fetch_extra_info
+    @last_games = current_user.games.where.not(start_time: nil, end_time: nil).order(start_time: :desc).limit(10)
+    valid_games = @last_games.reject { |game| game.game_duration.nil? || game.game_duration == Float::INFINITY }
+    @average_time = valid_games.any? ? (valid_games.sum(&:game_duration) / valid_games.count.to_f).round : 'N/A'
+
+    games = current_user.games.where.not(start_time: nil, end_time: nil)
+    @number_of_games = games.count
+    @average_attempts_per_game = games.any? ? (games.sum(:attempts) / games.count.to_f).round : 0
+  end
+
+  def fetch_rankings
+    @top_score_users = User.left_joins(:games)
+                           .select('users.*, COALESCE(SUM(games.score), 0) AS total_score')
+                           .group('users.id')
+                           .order('total_score DESC, users.id')
+                           .limit(10)
+  end
+
+  def fetch_best_times
+    @best_times = {}
+    @average_times = {}
+    @top_time_users = User.includes(:games).to_a
+
+    @top_time_users.each do |user|
+      recent_games = user.games.where.not(start_time: nil, end_time: nil).order(start_time: :desc).limit(10)
+      valid_games = recent_games.reject { |game| game.game_duration.nil? || game.game_duration == Float::INFINITY }
+      average_time = valid_games.any? ? (valid_games.sum(&:game_duration) / valid_games.count.to_f).round(1) : 'N/A'
+
+      best_game = user.games.where.not(start_time: nil, end_time: nil).min_by { |game| game.game_duration || Float::INFINITY }
+      @best_times[user.id] = best_game.game_duration if best_game.present? && best_game.game_duration.present?
+      @average_times[user.id] = average_time
+    end
+
+    @top_time_users = @top_time_users.sort_by { |user| @average_times[user.id] == 'N/A' ? Float::INFINITY : @average_times[user.id] }.first(10)
+  end
+
+
 end
-
-    # start_date = 24.hours.ago.beginning_of_hour
-    # end_date = Time.now.end_of_hour
-    # puts "Start Date: #{start_date}"
-    # puts "End Date: #{end_date}"
-
-    # # Filters games to only include those played within the last week.
-    # @games = @user.games.where(start_time: start_date..end_date)
-    # puts "Number of games within the last hour: #{@games.count}"
-
-    # # Calculates the average score over the last 24 hours, grouped by hour
-    # @average_scores_over_time = @games.group_by_hour(:start_time).average(:score).transform_keys { |key| key.strftime("%H:%M:%S") }.transform_values(&:to_f).to_json
-
-      # Calculates the average score of all game details associated with the user
-    # @average_score = @user.games.average(:score).to_f

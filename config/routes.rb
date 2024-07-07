@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   get "play", to: "games#game"
 
   resources :chatrooms, only: [:show, :new, :create, :edit, :update] do
-    resources :messages, only: [:create, :destroy]
+    resources :messages, only: [:create]
   end
+
+  resources :messages, only: [:destroy]
 
   resources :games, only: [:index, :show, :create, :new] do
     post "guess_word", on: :member
