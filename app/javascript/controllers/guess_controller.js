@@ -32,7 +32,7 @@ export default class extends Controller {
       event.preventDefault();
 
       // Trigger click on the "Next" button
-      console.log("keyup")
+      // console.log("keyup")
       this.nextTarget.click();
     }
   }
@@ -64,7 +64,7 @@ export default class extends Controller {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Response data:", data);
+        // console.log("Response data:", data);
         if (data.word_array) {
           this.definitionTarget.innerHTML = `<p>${data.definition}</p>`; // extracts the word's definition
           this.element.dataset.gameId = data.game_id; // extracts the game_id
@@ -146,7 +146,7 @@ export default class extends Controller {
         html += `
           <div class="flex-fill">
             <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1"
-                  data-guess-target="input" data-index="${index}" data-attempts="${attempts}"
+                  data-guess-target="input" data-dark-mode-target="input" data-index="${index}" data-attempts="${attempts}"
                   data-char="${char}" class="form-control guess-big guess-big-${attempts} border border-dark rounded-2">
           </div>
         `;
@@ -210,10 +210,10 @@ export default class extends Controller {
   check(attempts) {
     const gameId = this.element.dataset.gameId; // retrieves the game_id from the data-game-id
 
-    if (!gameId) {
-      console.error("Game ID is not set."); // debugging
-      return;
-    }
+    // if (!gameId) {
+    //   console.error("Game ID is not set."); // debugging
+    //   return;
+    // }
 
     const inputData = {}; // empty array where we will store the inputs
     this.inputTargets.forEach((input) => {
@@ -230,7 +230,7 @@ export default class extends Controller {
 
 
 
-    console.log("Input data:", inputData); // debugging
+    // console.log("Input data:", inputData); // debugging
 
     fetch(`/games/${gameId}/guess_word`, {
       method: "POST",
@@ -244,7 +244,7 @@ export default class extends Controller {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Response data:", data); // debugging
+        // console.log("Response data:", data); // debugging
         let correctGuessCount = 0; // initialize count of correct guesses to later compare it to the length of the array containing the letters of the word to be guessed
 
         this.inputTargets
@@ -300,7 +300,7 @@ export default class extends Controller {
           }
         }
       })
-      .catch((error) => console.error("Error:", error)); // debugging
+      // .catch((error) => console.error("Error:", error)); // debugging
   }
 
 

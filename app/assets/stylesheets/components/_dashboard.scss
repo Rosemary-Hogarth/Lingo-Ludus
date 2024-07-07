@@ -1,7 +1,11 @@
 body {
-  background-color: white;
+  background-color: #FFFCF9;
   font-family: Roboto, sans-serif;
+  &.dark-mode {
+    background-color: black !important;
+  }
 }
+
 .banner {
   display: flex;
   justify-content: flex-start;
@@ -16,6 +20,11 @@ body {
   border-radius: 10px;
   color: white;
   font-size: 12px;
+}
+
+.dark-mode .dashboard-btn {
+  background-color: #FFFCF9;
+  color: black;
 }
 
 .header-message {
