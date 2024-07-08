@@ -12,9 +12,14 @@
             <input type="checkbox" class="form-check-input" id="enableTimerCheckbox" data-action="change->timer#toggleTimer" checked>
             <label class="form-check-label" for="enableTimerCheckbox">Enable Timer</label>
           </div>
-          <div class="field" data-guess-target="language">
-            <%= f.label :language_id %>
-            <%= f.collection_select :language_id, Language.order(:name), :id, :name, { selected: Language.find_by(name: 'English')&.id, include_blank: true }, { id: "languageSelect", onchange: "submitForm()", 'data-guess-target': 'language' } %>
+          <select id="language" data-guess-target="language" data-dark-mode-target="difficultyDropdown" class="form-control drop border border-dark rounded-4">
+            <% @languages.each do |language| %>
+              <option value="<%= language.id %>"><%= language.name %></option>
+            <% end %>
+          </select>
+          <div class="form-group form-check">
+            <input type="checkbox" data-dark-mode-target="checkbox" class="form-check-input" id="enableDarkMode" data-action="change->dark-mode#toggleDarkMode">
+            <label class="form-check-label" for="enableDarkMode">Enable Dark Mode</label>
           </div>
         <% end %>
       </div>

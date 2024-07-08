@@ -22,10 +22,10 @@ class Game < ApplicationRecord
   #   attempts >= MAX_ATTEMPTS
   # end
 
-  def select_word(level, category_id, last_words_id)
+  def select_word(level, category_id, language_id, last_words_id)
     last_words_id ||= [] # ensure last_words_id is an empty array if nil
 
-    words = Word.where(level:, category_id:).where.not(id: last_words_id) # selects words not in last_words_id
+    words = Word.where(level:, category_id:, language_id:).where.not(id: last_words_id) # selects words not in last_words_id
 
     words.sample # returns a single random word
   end

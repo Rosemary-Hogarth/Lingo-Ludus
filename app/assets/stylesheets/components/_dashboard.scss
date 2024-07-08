@@ -1,7 +1,11 @@
 body {
-  background-color: white;
+  background-color: #FFFCF9;
   font-family: Roboto, sans-serif;
+  &.dark-mode {
+    background-color: black !important;
+  }
 }
+
 .banner {
   display: flex;
   justify-content: flex-start;
@@ -16,6 +20,11 @@ body {
   border-radius: 10px;
   color: white;
   font-size: 12px;
+}
+
+.dark-mode .dashboard-btn {
+  background-color: #FFFCF9;
+  color: black;
 }
 
 .header-message {
@@ -46,7 +55,7 @@ body {
     .message {
       font-size: 18px;
       font-weight: 300;
-      border-top: 3px solid #F5BC3A;
+      border-top: 3px solid #9B89BF;
       padding-top: 7px;
     }
 }
@@ -125,13 +134,13 @@ thead, tbody, tfoot, tr, td, th {
 
   }
   .total_games {
-    border-top: 3px solid #ff6041;
+    border-top: 3px solid #F5BC3A;
   }
   .total_score {
-    border-top: 3px solid #17BBB0;
+    border-top: 3px solid  #ff6041;
   }
   .best_time {
-    border-top: 3px solid#5C3F95;
+    border-top: 3px solid #17BBB0;
   }
 }
 

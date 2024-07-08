@@ -48,8 +48,17 @@
       color: #F5BC3A;
     }
     .total-score {
-    margin-right: 45px;
+    margin-right: 30px;
     font-size: 18px;
+    font-weight: 300;
+    }
+    span {
+      font-weight: 500;
+    }
+
+    .games {
+      font-size: 15px;
+      font-weight: 300;
     }
 }
 
@@ -87,7 +96,8 @@
 
 .best-time-game {
   font-size: 16px;
-  margin-right: 45px;
+  font-weight: 300;
+  margin-right: 30px;
 }
 
 

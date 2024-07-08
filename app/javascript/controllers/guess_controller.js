@@ -1,10 +1,12 @@
 import { Controller } from "@hotwired/stimulus";
+import ConfettiController from "./confetti_controller";
 
 // Connects to data-controller="guess"
 export default class extends Controller {
   static targets = [
     "input",
     "difficulty",
+    "language",
     "category",
     "definition",
     "guessContainer",
@@ -13,6 +15,9 @@ export default class extends Controller {
 
   connect() {
     this.addedInputListeners = false; // Track if input listeners have been added
+
+    document.addEventListener("keyup", this.enterKeyUp.bind(this));
+    console.log("event connected");
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     console.log("event connected");
@@ -26,7 +31,7 @@ export default class extends Controller {
       event.preventDefault();
 
       // Trigger click on the "Next" button
-      console.log("keyup");
+      // console.log("keyup")
       this.nextTarget.click();
     }
   }
@@ -37,6 +42,7 @@ export default class extends Controller {
 
     const difficultyLevel = this.difficultyTarget.value; // sets difficulty from the dropdown input field
     const categoryId = this.categoryTarget.value; // sets category from the dropdown input field
+    const languageId = this.languageTarget.value;
 
     this.currentLine = 0; // Track the current line (attempt) of inputs
     this.inputLines = 3; // Total number of lines (attempts)
@@ -53,12 +59,13 @@ export default class extends Controller {
         game: {
           difficulty_level: difficultyLevel,
           category_id: categoryId,
+          language_id: languageId,
         },
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Response data:", data);
+        // console.log("Response data:", data);
         if (data.word_array) {
           this.definitionTarget.innerHTML = `<p>${data.definition}</p>`; // extracts the word's definition
           this.element.dataset.gameId = data.game_id; // extracts the game_id
@@ -139,7 +146,7 @@ export default class extends Controller {
         html += `
           <div class="flex-fill">
             <input id="guess_${attempts}_${index}" type="text" size="1" maxlength="1"
-                  data-guess-target="input" data-index="${index}" data-attempts="${attempts}"
+                  data-guess-target="input" data-dark-mode-target="input" data-index="${index}" data-attempts="${attempts}"
                   data-char="${char}" class="form-control guess-big guess-big-${attempts} border border-dark rounded-2">
           </div>
         `;
@@ -202,10 +209,10 @@ export default class extends Controller {
   check(attempts) {
     const gameId = this.element.dataset.gameId; // retrieves the game_id from the data-game-id
 
-    if (!gameId) {
-      console.error("Game ID is not set."); // debugging
-      return;
-    }
+    // if (!gameId) {
+    //   console.error("Game ID is not set."); // debugging
+    //   return;
+    // }
 
     const inputData = {}; // empty array where we will store the inputs
     this.inputTargets.forEach((input) => {
@@ -220,7 +227,7 @@ export default class extends Controller {
       }
     });
 
-    console.log("Input data:", inputData); // debugging
+    // console.log("Input data:", inputData); // debugging
 
     fetch(`/games/${gameId}/guess_word`, {
       method: "POST",
@@ -234,7 +241,7 @@ export default class extends Controller {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Response data:", data); // debugging
+        // console.log("Response data:", data); // debugging
         let correctGuessCount = 0; // initialize count of correct guesses to later compare it to the length of the array containing the letters of the word to be guessed
 
         this.inputTargets
@@ -257,6 +264,7 @@ export default class extends Controller {
 
         if (correctGuessCount === data.word_array.length) {
           // compares count of correct letters with length of array containing letters of the word to be guessed
+
           this.endGame(
             true,
             data.score,
@@ -287,8 +295,8 @@ export default class extends Controller {
             ); // ends the game
           }
         }
-      })
-      .catch((error) => console.error("Error:", error)); // debugging
+      });
+    // .catch((error) => console.error("Error:", error)); // debugging
   }
 
   updateButtonToNext() {
@@ -324,6 +332,10 @@ export default class extends Controller {
       // allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
       // feedbackContainer.appendChild(allWordsUsedElement);
       this.updateButtonToPlay();
+
+      // Trigger confetti if all words are used
+      const confettiController = new ConfettiController();
+      confettiController.showConfetti();
     }
 
     this.nextTarget.classList.remove("disabled");
