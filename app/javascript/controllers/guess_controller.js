@@ -1,28 +1,27 @@
 import { Controller } from "@hotwired/stimulus";
-import ConfettiController from "./confetti_controller"
+import ConfettiController from "./confetti_controller";
 
 // Connects to data-controller="guess"
 export default class extends Controller {
   static targets = [
     "input",
     "difficulty",
+    "language",
     "category",
     "definition",
     "guessContainer",
-    "next"
+    "next",
   ];
 
   connect() {
     this.addedInputListeners = false; // Track if input listeners have been added
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
-    console.log("event connected")
-
+    console.log("event connected");
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
-    console.log("event connected")
+    console.log("event connected");
   }
-
 
   // Method to handle keydown events
   enterKeyUp(event) {
@@ -43,6 +42,7 @@ export default class extends Controller {
 
     const difficultyLevel = this.difficultyTarget.value; // sets difficulty from the dropdown input field
     const categoryId = this.categoryTarget.value; // sets category from the dropdown input field
+    const languageId = this.languageTarget.value;
 
     this.currentLine = 0; // Track the current line (attempt) of inputs
     this.inputLines = 3; // Total number of lines (attempts)
@@ -59,6 +59,7 @@ export default class extends Controller {
         game: {
           difficulty_level: difficultyLevel,
           category_id: categoryId,
+          language_id: languageId,
         },
       }),
     })
@@ -78,14 +79,13 @@ export default class extends Controller {
             this.addedInputListeners = true; // Ensure listeners are added only once
           }
 
-           // Automatically focus the first input field
-           const firstInput = this.inputTargets.find(
+          // Automatically focus the first input field
+          const firstInput = this.inputTargets.find(
             (input) => parseInt(input.dataset.attempts) === 0
           );
           if (firstInput) {
             firstInput.focus();
           }
-
         } else if (data.message) {
           alert(data.message); // just here for now to have feedback displayed on the browser when exhausting all words
         } else if (data.error) {
@@ -190,8 +190,7 @@ export default class extends Controller {
     // Filter inputs for the current line and only include enabled inputs
     const rowInputs = this.inputTargets.filter(
       (input) =>
-        parseInt(input.dataset.attempts) === this.currentLine &&
-        !input.disabled
+        parseInt(input.dataset.attempts) === this.currentLine && !input.disabled
     );
 
     // Check if all enabled inputs on the current line are filled
@@ -228,8 +227,6 @@ export default class extends Controller {
       }
     });
 
-
-
     // console.log("Input data:", inputData); // debugging
 
     fetch(`/games/${gameId}/guess_word`, {
@@ -251,7 +248,7 @@ export default class extends Controller {
           .filter((input) => input.dataset.attempts === attempts) // filter received data to only get the one with data-attempts index that matches the attempts parameter
           .forEach((input, index) => {
             // for each filtered input
-            input.style.opacity = "100%"
+            input.style.opacity = "100%";
             if (data.correct_guesses.includes(index)) {
               input.style.backgroundColor = "#18BBB1"; // green background if correct
               // input.style.opacity = "100%"
@@ -267,7 +264,6 @@ export default class extends Controller {
 
         if (correctGuessCount === data.word_array.length) {
           // compares count of correct letters with length of array containing letters of the word to be guessed
-
 
           this.endGame(
             true,
@@ -299,23 +295,21 @@ export default class extends Controller {
             ); // ends the game
           }
         }
-      })
-      // .catch((error) => console.error("Error:", error)); // debugging
+      });
+    // .catch((error) => console.error("Error:", error)); // debugging
   }
-
-
 
   updateButtonToNext() {
     // turn "play button into next button"
     this.nextTarget.textContent = "Next";
     this.nextTarget.disabled = true;
-    this.nextTarget.classList.add("disabled")
+    this.nextTarget.classList.add("disabled");
   }
 
   updateButtonToPlay() {
     this.nextTarget.textContent = "Play";
     this.nextTarget.disabled = false;
-    this.nextTarget.classList.remove("disabled")
+    this.nextTarget.classList.remove("disabled");
   }
 
   endGame(win, score, word_array, all_words_used, category, level) {
@@ -339,10 +333,10 @@ export default class extends Controller {
       // feedbackContainer.appendChild(allWordsUsedElement);
       this.updateButtonToPlay();
 
-        // Trigger confetti if all words are used
-        const confettiController = new ConfettiController();
-        confettiController.showConfetti();
-      }
+      // Trigger confetti if all words are used
+      const confettiController = new ConfettiController();
+      confettiController.showConfetti();
+    }
 
     this.nextTarget.classList.remove("disabled");
     this.nextTarget.disabled = false;

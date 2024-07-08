@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_categories_and_levels, only: %i[new game]
+  before_action :set_categories_levels_and_languages, only: %i[new game]
 
   def new
     @game = current_user.games.new
@@ -17,6 +17,8 @@ class GamesController < ApplicationController
   def create
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current                 # starts the "timer"
+    language_id = params[:game][:language_id] || default_language_id
+    puts language_id
     last_words_id = session[:used_word_ids] ||= []  # makes sure last_words_id is an array, empty if session is empty
 
     if all_words_used?(@game.difficulty_level, @game.category_id, session[:used_word_ids]) # if all words from a category/level combo have been exhausted
@@ -25,7 +27,7 @@ class GamesController < ApplicationController
       end
     end
 
-    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, last_words_id) # calls select_word method from the game model
+    word_to_guess = @game.select_word(@game.difficulty_level, @game.category_id, language_id, last_words_id) # calls select_word method from the game model
     if word_to_guess.nil?
       render json: { error: 'No words available for the selected difficulty level.' }, status: :unprocessable_entity
     else
@@ -65,9 +67,7 @@ class GamesController < ApplicationController
       index = key.gsub("guess_", "").to_i               # extract the index from the guessed letter
       guessed_letter = value.downcase                   # sanitize data
 
-      if guessed_letter == " "
-        guessed_letter = " "
-      end
+      guessed_letter = " " if guessed_letter == " "
 
       if guessed_letter == @word_array[index].downcase  # compare guessed letter with its corresponding counterpart in word_array
         correct_guesses << index                        # push index of correct letters into correct_guess array
@@ -83,9 +83,7 @@ class GamesController < ApplicationController
       index = key.gsub("guess_", "").to_i
       guessed_letter = value.downcase
 
-      if guessed_letter == " "
-        guessed_letter = " "
-      end
+      guessed_letter = " " if guessed_letter == " "
 
       next if correct_guesses.include?(index) # Skip next step if the letter is allready correct
 
@@ -138,11 +136,17 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:category_id, :difficulty_level, :attempts)
+    params.require(:game).permit(:category_id, :difficulty_level, :attempts, :language_id)
   end
 
-  def set_categories_and_levels
+  def default_language_id
+    # Define how to find the default language_id, e.g., Language.first.id
+    Language.first.id
+  end
+
+  def set_categories_levels_and_languages
     @categories = Category.all
     @levels = %w[Beginner Intermediate Advanced]
+    @languages = Language.all
   end
 end

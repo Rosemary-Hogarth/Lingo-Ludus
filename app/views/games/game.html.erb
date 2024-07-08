@@ -1,5 +1,4 @@
 <div class="game-main-container container" data-controller="guess confetti">
-
   <!-- First row with definition-->
   <div class="row definition-row">
     <div class="col-md-2">
@@ -28,7 +27,7 @@
     <div class="col-md-2">
       <div class="field category">
         <%= label_tag 'category', '' %>
-          <select id="category_id" data-guess-target="category" data-dark-mode-target="categoryDropdown" class="form-control drop border border-dark rounded-4">
+        <select id="category_id" data-guess-target="category" data-dark-mode-target="categoryDropdown" class="form-control drop border border-dark rounded-4">
           <% @categories.each do |category| %>
             <option value="<%= category.id %>"><%= category.name %></option>
           <% end %>
@@ -36,7 +35,6 @@
       </div>
     </div>
   </div>
-
   <!-- Second row with game layout and dropdowns-->
   <div class="row guess-row">
     <div class="guess-container" data-guess-target="guessContainer">
@@ -57,4 +55,5 @@
       <button id="next-game-btn" data-action="guess#createGame" data-guess-target="next" class="btn-game">Play</button>
     </div>
   </div>
+  <%= render 'shared/settings_modal' %>
 </div>
