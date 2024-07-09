@@ -12,6 +12,8 @@ export default class extends Controller {
       .addEventListener("change", (event) =>
         this.toggleTimer(event.target.checked)
       );
+
+    this.btnTarget.addEventListener("click", () => this.resetTimer());
   }
 
   toggleTimer(isChecked) {
@@ -63,6 +65,13 @@ export default class extends Controller {
     }
   }
 
+  resetTimer() {
+    console.log("Resetting timer");
+    this.startTime = new Date(); // Reset start time to current time
+    this.elapsedTimeWhenDisabled = null; // Clear the stored frozen time
+    this.updateTime(); // Update the display immediately
+  }
+
   disconnect() {
     // Clear the interval when the controller is disconnected
     clearInterval(this.timer);
@@ -81,7 +90,7 @@ export default class extends Controller {
       const minutes = String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, "0");
       const seconds = String(elapsedTime % 60).padStart(2, "0");
 
-      this.timeTarget.textContent = `${hours}:${minutes}:${seconds} `;
+      this.timeTarget.textContent = `${hours}:${minutes}:${seconds}`;
     } else {
       // Display the frozen elapsed time
       if (this.elapsedTimeWhenDisabled !== null) {
@@ -89,7 +98,7 @@ export default class extends Controller {
         const minutes = String(Math.floor((this.elapsedTimeWhenDisabled % 3600) / 60)).padStart(2, "0");
         const seconds = String(this.elapsedTimeWhenDisabled % 60).padStart(2, "0");
 
-        this.timeTarget.textContent = `${hours}:${minutes}:${seconds} -`;
+        this.timeTarget.textContent = `${hours}:${minutes}:${seconds}`;
       } else {
         // If the timer hasn't started yet or no elapsed time has been stored
         this.timeTarget.textContent = `00:00:00`;
