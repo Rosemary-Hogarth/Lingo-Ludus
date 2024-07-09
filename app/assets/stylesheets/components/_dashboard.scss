@@ -27,6 +27,43 @@ body {
   color: black;
 }
 
+
+.dark-mode .background1 {
+  background-color: #253237
+}
+
+.dark-mode .background2 {
+  background-color: #59656ac2
+}
+
+.light-mode-text {
+  color: black;
+}
+
+.dark-mode-text {
+  color: white;
+}
+
+
+.dark-mode .white {
+  background-color: white;
+}
+
+// .dark-mode .white-text {
+//   color: white;
+// }
+
+.dark-mode, .white-text,
+.white-text th,
+.white-text td {
+  color: white;
+}
+
+
+.dark-mode .black {
+  color: black;
+}
+
 .header-message {
   font-family: "Roboto", sans-serif;
   font-weight: 300;

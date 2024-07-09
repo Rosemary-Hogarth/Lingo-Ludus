@@ -1,6 +1,6 @@
-<div class="container dashboard">
+<div class="container dashboard" data-controller="dark-dash dark-mode">
 <div class="banner">
-  <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
+  <h1 class="header-message" data-dark-dash-target="header">Welcome to your dashboard, <%= @user.first_name %>!</h1>
   <%= button_to "Continue playing", play_path, method: :get, class: "dashboard-btn"%>
   </div>
 
@@ -8,9 +8,9 @@
   <!-- one row, two columns -->
   <div class="row">
     <!-- Left column -->
-    <div class="col-md-6">
-      <div class="average-over-time-container">
-        <div class="average-over-time-header">Attempts per level</div>
+    <div class="col-md-6" >
+      <div class="average-over-time-container"  data-dark-dash-target="firstContainer" >
+        <div class="average-over-time-header" data-dark-dash-target="firstContainerHeader">Attempts per level</div>
       <div class="chart">
         <canvas data-controller="dashboard-chart"
                 data-dashboard-chart-data-value="<%= @difficulty_attempts.to_json %>"
@@ -22,8 +22,8 @@
 
 <!-- Right column -->
 <div class="col-md-6">
-  <div class="total-score-container">
-    <div class="score-header">Total score
+  <div class="total-score-container" data-dark-dash-target="secondContainer">
+    <div class="score-header" data-dark-dash-target="scoreHeader secondContainerHeader">Total score
       <div class="score"><i class="fa-regular fa-star"></i>
         <% if @total_score == 0 %>
           <%= @total_score %><div class="message">Time to play!</div>
@@ -40,9 +40,9 @@
 
 
 
-    <div class="overview-container">
-      <p>Overview of recent games <i class="fa-regular fa-calendar"></i></p>
-        <table class="table">
+    <div class="overview-container" data-dark-dash-target="thirdContainer">
+      <p data-dark-dash-target="recentGamesHeader">Overview of recent games <i class="fa-regular fa-calendar"></i></p>
+        <table class="table" data-dark-dash-target="table">
           <thead>
             <tr>
               <th class="word">Word</th>
@@ -74,7 +74,7 @@
     </div>
   </div>
 
-<div class="extra-info-container">
+<div class="extra-info-container" data-dark-dash-target="fourthContainer">
   <div class="extra-info-header">Good to know <i class="fa-solid fa-chart-simple"></i></div>
   <div class="info-row">
     <div class="info total_games">
@@ -100,13 +100,13 @@
 </div>
 
 
-<div class="leaderboard">
+<div class="leaderboard" data-dark-dash-target="leaderboardContainer">
   <div class="leaderboard-header">Leaderboard</div>
     <!-- Nav Tabs--->
-  <ul id="dashboard-navbar" class="nav nav-tabs bg-light text-black d-flex justify-content-center mt-4 mb-5">
+  <ul id="dashboard-navbar" data-dark-dash-target="leaderNavbar" class="nav nav-tabs bg-light text-black d-flex justify-content-center mt-4 mb-5">
     <!-- Top scores-->
     <li class="nav-item">
-      <a class="nav-link active text-black" data-bs-toggle="tab" href="#top-scores">Top scores</a>
+      <a class="nav-link active text-black" data-bs-toggle="tab" href="#top-scores" data-dark-dash-target="navLink">Top scores</a>
     </li>
     <!-- Top times -->
     <li class="nav-item">
@@ -117,10 +117,10 @@
 <div class="tab-content">
   <!-- Top scores -->
   <div id="top-scores" class="tab-pane fade show active">
-    <div class="cards">
+    <div class="cards" >
       <% @top_score_users.each_with_index do |user, index| %>
       <% if index < 10 %>
-        <div class="card <%= 'highlight' if user == @user %>">
+        <div class="card <%= 'highlight' if user == @user %>" data-dark-dash-target="leaderboardCard">
           <div class="card-body">
             <div class="left-side">
               <div class="index">
@@ -162,7 +162,7 @@
     <div id="top-times" class="tab-pane fade">
       <div class="cards">
         <% @top_time_users.each_with_index do |user, index| %>
-          <div class="card <%= 'highlight' if user == @user %>">
+          <div class="card <%= 'highlight' if user == @user %>" data-dark-dash-target="leaderboardCard">
             <div class="card-body">
               <div class="left-side">
                 <div class="index">
