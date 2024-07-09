@@ -4,6 +4,22 @@
   align-items: center;
 }
 
+// SCORE
+
+.score-row {
+  min-height: 64px;
+  align-items: center;
+}
+
+.score {
+  text-align: center;
+  justify-content: center;
+}
+
+.score.not-displayed {
+  color: #FFFCF9 !important;
+}
+
 /* DEFINITION */
 
 .definition-row {
@@ -23,16 +39,26 @@
   border-right: 8px solid black;
   height: 30%;
   min-height: 360px;
-  margin-top: 64px;
+  // margin-top: 32px;
   text-align: center;
   width: 40%;
   border-radius: 15px;
   padding: 10px;
   position: relative;
-  margin-bottom: 20px; /* Just for spacing in the example */
+  margin-bottom: 16px; /* Just for spacing in the example */
   background-color: white;
 
+  .feedback {
+    font-size: large;
+    margin-top: 32px;
+  }
+
   p {
+    font-size: xx-large;
+    row-gap: 16px;
+  }
+
+  .definition {
     font-size: xx-large;
     row-gap: 16px;
   }
@@ -47,6 +73,11 @@
   background-color: #FFFCF9;
   border: 1px solid black;
   box-shadow: 8px 8px 0 0 rgb(255, 255, 255);
+
+  .feedback {
+    font-size: large;
+    margin-top: 32px;
+  }
 }
 
 

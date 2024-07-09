@@ -11,13 +11,11 @@ export default class extends Controller {
     "definition",
     "guessContainer",
     "next",
+    "score",
   ];
 
   connect() {
     this.addedInputListeners = false; // Track if input listeners have been added
-
-    document.addEventListener("keyup", this.enterKeyUp.bind(this));
-    console.log("event connected");
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     console.log("event connected");
@@ -67,7 +65,8 @@ export default class extends Controller {
       .then((data) => {
         // console.log("Response data:", data);
         if (data.word_array) {
-          this.definitionTarget.innerHTML = `<p>${data.definition}</p>`; // extracts the word's definition
+          this.scoreTarget.classList.add("not-displayed");
+          this.definitionTarget.innerHTML = `<p class="definition">${data.definition}</p>`; // extracts the word's definition
           this.element.dataset.gameId = data.game_id; // extracts the game_id
           this.updateGuessContainer(data.word_array); // triggers the update of the guess container using selected word_array
           this.disableInputsForLine(this.currentLine); // calls the method that will disable second and third lines
@@ -315,6 +314,9 @@ export default class extends Controller {
   endGame(win, score, word_array, all_words_used, category, level) {
     // Provides feedback about winning or failing, giving a score if winning, giving the word if failing
     const word = word_array.join("");
+    console.log(score);
+    this.scoreTarget.textContent = `Score: ${score}`;
+    this.scoreTarget.classList.remove("not-displayed");
     // const feedback = win
     //   ? `Congratulations! You got ${score} points!`
     //   : `Better luck next time! The answer was "${word}"`;
@@ -328,9 +330,10 @@ export default class extends Controller {
     // Provides feedback if all words from category/level combo are exhausted
     const allWordsUsed = all_words_used;
     if (allWordsUsed) {
-      // const allWordsUsedElement = document.createElement("p");
-      // allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
-      // feedbackContainer.appendChild(allWordsUsedElement);
+      const allWordsUsedElement = document.createElement("p");
+      allWordsUsedElement.classList.add("feedback");
+      allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
+      this.definitionTarget.appendChild(allWordsUsedElement);
       this.updateButtonToPlay();
 
       // Trigger confetti if all words are used
