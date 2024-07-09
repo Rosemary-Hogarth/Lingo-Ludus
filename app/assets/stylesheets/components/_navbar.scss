@@ -63,3 +63,17 @@
     }
   }
 }
+
+.dark-mode .navbar {
+  background-color: white;
+}
+
+.dark-mode .app-name {
+  color: black;
+  font-weight: 500;
+}
+
+.dark-mode .nav-link {
+  color: black;
+  font-weight: 300;
+}

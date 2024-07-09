@@ -49,6 +49,11 @@
   box-shadow: 8px 8px 0 0 rgb(255, 255, 255);
 }
 
+.dark-mode .containerMessage {
+  color: #000000;
+}
+
+
 
 /* Styling for sender's speech bubble pointer */
 .definition-container::before {

@@ -1,7 +1,7 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon" data-controller="light-navbar"  data-light-navbar-target="navbar" >
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <%= link_to "/", class: "navbar-brand" do %>
-      <p class="app-name"><span data-light-navbar-target="name">Lingo</span> <span style="color: #FF6042">L</span><span style="color: #F9BF3A">u</span><span style="color: #9163EA">d</span><span style="color: #F6B26B">u</span><span style="color: #17BBB0">s</span></p>
+      <p class="app-name"><span>Lingo</span> <span style="color: #FF6042">L</span><span style="color: #F9BF3A">u</span><span style="color: #9163EA">d</span><span style="color: #F6B26B">u</span><span style="color: #17BBB0">s</span></p>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -10,16 +10,16 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#rulesModal" data-light-navbar-target="link1">Game Rules</a>
+            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#rulesModal">Game Rules</a>
           </li>
           <li class="nav-item active" >
-            <%= link_to "Chat", chatroom_path(Chatroom.first), class: "nav-link", data: { light_navbar_target: "link2" }  %>
+            <%= link_to "Chat", chatroom_path(Chatroom.first), class: "nav-link" %>
           </li>
           <li class="nav-item active">
-            <%= link_to "Dashboard", dashboard_path, class: "nav-link", data: { light_navbar_target: "link3" }  %>
+            <%= link_to "Scores", dashboard_path, class: "nav-link" %>
           </li>
           <li class="nav-item active">
-            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#settingsModal" data-light-navbar-target="link4" >Settings</a>
+            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#settingsModal">Settings</a>
           </li>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
