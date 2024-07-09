@@ -22,10 +22,7 @@ body {
   font-size: 12px;
 }
 
-.dark-mode .dashboard-btn {
-  background-color: #FFFCF9;
-  color: black;
-}
+
 
 .header-message {
   font-family: "Roboto", sans-serif;
@@ -48,6 +45,7 @@ body {
       letter-spacing: 3px;
       font-weight: 400;
       margin-bottom: 0;
+      color: black;
       }
       .score {
         font-weight: 500;
@@ -157,6 +155,13 @@ thead, tbody, tfoot, tr, td, th {
   justify-content: space-evenly;
 }
 
+.leaderboard .nav-link {
+  color: black;
+    &:hover {
+      color: black;
+    }
+}
+
 @media (max-width: 1199px)  {
   .table {
     font-size: 14px;
@@ -189,4 +194,76 @@ thead, tbody, tfoot, tr, td, th {
     font-size: 10px;
   }
 
+}
+
+
+.dark-mode .dashboard-btn {
+  background-color: #FFFCF9;
+  color: black;
+}
+
+
+.dark-mode,
+th, td {
+  color: white;
+}
+
+
+.dark-mode .dark-mode-text {
+  color: white !important;
+}
+
+.dark-mode .white-text {
+  color: white !important;
+}
+
+.dark-mode .nav-tabs .nav-link.active {
+  color: white !important;
+  background-color: black !important;
+  border-color: #FFFCF9 !important;
+}
+
+.dark-mode .nav-tabs .nav-link:not(.active) {
+  color: black !important;
+  background-color: white !important;
+  border: 1px solid white !important;
+}
+
+.dark-mode .nav-tabs {
+  background-color:  #ff6041 !important;
+  margin-bottom: 20px !important;
+  border: none;
+}
+
+.dark-mode .message {
+  border-top: 1px solid black ;
+}
+
+.dark-mode .overview-container {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dark-mode .table td {
+  color: #ffffff;
+}
+
+.dark-mode .average-over-time-container {
+  background-color:#F5BC3A
+}
+
+.dark-mode .total-score-container {
+  background-color:#9B89BF;
+}
+
+.dark-mode .overview-container {
+  background-color: #253237;
+}
+
+.dark-mode .extra-info-container {
+  background-color: #253237;
+}
+
+.dark-mode .leaderboard {
+  background-color:#ff6041;
 }

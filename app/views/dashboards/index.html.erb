@@ -1,4 +1,4 @@
-<div class="container dashboard">
+<div class="container dashboard" data-controller="dark-dash dark-mode">
 <div class="banner">
   <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
   <%= button_to "Continue playing", play_path, method: :get, class: "dashboard-btn"%>
@@ -8,9 +8,9 @@
   <!-- one row, two columns -->
   <div class="row">
     <!-- Left column -->
-    <div class="col-md-6">
+    <div class="col-md-6" >
       <div class="average-over-time-container">
-        <div class="average-over-time-header">Attempts per level</div>
+        <div class="average-over-time-header" >Attempts per level</div>
       <div class="chart">
         <canvas data-controller="dashboard-chart"
                 data-dashboard-chart-data-value="<%= @difficulty_attempts.to_json %>"
@@ -75,7 +75,7 @@
   </div>
 
 <div class="extra-info-container">
-  <div class="extra-info-header">Good to know <i class="fa-solid fa-chart-simple"></i></div>
+  <div class="extra-info-header" >Good to know <i class="fa-solid fa-chart-simple"></i></div>
   <div class="info-row">
     <div class="info total_games">
       <p>Total games <i class="fa-solid fa-crown"></i> <div><%= @number_of_games %></div></p>
@@ -106,18 +106,18 @@
   <ul id="dashboard-navbar" class="nav nav-tabs bg-light text-black d-flex justify-content-center mt-4 mb-5">
     <!-- Top scores-->
     <li class="nav-item">
-      <a class="nav-link active text-black" data-bs-toggle="tab" href="#top-scores">Top scores</a>
+      <a class="nav-link active" data-bs-toggle="tab" href="#top-scores">Top scores</a>
     </li>
     <!-- Top times -->
     <li class="nav-item">
-      <a class="nav-link text-black" data-bs-toggle="tab" href="#top-times">Top times</a>
+      <a class="nav-link" data-bs-toggle="tab" href="#top-times">Top times</a>
     </li>
   </ul>
 
 <div class="tab-content">
   <!-- Top scores -->
   <div id="top-scores" class="tab-pane fade show active">
-    <div class="cards">
+    <div class="cards" >
       <% @top_score_users.each_with_index do |user, index| %>
       <% if index < 10 %>
         <div class="card <%= 'highlight' if user == @user %>">
