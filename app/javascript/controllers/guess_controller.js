@@ -11,13 +11,13 @@ export default class extends Controller {
     "definition",
     "guessContainer",
     "next",
+    "score",
+    "time",
+    "buttonRow",
   ];
 
   connect() {
     this.addedInputListeners = false; // Track if input listeners have been added
-
-    document.addEventListener("keyup", this.enterKeyUp.bind(this));
-    console.log("event connected");
 
     document.addEventListener("keyup", this.enterKeyUp.bind(this));
     console.log("event connected");
@@ -67,7 +67,7 @@ export default class extends Controller {
       .then((data) => {
         // console.log("Response data:", data);
         if (data.word_array) {
-          this.definitionTarget.innerHTML = `<p>${data.definition}</p>`; // extracts the word's definition
+          this.definitionTarget.innerHTML = `<p class="definition">${data.definition}</p>`; // extracts the word's definition
           this.element.dataset.gameId = data.game_id; // extracts the game_id
           this.updateGuessContainer(data.word_array); // triggers the update of the guess container using selected word_array
           this.disableInputsForLine(this.currentLine); // calls the method that will disable second and third lines
@@ -99,20 +99,24 @@ export default class extends Controller {
 
   // Method to insert timer element dynamically
   startTimer(startTime) {
-    // Before creating a new timer, remove the existing timer if it exists
-    const existingTimer = document.querySelector("[data-controller='timer']");
-    if (existingTimer) {
-      existingTimer.remove(); // Remove the existing timer from the DOM
-    }
+    // // Before creating a new timer, remove the existing timer if it exists
+    // const existingTimer = document.querySelector("[data-controller='timer']");
+    // if (existingTimer) {
+    //   existingTimer.remove(); // Remove the existing timer from the DOM
+    // }
 
-    // Create a new timer element
-    const timerElement = document.createElement("div");
-    timerElement.setAttribute("data-controller", "timer");
-    timerElement.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
-    timerElement.innerHTML = `<div class="timer"><span data-timer-target="time">00:00:00</span></div>`;
+    // // Create a new timer element
+    // const timerElement = document.createElement("div");
+    // timerElement.setAttribute("data-controller", "timer");
+    // timerElement.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
+    // timerElement.innerHTML = `<div class="timer"><span data-timer-target="time">00:00:00</span></div>`;
 
-    // Insert the timer element into the DOM
-    this.element.appendChild(timerElement);
+    // // // Insert the timer element into the DOM
+    // // this.element.appendChild(timerElement);
+
+    this.buttonRowTarget.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
+    this.timeTarget.innerHTML = `<span data-timer-target="time">00:00:00 </span>`
+    this.timeTarget.classList.remove("not-displayed")
   }
 
   disableInputsForLine(line) {
@@ -315,6 +319,7 @@ export default class extends Controller {
   endGame(win, score, word_array, all_words_used, category, level) {
     // Provides feedback about winning or failing, giving a score if winning, giving the word if failing
     const word = word_array.join("");
+    console.log(score);
     // const feedback = win
     //   ? `Congratulations! You got ${score} points!`
     //   : `Better luck next time! The answer was "${word}"`;
@@ -328,9 +333,10 @@ export default class extends Controller {
     // Provides feedback if all words from category/level combo are exhausted
     const allWordsUsed = all_words_used;
     if (allWordsUsed) {
-      // const allWordsUsedElement = document.createElement("p");
-      // allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
-      // feedbackContainer.appendChild(allWordsUsedElement);
+      const allWordsUsedElement = document.createElement("p");
+      allWordsUsedElement.classList.add("feedback");
+      allWordsUsedElement.textContent = `You have been through all the words for the "${category}" category at a ${level} level! Try again or choose a different combination`;
+      this.definitionTarget.appendChild(allWordsUsedElement);
       this.updateButtonToPlay();
 
       // Trigger confetti if all words are used
@@ -338,6 +344,8 @@ export default class extends Controller {
       confettiController.showConfetti();
     }
 
+    this.scoreTarget.classList.remove("not-displayed");
+    this.scoreTarget.textContent = `- Score: ${score}`;
     this.nextTarget.classList.remove("disabled");
     this.nextTarget.disabled = false;
   }

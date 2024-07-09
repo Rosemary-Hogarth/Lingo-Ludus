@@ -18,12 +18,12 @@ class GamesController < ApplicationController
     @game = current_user.games.new(game_params)
     @game.start_time = Time.current                 # starts the "timer"
     language_id = params[:game][:language_id] || default_language_id
-    puts language_id
+    # puts language_id
     last_words_id = session[:used_word_ids] ||= []  # makes sure last_words_id is an array, empty if session is empty
 
-    if all_words_used?(@game.difficulty_level, @game.category_id, session[:used_word_ids]) # if all words from a category/level combo have been exhausted
+    if all_words_used?(@game.difficulty_level, @game.category_id, language_id, session[:used_word_ids]) # if all words from a category/level combo have been exhausted
       session[:used_word_ids].delete_if do |word_id|                                       # deletes them from the session so they can be displayed again
-        Word.find_by(id: word_id, level: @game.difficulty_level, category_id: @game.category_id) # using these conditions
+        Word.find_by(id: word_id, level: @game.difficulty_level, language: language_id, category_id: @game.category_id) # using these conditions
       end
     end
 
@@ -47,10 +47,11 @@ class GamesController < ApplicationController
     @word_to_guess = @game.word               # sets word_to_guess retrieving the word_id associated with the current game
     @word_name = @word_to_guess.name.downcase # retrieves the "name" of the word, downcase for sanitizing
     @word_array = @word_name.chars            # creates an array containing the letters of selected word
+    language_id = params[:game][:language_id] || default_language_id
     correct_guesses = []
     wrong_position = []                       # initiates 3 arrays used to sort letters
     incorrect_guesses = []
-    all_words_used = all_words_used?(@game.difficulty_level, @game.category_id, session[:used_word_ids])
+    all_words_used = all_words_used?(@game.difficulty_level, @game.category_id, language_id, session[:used_word_ids])
 
     word_letter_counts = Hash.new(0)          # initiates a hash that will contain letters as key and amount of each letter as value
     # Iterate through word_array and increment count of each letter for later comparison
@@ -116,8 +117,8 @@ class GamesController < ApplicationController
 
   private
 
-  def all_words_used?(difficulty_level, category_id, used_word_ids)
-    words = Word.where(level: difficulty_level, category_id:) # search for words with the right category/level combo
+  def all_words_used?(difficulty_level, category_id, language_id, used_word_ids)
+    words = Word.where(level: difficulty_level, category_id: category_id, language_id: language_id) # search for words with the right category/level combo
     words.count == # returns true if the count of word for a specific combo matches the count of same words
       used_word_ids.count do |id|
         words.pluck(:id).include?(id)
@@ -125,12 +126,20 @@ class GamesController < ApplicationController
   end # (using ids) in the used_words_id meaning all words have allready been pushed into used_words_id
 
   def win_game(game)
+    if game.difficulty_level == "Beginner"
+      multiplier = 1
+    elsif game.difficulty_level == "Intermediate"
+      multiplier = 2
+    elsif game.difficulty_level == "Advanced"
+      multiplier = 3
+    end
+
     if game.attempts == 1
-      game.update(score: 3) # 3 points if guessed on first try
+      game.update(score: 3 * multiplier) # 3 points if guessed on first try
     elsif game.attempts == 2
-      game.update(score: 2) # 2 points if guessed on second try
+      game.update(score: 2 * multiplier) # 2 points if guessed on second try
     elsif game.attempts == 3
-      game.update(score: 1) # 1 point if guessed on third try
+      game.update(score: 1) * multiplier # 1 point if guessed on third try
     end
     game.update(end_time: Time.current) # stores end_time for future score computation
   end
