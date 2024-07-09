@@ -1,7 +1,7 @@
 <div class="game-main-container container" data-controller="guess confetti">
-  <div class="row score-row">
+  <%# <div class="row score-row">
     <p class="score not-displayed" data-guess-target="score">Score:</p>
-  </div>
+  </div> %>
   <!-- First row with definition-->
   <div class="row definition-row">
     <div class="col-md-2">
@@ -53,9 +53,13 @@
       <% end %>
     </div>
   </div>
-  <div class="row button-row">
+  <div class="row button-row" data-controller="timer" data-guess-target="buttonRow">
     <div class="button-container">
-      <button id="next-game-btn" data-action="guess#createGame" data-guess-target="next" class="btn-game">Play</button>
+      <button id="next-game-btn" data-action="guess#createGame" data-guess-target="next" data-timer-target="btn" class="btn-game">Play</button>
+    </div>
+    <div class= "score-and-timer">
+      <p class= "timer-feedback not-displayed" data-timer-target="time" data-guess-target="time">Score:</p>
+      <p class="score-feedback not-displayed" data-guess-target="score">Score:</p>
     </div>
   </div>
   <%= render 'shared/settings_modal' %>

@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="timer"
 export default class extends Controller {
-  static targets = ["time"];
+  static targets = ["time", "btn"];
 
   connect() {
     this.toggleTimer(); // Call toggleTimer on connect to apply initial state
@@ -20,6 +20,7 @@ export default class extends Controller {
     }
 
     if (isChecked) {
+      console.log("checked");
       this.startTimer();
       this.timeTarget.style.display = ""; // Show the timer
     } else {
@@ -36,19 +37,20 @@ export default class extends Controller {
 
   startTimer() {
     // Clear any existing timer to avoid duplicates
+    console.log("start timer");
     if (this.timer) {
       clearInterval(this.timer);
     }
 
-    const startTimeStr = this.data.get("startTime");
-    this.startTime = startTimeStr ? new Date(startTimeStr) : new Date();
+    this.startTime = new Date();
+    this.elapsedTimeWhenDisabled = null; // Reset frozen time
     this.updateTime();
     this.timer = setInterval(() => this.updateTime(), 1000);
 
-    const timerContainer = document.getElementById("timerContainer");
-    if (timerContainer) {
-      timerContainer.style.display = "";
-    }
+    // const timerContainer = document.getElementById("timerContainer");
+    // if (timerContainer) {
+    //   timerContainer.style.display = "";
+    // }
   }
 
   stopTimer() {
@@ -69,16 +71,29 @@ export default class extends Controller {
   updateTime() {
     // Calculate the elapsed time
     const now = new Date();
-    let elapsedTime = Math.floor((now - this.startTime) / 1000);
 
-    const hours = String(Math.floor(elapsedTime / 3600)).padStart(2, "0");
-    const minutes = String(Math.floor((elapsedTime % 3600) / 60)).padStart(
-      2,
-      "0"
-    );
-    const seconds = String(elapsedTime % 60).padStart(2, "0");
+    if (this.btnTarget.disabled) {
+      // Update the time target with the formatted time
+      let elapsedTime = Math.floor((now - this.startTime) / 1000);
+      this.elapsedTimeWhenDisabled = elapsedTime; // Store the elapsed time
 
-    // Update the time target with the formatted time
-    this.timeTarget.textContent = `${hours}:${minutes}:${seconds}`;
+      const hours = String(Math.floor(elapsedTime / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, "0");
+      const seconds = String(elapsedTime % 60).padStart(2, "0");
+
+      this.timeTarget.textContent = `${hours}:${minutes}:${seconds} `;
+    } else {
+      // Display the frozen elapsed time
+      if (this.elapsedTimeWhenDisabled !== null) {
+        const hours = String(Math.floor(this.elapsedTimeWhenDisabled / 3600)).padStart(2, "0");
+        const minutes = String(Math.floor((this.elapsedTimeWhenDisabled % 3600) / 60)).padStart(2, "0");
+        const seconds = String(this.elapsedTimeWhenDisabled % 60).padStart(2, "0");
+
+        this.timeTarget.textContent = `${hours}:${minutes}:${seconds} -`;
+      } else {
+        // If the timer hasn't started yet or no elapsed time has been stored
+        this.timeTarget.textContent = `00:00:00`;
+      }
+    }
   }
 }

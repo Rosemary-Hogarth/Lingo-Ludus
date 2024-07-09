@@ -12,12 +12,21 @@
 }
 
 .score {
+  font-size: larger;
   text-align: center;
   justify-content: center;
 }
 
 .score.not-displayed {
-  color: #FFFCF9 !important;
+  color: #FFFCF9;
+}
+
+.dark-mode .score {
+  color: #FFFCF9;
+}
+
+.dark-mode-not-displayed {
+  color: black;
 }
 
 /* DEFINITION */
@@ -39,7 +48,7 @@
   border-right: 8px solid black;
   height: 30%;
   min-height: 360px;
-  // margin-top: 32px;
+  margin-top: 40px;
   text-align: center;
   width: 40%;
   border-radius: 15px;
@@ -280,14 +289,26 @@
   }
 }
 
-// .fade-in {
-//   opacity: 0;
-//   transition: opacity 2s linear;
-// }
+.not-displayed {
+  display: none;
+}
 
-// .fade-in.show {
-//   opacity: 1;
-// }
+.score-and-timer {
+  display: flex;
+  margin-top: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-feedback {
+  font-size: large;
+  text-align: center;
+}
+
+.score-feedback {
+  font-size: large;
+  text-align: center;
+}
 
 .timer {
   text-align: center;
