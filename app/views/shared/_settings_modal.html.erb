@@ -7,16 +7,21 @@
       </div>
       <div class="modal-body">
         <!-- BEGIN Settings content -->
-        <form>
+        <%= form_for :game, url: games_path, html: { id: "gameSettingsForm" } do |f| %>
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="enableTimerCheckbox" data-action="change->timer#toggleTimer" checked>
             <label class="form-check-label" for="enableTimerCheckbox">Enable Timer</label>
           </div>
+          <select id="language" data-guess-target="language" data-dark-mode-target="difficultyDropdown" class="form-control drop border border-dark rounded-4">
+            <% @languages.each do |language| %>
+              <option value="<%= language.id %>"><%= language.name %></option>
+            <% end %>
+          </select>
           <div class="form-group form-check">
             <input type="checkbox" data-dark-mode-target="checkbox" class="form-check-input" id="enableDarkMode" data-action="change->dark-mode#toggleDarkMode">
             <label class="form-check-label" for="enableDarkMode">Enable Dark Mode</label>
           </div>
-        </form>
+        <% end %>
       </div>
       <!-- END Settings content  -->
       <div class="modal-footer">

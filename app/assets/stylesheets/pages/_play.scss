@@ -4,6 +4,31 @@
   align-items: center;
 }
 
+// SCORE
+
+.score-row {
+  min-height: 64px;
+  align-items: center;
+}
+
+.score {
+  font-size: larger;
+  text-align: center;
+  justify-content: center;
+}
+
+.score.not-displayed {
+  color: #FFFCF9;
+}
+
+.dark-mode .score {
+  color: #FFFCF9;
+}
+
+.dark-mode-not-displayed {
+  color: black;
+}
+
 /* DEFINITION */
 
 .definition-row {
@@ -23,16 +48,26 @@
   border-right: 8px solid black;
   height: 30%;
   min-height: 360px;
-  margin-top: 64px;
+  margin-top: 40px;
   text-align: center;
   width: 40%;
   border-radius: 15px;
   padding: 10px;
   position: relative;
-  margin-bottom: 20px; /* Just for spacing in the example */
+  margin-bottom: 16px; /* Just for spacing in the example */
   background-color: white;
 
+  .feedback {
+    font-size: large;
+    margin-top: 32px;
+  }
+
   p {
+    font-size: xx-large;
+    row-gap: 16px;
+  }
+
+  .definition {
     font-size: xx-large;
     row-gap: 16px;
   }
@@ -47,6 +82,11 @@
   background-color: #FFFCF9;
   border: 1px solid black;
   box-shadow: 8px 8px 0 0 rgb(255, 255, 255);
+
+  .feedback {
+    font-size: large;
+    margin-top: 32px;
+  }
 }
 
 .dark-mode .containerMessage {
@@ -254,14 +294,26 @@
   }
 }
 
-// .fade-in {
-//   opacity: 0;
-//   transition: opacity 2s linear;
-// }
+.not-displayed {
+  display: none;
+}
 
-// .fade-in.show {
-//   opacity: 1;
-// }
+.score-and-timer {
+  display: flex;
+  margin-top: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-feedback {
+  font-size: large;
+  text-align: center;
+}
+
+.score-feedback {
+  font-size: large;
+  text-align: center;
+}
 
 .timer {
   text-align: center;

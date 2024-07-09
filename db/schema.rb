@@ -10,11 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 ActiveRecord::Schema[7.1].define(version: 2024_07_01_065648) do
 =======
 ActiveRecord::Schema[7.1].define(version: 2024_07_04_162806) do
 >>>>>>> Stashed changes
+=======
+ActiveRecord::Schema[7.1].define(version: 2024_07_04_162806) do
+>>>>>>> master
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,9 +46,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_162806) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.bigint "word_id"
+    t.bigint "language_id"
     t.index ["category_id"], name: "index_games_on_category_id"
+    t.index ["language_id"], name: "index_games_on_language_id"
     t.index ["user_id"], name: "index_games_on_user_id"
     t.index ["word_id"], name: "index_games_on_word_id"
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -78,13 +91,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_162806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "level"
+    t.bigint "language_id"
     t.index ["category_id"], name: "index_words_on_category_id"
+    t.index ["language_id"], name: "index_words_on_language_id"
   end
 
   add_foreign_key "games", "categories"
+  add_foreign_key "games", "languages"
   add_foreign_key "games", "users"
   add_foreign_key "games", "words"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
   add_foreign_key "words", "categories"
+  add_foreign_key "words", "languages"
 end
