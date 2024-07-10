@@ -89,7 +89,7 @@ export default class extends Controller {
         const minutes = String(Math.floor((this.elapsedTimeWhenDisabled % 3600) / 60)).padStart(2, "0");
         const seconds = String(this.elapsedTimeWhenDisabled % 60).padStart(2, "0");
 
-        this.timeTarget.textContent = `${hours}:${minutes}:${seconds} -`;
+        this.timeTarget.textContent = `${hours}:${minutes}:${seconds}`;
       } else {
         // If the timer hasn't started yet or no elapsed time has been stored
         this.timeTarget.textContent = `00:00:00`;

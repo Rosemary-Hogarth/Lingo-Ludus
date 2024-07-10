@@ -73,6 +73,8 @@ export default class extends Controller {
           this.disableInputsForLine(this.currentLine); // calls the method that will disable second and third lines
           this.updateButtonToNext();
           this.startTimer(data.start_time); // Call method to insert timer element
+          this.scoreTarget.classList.remove("not-displayed");
+          this.scoreTarget.textContent = "Score:"
 
           // Automatically focus the first input field
           const firstInput = this.inputTargets.find(
@@ -349,7 +351,7 @@ export default class extends Controller {
     }
 
     this.scoreTarget.classList.remove("not-displayed");
-    this.scoreTarget.textContent = `- Score: ${score}`;
+    this.scoreTarget.textContent = `Score: ${score}`;
     this.nextTarget.classList.remove("disabled");
     this.nextTarget.disabled = false;
   }
