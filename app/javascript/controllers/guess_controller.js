@@ -268,6 +268,10 @@ export default class extends Controller {
             }
           });
 
+          console.log(this.currentLine)
+          console.log(this.inputLines - 1)
+
+
         if (correctGuessCount === data.word_array.length) {
           // compares count of correct letters with length of array containing letters of the word to be guessed
 
@@ -288,8 +292,11 @@ export default class extends Controller {
         if (this.currentLine === this.inputLines - 1) {
           // check if it's the last line and all lines are filled
           const allFilled = this.inputTargets.every(
-            (input) => input.value.trim() !== ""
+            (input) => input.value.trim() !== "" || input.disabled
           );
+
+          console.log(allFilled)
+
           if (allFilled) {
             this.endGame(
               false,
