@@ -12,8 +12,9 @@
   min-height: 80px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   position: relative;
-  margin-bottom: 20px; /* Just for spacing in the example */
-  display: inline-block; /* Ensures inline display */
+  margin-bottom: 20px;
+  display: inline-block;
+  font-size: 20px;
 }
 
 /* Pseudo-element ::before for speech bubble pointer */
@@ -30,7 +31,7 @@
   border-color: #5c3f959d transparent transparent transparent; /* Border colors for the triangle */
   border-width: 20px 0px 2px 20px; /* Border widths to form the triangle shape */
   bottom: -22px; /* Position the triangle below the message container */
-  left: 20px; /* Position the triangle towards the left */
+  left: 20px;
 }
 
 /* Styling for receiver's speech bubble pointer */
