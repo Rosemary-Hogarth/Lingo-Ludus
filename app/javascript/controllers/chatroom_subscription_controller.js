@@ -13,8 +13,6 @@ export default class extends Controller {
       { received: (data) => { this.#receive(data) } }
     )
     console.log(`Subscribed to the chatroom with the id ${this.chatroomIdValue}.`)
-
-
   }
 
   #receive(data) {
@@ -41,22 +39,22 @@ export default class extends Controller {
   }
 
   #buildMessageElement(currentUserIsSender, message, messageId) {
-    console.log(messageId)
+    console.log("Building message element:", { currentUserIsSender, message, messageId });
     return `
       <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
         <div class="${this.#userStyleClass(currentUserIsSender)}">
           ${this.#buildDeleteLink(currentUserIsSender, messageId)}
           ${message}
-
       </div>
     </div>
   `
   }
 
   #buildDeleteLink(currentUserIsSender, messageId) {
-    if (currentUserIsSender) {
+    if (currentUserIsSender && messageId) {
       return `<a data-turbo-method="delete" data-turbo-confirm="Are you sure?" class="message-remove-link" href="messages/${messageId}">+</a>`
     }
+    return '';
   }
 
   // add message
@@ -71,7 +69,11 @@ export default class extends Controller {
       return;
     }
 
-    const messageElement = this.#buildMessageElement(currentUserIsSender, data.message, data.messageId);
+    // Extract messageId from the message HTML
+    const messageIdMatch = data.message.match(/id="message-(\d+)"/);
+    const messageId = messageIdMatch ? messageIdMatch[1] : null;
+
+    const messageElement = this.#buildMessageElement(currentUserIsSender, data.message, messageId);
       console.log("messageElement:", messageElement);
     // Inserting the messageElement in the DOM
     this.messagesTarget.insertAdjacentHTML("beforeend", messageElement);

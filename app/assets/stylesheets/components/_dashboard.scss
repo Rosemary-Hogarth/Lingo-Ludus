@@ -13,18 +13,13 @@ body {
 
 .dashboard-btn {
   margin-top: 30px;
-  padding: 10px 15px;
+  padding: 12px 25px;
   border: 1px solid black;
   background-color: black;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 10px;
   color: white;
-  font-size: 12px;
-}
-
-.dark-mode .dashboard-btn {
-  background-color: #FFFCF9;
-  color: black;
+  font-size: 15px;
 }
 
 .header-message {
@@ -48,8 +43,9 @@ body {
       letter-spacing: 3px;
       font-weight: 400;
       margin-bottom: 0;
+      color: black;
       }
-      .score {
+      .score-info {
         font-weight: 500;
       }
     .message {
@@ -157,6 +153,13 @@ thead, tbody, tfoot, tr, td, th {
   justify-content: space-evenly;
 }
 
+.leaderboard .nav-link {
+  color: black;
+    &:hover {
+      color: black;
+    }
+}
+
 @media (max-width: 1199px)  {
   .table {
     font-size: 14px;
@@ -188,5 +191,108 @@ thead, tbody, tfoot, tr, td, th {
     padding: 8px 13px;
     font-size: 10px;
   }
+
+}
+
+
+// DARK_MODE
+
+.dark-mode .dashboard-btn {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.dark-mode,
+th, td {
+  color: white;
+}
+
+.dark-mode .nav-tabs .nav-link.active {
+  color: white !important;
+  background-color: black !important;
+  border-color: #FFFCF9 !important;
+}
+
+.dark-mode .nav-tabs .nav-link:not(.active) {
+  color: black !important;
+  background-color: white !important;
+  border: 1px solid white !important;
+}
+
+.dark-mode .nav-tabs {
+  background-color:  #ff6041 !important;
+  margin-bottom: 20px !important;
+  border: none;
+}
+
+.dark-mode .message {
+  border-top: 1px solid black ;
+}
+
+.dark-mode .overview-container {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dark-mode .table td {
+  color: black;
+}
+
+.dark-mode .average-over-time-container {
+  background-color:#F5BC3A;
+}
+
+.dark-mode .total-score-container {
+  background-color:#9B89BF;
+  // background-color: #ff6041;
+}
+
+.dark-mode .overview-container {
+  background-color: #17BBB0;
+}
+
+.dark-mode .overview-container p {
+  color: black;
+}
+
+.dark-mode .extra-info-container {
+  background-color:#253237;
+  color: white;
+}
+
+.dark-mode .leaderboard {
+  background-color:#ff6041;
+}
+
+.dark-mode .score-info {
+  color: black;
+}
+
+.dark-mode .score-info .fa-regular {
+  color: #F5BC3A;
+}
+
+.dark-mode .average-over-time-header {
+  color: black;
+}
+
+
+.dark-mode table {
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+}
+
+.dark-mode .score-info > i + * {
+  border: 1px solid black;
+  padding: 2px;
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+}
+
+.dark-mode canvas {
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+}
+
+.dark-mode .word {
+  background-color: #17bbb07a;
 
 }

@@ -7,15 +7,15 @@
     <div class="col-md-2">
       <div class="field difficulty">
         <%= label_tag 'difficulty_level', '' %>
-        <select id="difficulty_level" data-guess-target="difficulty" data-dark-mode-target="difficultyDropdown" class="form-control drop border border-dark rounded-4">
+        <select id="difficulty_level" data-guess-target="difficulty" class="form-control drop border border-dark rounded-4">
           <% @levels.each do |level| %>
             <option value="<%= level %>"><%= level %></option>
           <% end %>
         </select>
       </div>
     </div>
-    <div class="container definition-container col-md-4" data-guess-target="definition" data-dark-mode-target="definitionContainer">
-      <div class="title-container" data-dark-mode-target="container">
+    <div class="container definition-container col-md-4" data-guess-target="definition">
+      <div class="title-container">
         <h1 class="app-home-title">
           <span style="color:black">Lingo</span>
           <span style="color: #FF6042">L</span>
@@ -24,13 +24,13 @@
           <span style="color: #F6B26B">u</span>
           <span style="color: #17BBB0">s</span>
         </h1>
-        <p>Choose a difficulty level and a category then click "Play"</p>
+        <p class="containerMessage">Choose a difficulty level and a category then click "Play"</p>
       </div>
     </div>
     <div class="col-md-2">
       <div class="field category">
         <%= label_tag 'category', '' %>
-        <select id="category_id" data-guess-target="category" data-dark-mode-target="categoryDropdown" class="form-control drop border border-dark rounded-4">
+          <select id="category_id" data-guess-target="category" class="form-control drop border border-dark rounded-4">
           <% @categories.each do |category| %>
             <option value="<%= category.id %>"><%= category.name %></option>
           <% end %>

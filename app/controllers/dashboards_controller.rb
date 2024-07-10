@@ -49,7 +49,6 @@ class DashboardsController < ApplicationController
                             .limit(10)
   end
 
-
   def fetch_best_times
     @best_times = {}
     @average_times = {}

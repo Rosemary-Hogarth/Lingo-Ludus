@@ -20,76 +20,17 @@
       </div>
     </div>
 
-  <!-- Right column -->
-  <div class="col-md-6">
-    <div class="total-score-container">
-      <div class="score-header">Total score
-        <div class="score"><i class="fa-regular fa-star"></i>
-          <% if @total_score == 0 %>
-            <%= @total_score %><div class="message">Time to play!</div>
-          <% elsif @total_score <= 20 %>
-            <%= @total_score %><div class="message">Keep up the good work!</div>
-          <% elsif @total_score > 20 && @total_score <= 50 %>
-            <%= @total_score %><div class="message">Great score. Keep going!</div>
-          <% else %>
-            <%= @total_score %><div class="message">Excellent. Try some harder words!</div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-
-
-      <div class="overview-container">
-        <p>Overview of recent games <i class="fa-regular fa-calendar"></i></p>
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="word">Word</th>
-                <th>Level</th>
-                <th>Category</th>
-                <th>Attempts</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @recent_games.each do |game| %>
-                <tr>
-                  <td>
-                    <% if game.word.present? %>
-                      <%= game.word.name %>
-                    <% else %>
-                      No word associated with this game
-                    <% end %>
-                  </td>
-                  <td><%= game.difficulty_level %></td>
-                  <td><%= game.category.name %></td>
-                  <td><%= game.attempts %></td>
-                  <td><%= game.score %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-  <div class="extra-info-container">
-    <div class="extra-info-header">Good to know <i class="fa-solid fa-chart-simple"></i></div>
-    <div class="info-row">
-      <div class="info total_games">
-        <p>Total games <i class="fa-solid fa-crown"></i> <div><%= @number_of_games %></div></p>
-      </div>
-      <div class="info total_score">
-        <p>Average attempts per game <i class="fa-solid fa-award"></i>
-          <div class="score"><%= @number_of_games > 0 ? @average_attempts_per_game : 'No attempts yet' %></div>
-        </p>
-      </div>
-        <div class="info best_time">
-        <% if @recent_games.present? && @recent_games.any? { |game| game.game_duration.present? } %>
-          <p>Average time over last 10 games <i class="fa-solid fa-stopwatch-20"></i>
-            <div><%= @average_time %> seconds</div>
-          </p>
+<!-- Right column -->
+<div class="col-md-6">
+  <div class="total-score-container">
+    <div class="score-header">Total score
+      <div class="score-info"><i class="fa-regular fa-star"></i>
+        <% if @total_score == 0 %>
+          <%= @total_score %><div class="message">Time to play!</div>
+        <% elsif @total_score <= 20 %>
+          <%= @total_score %><div class="message">Keep up the good work!</div>
+        <% elsif @total_score > 20 && @total_score <= 50 %>
+          <%= @total_score %><div class="message">Great score. Keep going!</div>
         <% else %>
           <p>Average time of last 10 games <i class="fa-solid fa-stopwatch-20"></i>
             <div>No valid games yet</div>
@@ -114,9 +55,126 @@
       </li>
     </ul>
 
-  <div class="tab-content">
-    <!-- Top scores -->
-    <div id="top-scores" class="tab-pane fade show active">
+    <div class="overview-container">
+      <p>Overview of recent games <i class="fa-regular fa-calendar"></i></p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="word">Word</th>
+              <th class="word">Level</th>
+              <th class="word">Category</th>
+              <th class="word">Attempts</th>
+              <th class="word">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_games.each do |game| %>
+              <tr>
+                <td>
+                  <% if game.word.present? %>
+                    <%= game.word.name %>
+                  <% else %>
+                    No word associated with this game
+                  <% end %>
+                </td>
+                <td><%= game.difficulty_level %></td>
+                <td><%= game.category.name %></td>
+                <td><%= game.attempts %></td>
+                <td><%= game.score %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<div class="extra-info-container">
+  <div class="extra-info-header" >Good to know <i class="fa-solid fa-chart-simple"></i></div>
+  <div class="info-row">
+    <div class="info total_games">
+      <p>Total games <i class="fa-solid fa-crown"></i> <div><%= @number_of_games %></div></p>
+    </div>
+    <div class="info total_score">
+      <p>Average attempts per game <i class="fa-solid fa-award"></i>
+        <div class="score-attempts"><%= @number_of_games > 0 ? @average_attempts_per_game : 'No attempts yet' %></div>
+      </p>
+    </div>
+      <div class="info best_time">
+      <% if @recent_games.present? && @recent_games.any? { |game| game.game_duration.present? } %>
+        <p>Average time over last 10 games <i class="fa-solid fa-stopwatch-20"></i>
+          <div><%= @average_time %> seconds</div>
+        </p>
+      <% else %>
+        <p>Average time of last 10 games <i class="fa-solid fa-stopwatch-20"></i>
+          <div>No valid games yet</div>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div class="leaderboard">
+  <div class="leaderboard-header">Leaderboard</div>
+    <!-- Nav Tabs--->
+  <ul id="dashboard-navbar" class="nav nav-tabs bg-light text-black d-flex justify-content-center mt-4 mb-5">
+    <!-- Top scores-->
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#top-scores">Top scores</a>
+    </li>
+    <!-- Top times -->
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#top-times">Top times</a>
+    </li>
+  </ul>
+
+<div class="tab-content">
+  <!-- Top scores -->
+  <div id="top-scores" class="tab-pane fade show active">
+    <div class="cards" >
+      <% @top_score_users.each_with_index do |user, index| %>
+      <% if index < 10 %>
+        <div class="card <%= 'highlight' if user == @user %>">
+          <div class="card-body">
+            <div class="left-side">
+              <div class="index">
+                <% if index < 3 %>
+                  <i class="fa-solid fa-crown"></i>
+                <% else %>
+                  <%= index + 1 %>
+                <% end %>
+              </div>
+              <div class="avatar-leaderboard">
+                <%= image_tag "https://api.dicebear.com/9.x/pixel-art/svg?seed=#{CGI.escape(user.email)}", alt: 'avatar', class: 'avatar-img' %>
+              </div>
+              <div class="name">
+                <% if user == @user %>
+                  You
+                <% else %>
+                  <%= user.first_name %>
+                <% end %>
+              </div>
+            </div>
+            <div class="games">
+            <i class="fa-regular fa-heart"></i>
+            Games: <%= user.games.count %>
+            </div>
+            <div class="total-score">
+              <i class="fa-regular fa-star"></i>
+              Total score: <span><%= user.total_score %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+
+
+    <!-- Top times -->
+    <div id="top-times" class="tab-pane fade">
       <div class="cards">
         <% @top_score_users.each_with_index do |user, index| %>
         <% if index < 10 %>

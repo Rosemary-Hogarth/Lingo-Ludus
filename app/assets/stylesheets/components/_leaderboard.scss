@@ -22,9 +22,19 @@
 .cards {
   display: flex;
   flex-direction: column;
-  margin: auto 100px;
+  margin: 40px 100px;
 }
 
+.dark-mode .cards {
+  background-color: #F5BC3A;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.dark-mode .card {
+  background-color: #17BBB0;
+}
 .card {
   margin: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

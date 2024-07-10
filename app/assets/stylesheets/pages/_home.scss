@@ -18,7 +18,7 @@
   }
 
   h1 {
-    font-family: raleway dots;
+    font-family: nunito;
     font-size: 70px;
     text-shadow: 1px 1px 2px rgb(188, 184, 185);
   }
@@ -46,7 +46,6 @@
   margin: 10px;
   display: inline-block;
   transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
-  // transition: transform 1s ease-in-out, opacity 1s ease-in-out;
 }
 
 .square:nth-child(odd) {
@@ -96,4 +95,8 @@
 .fade-out {
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
+}
+
+.dark-mode .title-container .lingo {
+  color: white !important;
 }
