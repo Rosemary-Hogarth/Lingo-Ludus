@@ -126,22 +126,22 @@ class GamesController < ApplicationController
   end # (using ids) in the used_words_id meaning all words have allready been pushed into used_words_id
 
   def win_game(game)
-    if game.difficulty_level == "Beginner"
-      multiplier = 1
-    elsif game.difficulty_level == "Intermediate"
-      multiplier = 2
-    elsif game.difficulty_level == "Advanced"
-      multiplier = 3
-    end
+    multiplier = case game.difficulty_level
+                 when "Beginner" then 1
+                 when "Intermediate" then 2
+                 when "Advanced" then 3
+                 else 1 # Default multiplier if difficulty_level is not one of the expected values
+                 end
 
-    if game.attempts == 1
-      game.update(score: 3 * multiplier) # 3 points if guessed on first try
-    elsif game.attempts == 2
-      game.update(score: 2 * multiplier) # 2 points if guessed on second try
-    elsif game.attempts == 3
-      game.update(score: 1) * multiplier # 1 point if guessed on third try
-    end
-    game.update(end_time: Time.current) # stores end_time for future score computation
+    score = case game.attempts
+            when 1 then 3 * multiplier # 3 points if guessed on first try
+            when 2 then 2 * multiplier # 2 points if guessed on second try
+            when 3 then 1 * multiplier # 1 point if guessed on third try
+            else 0 # Default score if attempts is not one of the expected values
+            end
+
+    game.update(score: score)
+    game.update(end_time: Time.current)# stores end_time for future score computation
   end
 
   def game_params
