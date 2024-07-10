@@ -13,13 +13,13 @@ body {
 
 .dashboard-btn {
   margin-top: 30px;
-  padding: 10px 15px;
+  padding: 12px 25px;
   border: 1px solid black;
   background-color: black;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 10px;
   color: white;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .header-message {
@@ -198,8 +198,9 @@ thead, tbody, tfoot, tr, td, th {
 // DARK_MODE
 
 .dark-mode .dashboard-btn {
-  background-color: #FFFCF9;
-  color: black;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
 }
 
 .dark-mode,
