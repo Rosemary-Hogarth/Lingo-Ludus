@@ -76,11 +76,6 @@ export default class extends Controller {
           this.scoreTarget.classList.remove("not-displayed");
           this.scoreTarget.textContent = "Score:"
 
-          if (!this.addedInputListeners) {
-            this.addInputListeners(); // calls method to add event listener on each input field
-            this.addedInputListeners = true; // Ensure listeners are added only once
-          }
-
           // Automatically focus the first input field
           const firstInput = this.inputTargets.find(
             (input) => parseInt(input.dataset.attempts) === 0
@@ -307,6 +302,7 @@ export default class extends Controller {
               data.level
             ); // ends the game
           }
+          return;
         }
       });
     // .catch((error) => console.error("Error:", error)); // debugging
@@ -332,7 +328,7 @@ export default class extends Controller {
     if (!win) {
       const wordNotFound = document.createElement("p");
       wordNotFound.classList.add("feedback");
-      wordNotFound.textContent = `The word was: ${word}`
+      wordNotFound.innerHTML = `The answer was:<br><span class="guessed-word">${word}</span>`
       this.definitionTarget.appendChild(wordNotFound);
     }
 
