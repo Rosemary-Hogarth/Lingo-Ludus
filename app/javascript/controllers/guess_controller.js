@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import ConfettiController from "./confetti_controller";
+import confetti from 'canvas-confetti';
 
 // Connects to data-controller="guess"
 export default class extends Controller {
@@ -346,13 +346,40 @@ export default class extends Controller {
       this.updateButtonToPlay();
 
       // Trigger confetti if all words are used
-      const confettiController = new ConfettiController();
-      confettiController.showConfetti();
+
+      this.showConfetti();
     }
 
     this.scoreTarget.classList.remove("not-displayed");
     this.scoreTarget.textContent = `Score: ${score}`;
     this.nextTarget.classList.remove("disabled");
     this.nextTarget.disabled = false;
+  }
+
+  // CONFETTI
+
+  shoot() {
+    const defaults = {
+      spread: 120,  // angle: higher number = larger spread
+      ticks: 120, // lifespan: higher number = longet life
+      gravity: 0.7, // fall rate: higher = faster fall
+      decay: 0.9, // decrease rate: lower value = slower
+      startVelocity: 50,
+      colors: ['#F5BC3A', '#ff6041', '#17BBB0', '#9163EA', '#1097E1']
+    };
+
+    confetti({
+      ...defaults,
+      particleCount: 200,
+      spread: 100,
+      shapes: ['star']
+    });
+  }
+
+  showConfetti() {
+    setTimeout(this.shoot, 0);
+    setTimeout(this.shoot, 100);
+    setTimeout(this.shoot, 200);
+    setTimeout(this.shoot, 300);
   }
 }
