@@ -65,7 +65,7 @@ export default class extends Controller {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Response data:", data);
+        // console.log("Response data:", data);
         if (data.word_array) {
           this.definitionTarget.innerHTML = `<p class="definition">${data.definition}</p>`; // extracts the word's definition
           this.element.dataset.gameId = data.game_id; // extracts the game_id
@@ -73,8 +73,6 @@ export default class extends Controller {
           this.disableInputsForLine(this.currentLine); // calls the method that will disable second and third lines
           this.updateButtonToNext();
           this.startTimer(data.start_time); // Call method to insert timer element
-          this.scoreTarget.classList.remove("not-displayed");
-          this.scoreTarget.textContent = "Score:"
 
           // Automatically focus the first input field
           const firstInput = this.inputTargets.find(
@@ -228,7 +226,7 @@ export default class extends Controller {
       }
     });
 
-    console.log("Input data:", inputData); // debugging
+    // console.log("Input data:", inputData); // debugging
 
     fetch(`/games/${gameId}/guess_word`, {
       method: "POST",
@@ -242,7 +240,7 @@ export default class extends Controller {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Response data:", data); // debugging
+        // console.log("Response data:", data); // debugging
         let correctGuessCount = 0; // initialize count of correct guesses to later compare it to the length of the array containing the letters of the word to be guessed
 
         this.inputTargets
@@ -332,7 +330,6 @@ export default class extends Controller {
       this.definitionTarget.appendChild(wordNotFound);
     }
 
-
     // const feedbackElement = document.createElement("p");
     // feedbackElement.textContent = feedback;
     // feedbackContainer.appendChild(feedbackElement);
@@ -351,8 +348,8 @@ export default class extends Controller {
       confettiController.showConfetti();
     }
 
-    // this.scoreTarget.classList.remove("not-displayed");
-    this.scoreTarget.textContent = `Score: ${score}`;
+    this.scoreTarget.classList.remove("not-displayed");
+    this.scoreTarget.textContent = `- Score: ${score}`;
     this.nextTarget.classList.remove("disabled");
     this.nextTarget.disabled = false;
   }
