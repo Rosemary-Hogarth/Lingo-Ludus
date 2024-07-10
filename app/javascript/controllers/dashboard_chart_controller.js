@@ -74,10 +74,10 @@ export default class extends Controller {
           title: {
             display: true,
             text: 'Number of Attempts',
-            color: isDarkMode ? '#ffffff' : '#666666'
+            color: isDarkMode ? '#000000' : '#666666'
           },
           ticks: {
-            color: isDarkMode ? '#ffffff' : '#666666'
+            color: isDarkMode ? '#000000' : '#666666'
           },
           grid: {
             color: isDarkMode ? 'rgba(0, 0, 0, 0.1)' : 'rgba(1, 1, 1, 0.1)'
@@ -87,10 +87,10 @@ export default class extends Controller {
           title: {
             display: true,
             text: 'Difficulty Levels',
-            color: isDarkMode ? '#ffffff' : '#666666'
+            color: isDarkMode ? '#000000' : '#666666'
           },
           ticks: {
-            color: isDarkMode ? '#ffffff' : '#666666'
+            color: isDarkMode ? '#000000' : '#666666'
           },
           grid: {
             color: isDarkMode ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.1)'
@@ -100,7 +100,7 @@ export default class extends Controller {
       plugins: {
         legend: {
           labels: {
-            color: isDarkMode ? '#ffffff' : '#666666'
+            color: isDarkMode ? '#000000' : '#666666'
           }
         }
       }

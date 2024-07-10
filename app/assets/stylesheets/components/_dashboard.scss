@@ -47,7 +47,7 @@ body {
       margin-bottom: 0;
       color: black;
       }
-      .score {
+      .score-info {
         font-weight: 500;
       }
     .message {
@@ -195,6 +195,8 @@ thead, tbody, tfoot, tr, td, th {
   }
 
 }
+// DARK_MODE
+
 
 
 .dark-mode .dashboard-btn {
@@ -202,19 +204,9 @@ thead, tbody, tfoot, tr, td, th {
   color: black;
 }
 
-
 .dark-mode,
 th, td {
   color: white;
-}
-
-
-.dark-mode .dark-mode-text {
-  color: white !important;
-}
-
-.dark-mode .white-text {
-  color: white !important;
 }
 
 .dark-mode .nav-tabs .nav-link.active {
@@ -245,25 +237,67 @@ th, td {
 }
 
 .dark-mode .table td {
-  color: #ffffff;
+  color: black;
 }
 
 .dark-mode .average-over-time-container {
-  background-color:#F5BC3A
+  background-color:#F5BC3A;
 }
 
 .dark-mode .total-score-container {
   background-color:#9B89BF;
+  // background-color: #ff6041;
 }
 
 .dark-mode .overview-container {
-  background-color: #253237;
+  background-color: #17BBB0;
+}
+
+.dark-mode .overview-container p {
+  color: black;
 }
 
 .dark-mode .extra-info-container {
-  background-color: #253237;
+  background-color:#253237;
+  color: white;
 }
 
 .dark-mode .leaderboard {
   background-color:#ff6041;
 }
+
+.dark-mode .score-info {
+  color: black;
+}
+
+.dark-mode .score-info .fa-regular {
+  color: #F5BC3A;
+}
+
+.dark-mode .average-over-time-header {
+  color: black;
+}
+
+
+.dark-mode table {
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+}
+
+.dark-mode .score-info > i + * {
+  border: 1px solid black;
+  padding: 2px;
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+}
+
+.dark-mode canvas {
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+}
+
+.dark-mode .word {
+  background-color: #17bbb07a;
+
+}
+
+// .dark-mode .score-attempts {
+//   color: black;
+// }

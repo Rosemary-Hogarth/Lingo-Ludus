@@ -24,7 +24,7 @@
 <div class="col-md-6">
   <div class="total-score-container">
     <div class="score-header">Total score
-      <div class="score"><i class="fa-regular fa-star"></i>
+      <div class="score-info"><i class="fa-regular fa-star"></i>
         <% if @total_score == 0 %>
           <%= @total_score %><div class="message">Time to play!</div>
         <% elsif @total_score <= 20 %>
@@ -46,10 +46,10 @@
           <thead>
             <tr>
               <th class="word">Word</th>
-              <th>Level</th>
-              <th>Category</th>
-              <th>Attempts</th>
-              <th>Score</th>
+              <th class="word">Level</th>
+              <th class="word">Category</th>
+              <th class="word">Attempts</th>
+              <th class="word">Score</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +82,7 @@
     </div>
     <div class="info total_score">
       <p>Average attempts per game <i class="fa-solid fa-award"></i>
-        <div class="score"><%= @number_of_games > 0 ? @average_attempts_per_game : 'No attempts yet' %></div>
+        <div class="score-attempts"><%= @number_of_games > 0 ? @average_attempts_per_game : 'No attempts yet' %></div>
       </p>
     </div>
       <div class="info best_time">
