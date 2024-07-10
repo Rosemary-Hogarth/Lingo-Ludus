@@ -87,6 +87,7 @@
     font-size: large;
     margin-top: 32px;
   }
+
 }
 
 .dark-mode .containerMessage {
@@ -311,11 +312,13 @@
 .timer-feedback {
   font-size: large;
   text-align: center;
+  margin-right: 16px;
 }
 
 .score-feedback {
   font-size: large;
   text-align: center;
+  margin-left: 16px;
 }
 
 .timer {
