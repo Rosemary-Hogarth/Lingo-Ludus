@@ -74,11 +74,6 @@ export default class extends Controller {
           this.updateButtonToNext();
           this.startTimer(data.start_time); // Call method to insert timer element
 
-          if (!this.addedInputListeners) {
-            this.addInputListeners(); // calls method to add event listener on each input field
-            this.addedInputListeners = true; // Ensure listeners are added only once
-          }
-
           // Automatically focus the first input field
           const firstInput = this.inputTargets.find(
             (input) => parseInt(input.dataset.attempts) === 0
@@ -305,6 +300,7 @@ export default class extends Controller {
               data.level
             ); // ends the game
           }
+          return;
         }
       });
     // .catch((error) => console.error("Error:", error)); // debugging
@@ -327,11 +323,12 @@ export default class extends Controller {
     // Provides feedback about winning or failing, giving a score if winning, giving the word if failing
     const word = word_array.join("");
     console.log(score);
-    // const feedback = win
-    //   ? `Congratulations! You got ${score} points!`
-    //   : `Better luck next time! The answer was "${word}"`;
-    // const feedbackContainer = this.feedbackTarget;
-    // feedbackContainer.innerHTML = "";
+    if (!win) {
+      const wordNotFound = document.createElement("p");
+      wordNotFound.classList.add("feedback");
+      wordNotFound.innerHTML = `The answer was:<br><span class="guessed-word">${word}</span>`
+      this.definitionTarget.appendChild(wordNotFound);
+    }
 
     // const feedbackElement = document.createElement("p");
     // feedbackElement.textContent = feedback;
