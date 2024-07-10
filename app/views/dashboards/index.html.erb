@@ -1,24 +1,24 @@
-<div class="container dashboard">
-  <div class="banner">
-    <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
-    <%= button_to "Continue playing", play_path, method: :get, class: "dashboard-btn"%>
-    </div>
+<div class="container dashboard" data-controller="dark-dash dark-mode">
+<div class="banner">
+  <h1 class="header-message">Welcome to your dashboard, <%= @user.first_name %>!</h1>
+  <%= button_to "Continue playing", play_path, method: :get, class: "dashboard-btn"%>
+  </div>
 
 
-    <!-- one row, two columns -->
-    <div class="row">
-      <!-- Left column -->
-      <div class="col-md-6">
-        <div class="average-over-time-container">
-          <div class="average-over-time-header">Attempts per level</div>
-        <div class="chart">
-          <canvas data-controller="dashboard-chart"
-                  data-dashboard-chart-data-value="<%= @difficulty_attempts.to_json %>"
-                  width="400" height="414">
-          </canvas>
-        </div>
+  <!-- one row, two columns -->
+  <div class="row">
+    <!-- Left column -->
+    <div class="col-md-6" >
+      <div class="average-over-time-container">
+        <div class="average-over-time-header" >Attempts per level</div>
+      <div class="chart">
+        <canvas data-controller="dashboard-chart"
+                data-dashboard-chart-data-value="<%= @difficulty_attempts.to_json %>"
+                width="400" height="414">
+        </canvas>
       </div>
     </div>
+  </div>
 
 <!-- Right column -->
 <div class="col-md-6">
@@ -32,11 +32,12 @@
         <% elsif @total_score > 20 && @total_score <= 50 %>
           <%= @total_score %><div class="message">Great score. Keep going!</div>
         <% else %>
-            <div>No valid games yet</div>
+          <%= @total_score %><div class="message">Excellent. Try some harder words!</div>
         <% end %>
       </div>
     </div>
   </div>
+
 
     <div class="overview-container">
       <p>Overview of recent games <i class="fa-regular fa-calendar"></i></p>
@@ -154,43 +155,45 @@
     </div>
   </div>
 
-      <!-- Top times -->
-      <div id="top-times" class="tab-pane fade">
-        <div class="cards">
-          <% @top_time_users.each_with_index do |user, index| %>
-            <div class="card <%= 'highlight' if user == @user %>">
-              <div class="card-body">
-                <div class="left-side">
-                  <div class="index">
-                    <% if index < 3 %>
-                      <i class="fa-solid fa-crown"></i>
-                    <% else %>
-                      <%= index + 1 %>
-                    <% end %>
-                  </div>
-                  <div class="avatar-leaderboard">
-                    <%= image_tag "https://api.dicebear.com/9.x/pixel-art/svg?seed=#{CGI.escape(user.email)}", alt: 'avatar', class: 'avatar-img' %>
-                  </div>
-                  <div class="name">
-                    <% if user == @user %>
-                      You
-                    <% else %>
-                      <%= user.first_name %>
-                    <% end %>
-                  </div>
-                </div>
-                <div class="best-time-game">
-                  <% if @average_times[user.id].present? %>
-                    Average time over last 10 games: <i class="fa-regular fa-clock"></i><span> <%= @average_times[user.id] %><%= @average_times[user.id] == 1 ? ' sec' : ' secs' %></span>
+
+
+    <!-- Top times -->
+    <div id="top-times" class="tab-pane fade">
+      <div class="cards">
+        <% @top_time_users.each_with_index do |user, index| %>
+          <div class="card <%= 'highlight' if user == @user %>">
+            <div class="card-body">
+              <div class="left-side">
+                <div class="index">
+                  <% if index < 3 %>
+                    <i class="fa-solid fa-crown"></i>
                   <% else %>
-                    Average time over last 10 games: No games yet.
+                    <%= index + 1 %>
+                  <% end %>
+                </div>
+                <div class="avatar-leaderboard">
+                  <%= image_tag "https://api.dicebear.com/9.x/pixel-art/svg?seed=#{CGI.escape(user.email)}", alt: 'avatar', class: 'avatar-img' %>
+                </div>
+                <div class="name">
+                  <% if user == @user %>
+                    You
+                  <% else %>
+                    <%= user.first_name %>
                   <% end %>
                 </div>
               </div>
+              <div class="best-time-game">
+                <% if @average_times[user.id].present? %>
+                  Average time over last 10 games: <i class="fa-regular fa-clock"></i><span> <%= @average_times[user.id] %><%= @average_times[user.id] == 1 ? ' sec' : ' secs' %></span>
+                <% else %>
+                  Average time over last 10 games: No games yet.
+                <% end %>
+              </div>
             </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
+</div>
 </div>
