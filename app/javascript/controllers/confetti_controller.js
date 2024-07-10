@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import confetti from 'canvas-confetti'
 
-export default class ConfettiController extends Controller {
+export default class extends Controller {
 
 initialize() {
     console.log('hello from confetti controller')
