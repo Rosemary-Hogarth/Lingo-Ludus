@@ -6,7 +6,6 @@ export default class extends Controller {
   static targets = [
     "input",
     "difficulty",
-    "language",
     "category",
     "definition",
     "guessContainer",
@@ -42,7 +41,7 @@ export default class extends Controller {
 
     const difficultyLevel = this.difficultyTarget.value; // sets difficulty from the dropdown input field
     const categoryId = this.categoryTarget.value; // sets category from the dropdown input field
-    const languageId = this.languageTarget.value;
+    const languageId = document.getElementById("language").value
 
     this.currentLine = 0; // Track the current line (attempt) of inputs
     this.inputLines = 3; // Total number of lines (attempts)

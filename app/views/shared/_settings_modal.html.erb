@@ -12,7 +12,7 @@
             <input type="checkbox" class="form-check-input" id="enableTimerCheckbox" data-action="change->timer#toggleTimer" checked>
             <label class="form-check-label" for="enableTimerCheckbox">Enable Timer</label>
           </div>
-          <select id="language" data-guess-target="language" data-dark-mode-target="difficultyDropdown" class="form-control drop border border-dark rounded-4">
+          <select id="language" data-dark-mode-target="difficultyDropdown" class="form-control drop border border-dark rounded-4">
             <% Language.all.each do |language| %>
               <option value="<%= language.id %>"><%= language.name %></option>
             <% end %>
