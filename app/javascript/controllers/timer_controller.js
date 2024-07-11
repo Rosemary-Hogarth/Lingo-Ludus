@@ -12,6 +12,8 @@ export default class extends Controller {
       .addEventListener("change", (event) =>
         this.toggleTimer(event.target.checked)
       );
+
+      this.btnTarget.addEventListener("click", this.handleNextButtonPress.bind(this));
   }
 
   toggleTimer(isChecked) {
@@ -63,10 +65,16 @@ export default class extends Controller {
     }
   }
 
+  handleNextButtonPress() {
+    this.startTimer();
+    console.log("Next button pressed");
+  }
+
   disconnect() {
     // Clear the interval when the controller is disconnected
     clearInterval(this.timer);
   }
+
 
   updateTime() {
     // Calculate the elapsed time
