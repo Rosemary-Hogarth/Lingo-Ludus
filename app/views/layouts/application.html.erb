@@ -14,7 +14,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="d-flex flex-column min-vh-100" data-controller="dark-mode" data-dark-mode-target="body"><%= render "shared/navbar" %>
+  <body class="d-flex flex-column min-vh-100" data-controller="dark-mode"><%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
     <%= render 'shared/modal' %>
     <%= yield %>
