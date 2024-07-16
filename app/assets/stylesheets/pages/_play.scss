@@ -337,29 +337,137 @@
   margin-bottom: 0.5rem;
 }
 
+.fields-container {
+  display: flex;
+  justify-content: space-between; /* Ensures the dropdowns are evenly spaced */
+  width: 100%; /* Occupy full width of parent */
+}
+
+
+.field {
+  flex: 1; /* Equal width for both fields */
+  margin: 0 5px; /* Adds space between fields */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1400px)  {
+  .definition-container .title-container .app-home-title {
+    font-size: 50px;
+  }
+}
 @media (max-width: 1200px) {
   .definition-container {
-    min-height: 300px; /* Min-height for screens up to 1200px */
+    width: 60%;
+  }
+
+  .definition-container .title-container .app-home-title {
+    font-size: 60px;
   }
 }
 
 @media (max-width: 992px) {
   .definition-container {
-    min-height: 300px; /* Min-height for screens up to 992px */
-    min-width: 550px;
+    width: 55%;
+    min-height: 300px;
+  }
+
+  .definition-container .title-container .app-home-title {
+    font-size: 50px;
+  }
+
+  .guess-big {
+    width: 40px;
+    height: 40px;
+    font-size: x-large;
   }
 }
 
 @media (max-width: 768px) {
+
   .definition-container {
-    min-height: 200pxpx; /* Min-height for screens up to 768px */
-    min-width: 450px;
+    width: 90%;
+    min-height: 250px;
+    order: 1;
+  }
+
+  .definition-container .title-container .app-home-title {
+    font-size: 40px;
+  }
+
+  .definition-container p,
+  .definition-container .definition {
+    font-size: x-large;
+  }
+
+  .guess-field {
+    margin: 1;
+  }
+
+  .btn-game {
+    min-width: 120px;
+    font-size: large;
+  }
+
+
+  .fields-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Occupy full width */
+  }
+
+  .field {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .field.difficulty,
+  .field.category {
+    width: 50%;
+    order: -1;
+    margin-bottom: 10px;
   }
 }
 
+
+
 @media (max-width: 576px) {
   .definition-container {
-    min-height: 175px; /* Min-height for screens up to 576px */
-    min-width: 300px;
+    width: 75%;
+    min-height: 200px;
+    order: 1;
+  }
+
+  .definition-container .title-container .app-home-title {
+    font-size: 30px;
+  }
+
+  .definition-container p,
+  .definition-container .definition {
+    font-size: large;
+  }
+
+  .guess-big {
+    width: 30px;
+    height: 30px;
+    font-size: medium;
+  }
+
+  .btn-game {
+    min-width: 100px;
+    font-size: medium;
+  }
+
+  .timer-feedback,
+  .score-feedback {
+    font-size: medium;
+  }
+
+
+  .field.category,
+  .field.difficulty {
+    width: 50%;
+    order: -1;
+    font-size: small;
   }
 }
