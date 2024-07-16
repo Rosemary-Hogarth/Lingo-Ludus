@@ -19,7 +19,7 @@
 
 /* Pseudo-element ::before for speech bubble pointer */
 .sender-style::before, .receiver-style::before {
-  content: ""; /* Required to generate the pseudo-element */
+  content: "";
   position: absolute;
   width: 0;
   height: 0;
