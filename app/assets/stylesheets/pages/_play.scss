@@ -1,6 +1,8 @@
 .game-main-container {
   width: 100%;
   height: 100%;
+  // display: flex;
+  // flex-direction: column;
   align-items: center;
 }
 
@@ -288,6 +290,7 @@
 
 .button-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
@@ -352,12 +355,16 @@
 /* Media Queries for Responsiveness */
 @media (max-width: 1400px)  {
   .definition-container .title-container .app-home-title {
-    font-size: 50px;
+    font-size: 60px;
   }
 }
 @media (max-width: 1200px) {
   .definition-container {
-    width: 60%;
+    width: 50%;
+  }
+
+  .definition-container p, .definition {
+    font-size: 30px;
   }
 
   .definition-container .title-container .app-home-title {
@@ -380,14 +387,18 @@
     height: 40px;
     font-size: x-large;
   }
+
+  .field.difficulty, .field.category {
+    width: 100%;
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 768px) {
-
   .definition-container {
-    width: 90%;
+    width: 70%;
     min-height: 250px;
-    order: 1;
+    order: -1;
   }
 
   .definition-container .title-container .app-home-title {
@@ -399,33 +410,16 @@
     font-size: x-large;
   }
 
-  .guess-field {
-    margin: 1;
-  }
 
   .btn-game {
     min-width: 120px;
     font-size: large;
+    margin-left: 20px;
   }
 
-
-  .fields-container {
-    flex-direction: column;
-    align-items: center;
-    width: 100%; /* Occupy full width */
-  }
-
-  .field {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-
-  .field.difficulty,
-  .field.category {
-    width: 50%;
-    order: -1;
-    margin-bottom: 10px;
+  .field.difficulty {
+    order: 1;
+    margin-top: 30px;
   }
 }
 
@@ -433,13 +427,15 @@
 
 @media (max-width: 576px) {
   .definition-container {
-    width: 75%;
-    min-height: 200px;
-    order: 1;
+    width: 80%;
+    min-height: 250px;
+    order: -1;
+    margin-right: 10px;
+    margin-left: 27px;
   }
 
   .definition-container .title-container .app-home-title {
-    font-size: 30px;
+    font-size: 35px;
   }
 
   .definition-container p,
@@ -463,11 +459,31 @@
     font-size: medium;
   }
 
-
-  .field.category,
-  .field.difficulty {
-    width: 50%;
-    order: -1;
-    font-size: small;
+  .row, .field.difficulty {
+    order: 1;
+    margin-top: 30px;
+    margin-right: 5px;
   }
+
+  .row, .definition-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .guess-container {
+    margin-right: 10px;
+  }
+
+  .guess-field {
+    gap: 5px;
+  }
+
+  .field.difficulty, .field.category {
+    width: 100%;
+    font-size: 12px;
+    order: 1;
+  }
+
 }
