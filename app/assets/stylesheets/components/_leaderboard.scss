@@ -16,6 +16,13 @@
   letter-spacing: 2px;
 }
 
+.avatar-name-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
 .fa-ranking-star {
   margin-left: 10px;
 }
@@ -76,13 +83,20 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 30px;
+  margin-left: 10px;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .index {
-  margin-right: 40px;
+  margin-right: 15px;
   font-size: 20px;
 }
+
 
 .avatar-leaderboard {
   width: 40px;
@@ -110,23 +124,6 @@
   margin-right: 30px;
 }
 
-
-@media (max-width: 769px) {
-  .cards {
-    margin: auto 20px;
-  }
-  .card-body .total-score {
-    margin-right: 10px;
-  }
-  .best-time-game {
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    margin-left: 50px;
-  }
-}
-
 @media (max-width: 991px) {
   .best-time-game {
   font-size: 14px;
@@ -134,5 +131,72 @@
   flex-direction: column;
   justify-content: end;
   margin-left: 50px;
+  }
+}
+
+@media (max-width: 769px) {
+  .cards {
+    margin: 0 auto;
+  }
+
+  .best-time-game {
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size: 12px;
+  }
+
+  .card-body span {
+    margin-left: 10px;
+  }
+
+  .card-body .fa-clock {
+    margin-left: 10px;
+  }
+  .name  {
+    font-size: 15px;
+  }
+
+  .card-body .games {
+    font-size: 15px;
+  }
+  .card-body .total-score {
+    font-size: 15px;
+    margin-right: 0px;
+  }
+  .avatar-leaderboard {
+    width: 35px;
+    height: 35px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+  }
+
+  .avatar-name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .left-side {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .fa-crown {
+    display: none;
+  }
+  .card-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right-side {
+    align-items: center;
+    margin-top: 10px;
   }
 }
