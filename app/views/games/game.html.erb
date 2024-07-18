@@ -4,6 +4,7 @@
   </div> %>
   <!-- First row with definition-->
   <div class="row definition-row">
+
     <div class="col-md-2">
       <div class="field difficulty">
         <%= label_tag 'difficulty_level', '' %>
@@ -13,7 +14,8 @@
           <% end %>
         </select>
       </div>
-    </div>
+  </div>
+
     <div class="container definition-container col-md-4" data-guess-target="definition">
       <div class="title-container">
         <h1 class="app-home-title">
@@ -27,6 +29,7 @@
         <p class="containerMessage">Choose a difficulty level and a category then click "Play"</p>
       </div>
     </div>
+
     <div class="col-md-2">
       <div class="field category">
         <%= label_tag 'category', '' %>
@@ -38,6 +41,7 @@
       </div>
     </div>
   </div>
+
   <!-- Second row with game layout and dropdowns-->
   <div class="row guess-row">
     <div class="guess-container" data-guess-target="guessContainer">

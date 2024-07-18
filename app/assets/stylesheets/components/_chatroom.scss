@@ -326,3 +326,63 @@ transition: background-color 0.5s ease, color 0.5s ease;
 .dark-mode .chatroom-container {
   background-color: black;
 }
+
+@media (max-width: 992px) {
+  .conversations-sidebar {
+    max-width: 100%;
+  }
+  .conversations-sidebar .welcome-message {
+    font-size: 16px;
+  }
+  .person span {
+    font-size: 14px;
+  }
+  .channel-link {
+    font-size: 15px;
+  }
+
+  .chat-section-header h3 {
+    font-size: 18px;
+  }
+
+  #chat-name {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatroom-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    max-width: 100%;
+}
+.conversations-sidebar {
+  max-width: 100%;
+}
+.conversations-sidebar .welcome-message {
+  font-size: 16px;
+}
+.person span {
+  font-size: 14px;
+}
+}
+
+@media (max-width: 576px) {
+  .chat-header h1 {
+    font-size: 20px;
+  }
+  .chatroom-btn {
+    padding: 5px 10px;
+    font-size: 8px;
+  }
+
+  .chatroom-container {
+      margin-left: 20px;
+      margin-top: 20px;
+      max-width: 100%;
+  }
+  .custom-input::placeholder {
+    font-size: 12px; /* Adjust this value to your desired size */
+  }
+
+}

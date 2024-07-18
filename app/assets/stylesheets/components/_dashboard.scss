@@ -6,6 +6,7 @@ body {
   }
 }
 
+
 .banner {
   display: flex;
   justify-content: flex-start;
@@ -76,7 +77,7 @@ body {
   border-radius: 30px;
   padding: 20px;
   margin-top: 40px;
-  min-height: 500px;
+  min-height: 503px;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .average-over-time-header {
@@ -105,6 +106,11 @@ thead, tbody, tfoot, tr, td, th {
   border-color: white;
 }
 
+canvas {
+  width: 500px;
+  height: 400px !important;
+}
+
 
 .extra-info-container {
   border: 1px solid black;
@@ -126,7 +132,7 @@ thead, tbody, tfoot, tr, td, th {
 
   .info {
     text-align: center;
-    padding: 10px;
+    padding: 5px;
 
   }
   .total_games {
@@ -159,41 +165,6 @@ thead, tbody, tfoot, tr, td, th {
       color: black;
     }
 }
-
-@media (max-width: 1199px)  {
-  .table {
-    font-size: 14px;
-  }
-    .total-score-container {
-      padding: 15px;
-    }
-}
-
-@media (max-width: 991px) {
-  .table {
-    font-size: 10px;
-  }
-  .total-score-container {
-    padding: 15px;
-  }
-  .total-score-container .score-header .message {
-    font-size: 14px;
-}
-}
-@media (max-width: 769px) {
-  .table {
-    font-size: 14px;
-  }
-  .header-message {
-    font-size: 25px;
-  }
-  .dashboard-btn {
-    padding: 8px 13px;
-    font-size: 10px;
-  }
-
-}
-
 
 // DARK_MODE
 
@@ -295,4 +266,105 @@ th, td {
 .dark-mode .word {
   background-color: #17bbb07a;
 
+}
+
+
+
+@media (max-width: 1200px)  {
+  canvas {
+    width: 500px;
+    height: 400px !important;
+  }
+  .table {
+    font-size: 14px;
+  }
+    .total-score-container {
+      padding: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+  .average-over-time-container {
+    padding: 20px;
+    margin-top: 39px;
+    min-height: 490px;
+  }
+  canvas {
+    max-width: 500px;
+    height: 400px !important;
+  }
+
+  .table {
+    font-size: 10px;
+  }
+  .total-score-container {
+    padding: 15px;
+  }
+  .total-score-container .score-header .message {
+    font-size: 14px;
+  }
+  thead, tbody, tfoot, tr, td, th {
+    height: 40px;
+  }
+  .extra-info-container p {
+    font-size: 15px;
+  }
+
+}
+
+@media (max-width: 769px) {
+  .average-over-time-container {
+    padding: 20px;
+    margin-top: 0;
+    min-height: 200px;
+  }
+  canvas {
+    max-width: 500px;
+    max-height: 200px;
+  }
+
+  .table {
+    font-size: 14px;
+  }
+  .header-message {
+    font-size: 25px;
+  }
+  .dashboard-btn {
+    padding: 8px 13px;
+    font-size: 10px;
+  }
+  .extra-info-container p {
+    font-size: 15px;
+  }
+}
+
+  @media (max-width: 576px) {
+  .average-over-time-container {
+    padding: 20px;
+    margin-top: 0;
+    min-height: 200px;
+    min-width: 350px;
+  }
+
+  .overview-container {
+    min-width: 350px;
+    margin-bottom: 0;
+  }
+
+  .total-score-container {
+    min-width: 350px;
+    margin-top: 10px;
+  }
+  canvas {
+    max-width: 400px;
+    max-height: 200px;
+  }
+
+  .dashboard-btn {
+    padding: 5px 25px;
+  font-size: 8px;
+  }
+  .extra-info-container p {
+    font-size: 15px;
+  }
 }

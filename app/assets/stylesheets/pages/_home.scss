@@ -100,3 +100,14 @@
 .dark-mode .title-container .lingo {
   color: white !important;
 }
+
+@media (max-width: 576px) {
+  .title-container .app-home-title {
+    font-size: 40px;
+  }
+
+  .square {
+    width: 30px;
+    height: 30px;
+  }
+}

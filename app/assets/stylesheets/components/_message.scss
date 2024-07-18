@@ -49,3 +49,34 @@
 .receiver-style {
   background-color: #18bbb0;
 }
+@media (max-width: 992px) {
+  .chatroom-container .messages {
+    margin: 0;
+  }
+  .sender-style, .receiver-style {
+    width: 70%;
+    font-size: 15px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .chatroom-container .messages {
+    margin: 0;
+  }
+  .sender-style, .receiver-style {
+    width: 70%;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .chatroom-container .messages {
+    margin: 0;
+  }
+
+  .sender-style, .receiver-style {
+    width: 100%;
+    font-size: 15px;
+  }
+}
