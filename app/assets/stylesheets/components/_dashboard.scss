@@ -21,6 +21,10 @@ body {
   border-radius: 10px;
   color: white;
   font-size: 15px;
+  &:hover {
+    background-color: black;
+    border: none;
+  }
 }
 
 .header-message {
