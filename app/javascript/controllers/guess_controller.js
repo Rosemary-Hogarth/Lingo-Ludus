@@ -95,20 +95,6 @@ export default class extends Controller {
 
   // Method to insert timer element dynamically
   startTimer(startTime) {
-    // // Before creating a new timer, remove the existing timer if it exists
-    // const existingTimer = document.querySelector("[data-controller='timer']");
-    // if (existingTimer) {
-    //   existingTimer.remove(); // Remove the existing timer from the DOM
-    // }
-
-    // // Create a new timer element
-    // const timerElement = document.createElement("div");
-    // timerElement.setAttribute("data-controller", "timer");
-    // timerElement.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
-    // timerElement.innerHTML = `<div class="timer"><span data-timer-target="time">00:00:00</span></div>`;
-
-    // // // Insert the timer element into the DOM
-    // // this.element.appendChild(timerElement);
 
     this.buttonRowTarget.setAttribute("data-timer-start-time", startTime); // Ensure startTime is set correctly
     this.timeTarget.innerHTML = `<span data-timer-target="time">00:00:00 </span>`
@@ -208,11 +194,6 @@ export default class extends Controller {
 
   check(attempts) {
     const gameId = this.element.dataset.gameId; // retrieves the game_id from the data-game-id
-
-    // if (!gameId) {
-    //   console.error("Game ID is not set."); // debugging
-    //   return;
-    // }
 
     const inputData = {}; // empty array where we will store the inputs
     this.inputTargets.forEach((input) => {
@@ -331,10 +312,6 @@ export default class extends Controller {
       this.definitionTarget.appendChild(wordNotFound);
     }
 
-    // const feedbackElement = document.createElement("p");
-    // feedbackElement.textContent = feedback;
-    // feedbackContainer.appendChild(feedbackElement);
-
     // Provides feedback if all words from category/level combo are exhausted
     const allWordsUsed = all_words_used;
     if (allWordsUsed) {
@@ -357,28 +334,28 @@ export default class extends Controller {
 
   // CONFETTI
 
-  shoot() {
-    const defaults = {
-      spread: 120,  // angle: higher number = larger spread
-      ticks: 120, // lifespan: higher number = longet life
-      gravity: 0.7, // fall rate: higher = faster fall
-      decay: 0.9, // decrease rate: lower value = slower
-      startVelocity: 50,
-      colors: ['#F5BC3A', '#ff6041', '#17BBB0', '#9163EA', '#1097E1']
-    };
+  // shoot() {
+  //   const defaults = {
+  //     spread: 120,  // angle: higher number = larger spread
+  //     ticks: 120, // lifespan: higher number = longet life
+  //     gravity: 0.7, // fall rate: higher = faster fall
+  //     decay: 0.9, // decrease rate: lower value = slower
+  //     startVelocity: 50,
+  //     colors: ['#F5BC3A', '#ff6041', '#17BBB0', '#9163EA', '#1097E1']
+  //   };
 
-    confetti({
-      ...defaults,
-      particleCount: 200,
-      spread: 100,
-      shapes: ['star']
-    });
-  }
+  //   confetti({
+  //     ...defaults,
+  //     particleCount: 200,
+  //     spread: 100,
+  //     shapes: ['star']
+  //   });
+  // }
 
-  showConfetti() {
-    setTimeout(this.shoot, 0);
-    setTimeout(this.shoot, 100);
-    setTimeout(this.shoot, 200);
-    setTimeout(this.shoot, 300);
-  }
+  // showConfetti() {
+  //   setTimeout(this.shoot, 0);
+  //   setTimeout(this.shoot, 100);
+  //   setTimeout(this.shoot, 200);
+  //   setTimeout(this.shoot, 300);
+  // }
 }
