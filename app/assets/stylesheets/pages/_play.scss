@@ -66,7 +66,7 @@
 
   .guessed-word {
     font-size: xx-large;
-    color: #1097E1;
+    color: #17BBB0;
   }
 
   p {
@@ -198,32 +198,32 @@
 }
 
 .guess-big-0 {
-  background-color: rgba($color: #1097E1, $alpha: 1);
+  background-color: rgba($color: #17BBB0, $alpha: 1);
   &:disabled {
     background-color: rgba($color: rgb(168, 168, 168), $alpha: 1);
   }
   &:focus {
-    background-color: rgba($color: #1097E1, $alpha: 1);
+    background-color: rgba($color: #17BBB0, $alpha: 1);
   }
 }
 
 .guess-big-1 {
-  background-color: rgba($color: #1097E1, $alpha: 1);
-  &:disabled {
-    background-color: rgba($color: rgb(168, 168, 168), $alpha: 1);
-  }
+  background-color: rgba($color: #17BBB0, $alpha: 1);
+  // &:disabled {
+  //   background-color: black;
+  // }
   &:focus {
-    background-color: rgba($color: #1097E1, $alpha: 1);
+    background-color: rgba($color: #17BBB0, $alpha: 1);
   }
 }
 
 .guess-big-2 {
-  background-color: rgba($color: #1097E1, $alpha: 1);
-  &:disabled {
-    background-color: rgba($color: rgb(168, 168, 168), $alpha: 1);
-  }
+  background-color: rgba($color: #17BBB0, $alpha: 1);
+  // &:disabled {
+  //   background-color: black;
+  // }
   &:focus {
-    background-color: rgba($color: #1097E1, $alpha: 1);
+    background-color: rgba($color: #17BBB0, $alpha: 1);
   }
 }
 
@@ -231,14 +231,14 @@
   .guess-big-0,
   .guess-big-1,
   .guess-big-2 {
-    background-color: rgba($color: #1098e1, $alpha: 1);
+    background-color: rgba($color: #17BBB0, $alpha: 1);
 
     &:disabled {
       background-color: rgba($color: rgb(168, 168, 168), $alpha: 1);
     }
 
     &:focus {
-      background-color: rgba($color: #1097E1, $alpha: 1);
+      background-color: rgba($color: #17BBB0, $alpha: 1);
     }
   }
 }
@@ -302,13 +302,16 @@
   font-size: x-large;
   cursor: pointer;
   border: 1px solid black;
-  background-color: #9163e9;
+  background-color: #9163E9;
   border-radius: 4px;
+  margin-top:0;
   &.disabled {
     cursor: not-allowed;
-    background-color: rgba($color: rgb(168, 168, 168), $alpha: 1);
+    background-color: #ac95d7;
+    color: grey;
   }
 }
+
 
 .not-displayed {
   display: none;
@@ -392,6 +395,10 @@
     width: 100%;
     font-size: 12px;
   }
+
+  #line-2 {
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -420,6 +427,7 @@
   .field.difficulty {
     order: 1;
     margin-top: 30px;
+    margin-left: 5px;
   }
 }
 
@@ -460,10 +468,10 @@
     font-size: medium;
   }
 
-  .row, .field.difficulty {
+  .row.field.difficulty {
     order: 1;
     margin-top: 30px;
-    margin-right: 5px;
+    margin-right: 1px;
   }
 
   .row, .definition-row {
@@ -481,10 +489,16 @@
     gap: 5px;
   }
 
-  .field.difficulty, .field.category {
-    width: 100%;
-    font-size: 12px;
-    order: 1;
+  .field {
+    &.difficulty,
+    &.category {
+      flex: 1;
+      width: auto;
+    }
+  }
+
+  #line-2 {
+    margin-bottom: 2rem;
   }
 
 }

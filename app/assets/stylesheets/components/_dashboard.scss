@@ -331,7 +331,7 @@ th, td {
     font-size: 14px;
   }
   .header-message {
-    font-size: 25px;
+    font-size: 18px;
   }
   .dashboard-btn {
     padding: 8px 13px;
@@ -358,6 +358,7 @@ th, td {
   .total-score-container {
     min-width: 350px;
     margin-top: 10px;
+
   }
   canvas {
     max-width: 400px;
@@ -371,4 +372,10 @@ th, td {
   .extra-info-container p {
     font-size: 15px;
   }
-}
+
+.row.good-to-know {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  }
