@@ -74,6 +74,11 @@ Motivated by my interest in educational technology, I came up with this idea for
 - **Heroku** – Cloud hosting for app deployment   
 
 
+## 📞 Contact  
+
+📧 **Email:** rohogarth@email.com  
+🔗 **Portfolio:** [https://wondrous-sprite-d950e1.netlify.app/](https://wondrous-sprite-d950e1.netlify.app/)  
+💼 **LinkedIn:** [https://www.linkedin.com/in/rosemary-hogarth/](https://www.linkedin.com/in/rosemary-hogarth/)  
 
 
 Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
