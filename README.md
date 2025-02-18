@@ -26,36 +26,37 @@ Motivated by my interest in educational technology, I came up with this idea for
 
 ## 🛠️ Challenges & Solutions  
 
+### 🎨 Smooth Homepage Animation with Timed Redirection  
+✅ **Problem:** The animation on the homepage needed to appear smoothly and then transition into the game page at the right time. Without proper timing, elements could move abruptly, or the redirect could feel too sudden.  
+✅ **Solution:**  
+- Used `setTimeout()` to stagger square animations, creating a smooth cascading effect.  
+- Calculated the total animation duration dynamically so the redirect only happens after the last square animation ends.  
+- Applied a **fade-out effect** before redirecting to `/play` to make the transition more natural.  
+
+
+
 ### 💬 Real-time Chatroom with Action Cable  
 ✅ **Problem:** WebSocket connections were unstable at times, causing messages to **not appear instantly** or requiring page refreshes.  
 ✅ **Solution:**  
 - Used **Redis** as the **Action Cable adapter** for stable WebSocket connections.  
 - Ensured **proper channel subscriptions** to broadcast messages instantly.  
-- Implemented **Turbo Streams** to dynamically update chat messages in real-time without reloading the page.  
+- Used **Action Cable’s `broadcast_to` method** to send new messages to all users in the chatroom without needing a page reload.
 
-
-### 📊 Optimizing Leaderboard Queries for Performance  
-✅ **Problem:** Fetching top players for the leaderboard involved **inefficient database queries**, leading to slow page loads.  
-✅ **Solution:**  
-- Used **ActiveRecord’s `.select()` and `.group()`** to fetch only the necessary data.  
-- Indexed the **score column** for faster lookups. Without an index, the database must scan the **entire table** to find scores, which slows everything down.
-
-![code View](screenshots/code-snippet-1.png)  
-  
+![code View](screenshots/action-cable.png)  
+ 
   
 ### 🏆 Tracking Recent Game Performance Efficiently  
 ✅ **Problem:** The dashboard needed to display **recent game data**, but inefficient queries caused slow loading times.  
 ✅ **Solution:**  
 - Used `.order(start_time: :desc).limit(5)` to **fetch only the latest five games**, reducing database strain.  
-- Ensured `.reject` was used efficiently to exclude games with `nil` or `Float::INFINITY` durations.
-(Some games had invalid times - e.g., games that never ended) -, which could make average time calculations inaccurate. Removing these prevents the leaderboard from being distorted.) 
 
-![code View](screenshots/code-snippet-2.png)  
+![code View](screenshots/code-snippet-1.png)  
+
 
 ## 🛠 Tech Stack  
 
 ### **Frontend:**  
-- **HTML, CSS, JavaScript(Stimulus.js)** – Responsive UI with Bootstrap  
+- **HTML, SCSS, JavaScript(Stimulus.js)** – Responsive UI with Bootstrap  
 - **Chart.js** – Data visualization for dashboard stats  
 - **Font Awesome** – Icons for leaderboard and UI enhancements  
 
