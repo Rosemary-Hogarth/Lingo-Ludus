@@ -50,7 +50,7 @@ Motivated by my interest in educational technology, I came up with this idea for
 - Ensured `.reject` was used efficiently to exclude games with `nil` or `Float::INFINITY` durations.
 (Some games had invalid times - e.g., games that never ended) -, which could make average time calculations inaccurate. Removing these prevents the leaderboard from being distorted.) 
 
-![code View](screenshots/code-snippet-1.png)  
+![code View](screenshots/code-snippet-2.png)  
 
 ## 🛠 Tech Stack  
 
