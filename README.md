@@ -1,5 +1,7 @@
 # Lingo Ludus - A Language Learning Game App
 
+🔗 **Live Demo:** [View the Website on Netlify](https://lingoludus-ac98bddb8223.herokuapp.com/)  
+
 ### Project description
 Motivated by my interest in educational technology, I came up with this idea for a language learning game. It's a full-stack application built using Ruby on Rails and includes a game page with two language options, a dashboard with a chart.js graph, chatrooms using action cable, and dark mode. This was a team project and part of Le Wagon's full-stack web development bootcamp. 
 
