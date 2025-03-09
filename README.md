@@ -29,7 +29,7 @@ Motivated by my interest in educational technology, I came up with this idea for
 ## 🛠️ Challenges & Solutions  
 
 ### 🎨 Smooth Homepage Animation with Timed Redirection  
-✅ **Problem:** The animation on the homepage needed to appear smoothly and then transition into the game page at the right time. Without proper timing, elements could move abruptly, or the redirect could feel too sudden.  
+💻 **Problem:** The animation on the homepage needed to appear smoothly and then transition into the game page at the right time. Without proper timing, elements could move abruptly, or the redirect could feel too sudden.  
 ✅ **Solution:**  
 - Used `setTimeout()` to stagger square animations, creating a smooth cascading effect.  
 - Calculated the total animation duration dynamically so the redirect only happens after the last square animation ends.  
@@ -38,7 +38,7 @@ Motivated by my interest in educational technology, I came up with this idea for
 
 
 ### 💬 Real-time Chatroom with Action Cable  
-✅ **Problem:** WebSocket connections were unstable at times, causing messages to **not appear instantly** or requiring page refreshes.  
+💻 **Problem:** WebSocket connections were unstable at times, causing messages to **not appear instantly** or requiring page refreshes.  
 ✅ **Solution:**  
 - Used **Redis** as the **Action Cable adapter** for stable WebSocket connections.  
 - Ensured **proper channel subscriptions** to broadcast messages instantly.  
@@ -48,7 +48,7 @@ Motivated by my interest in educational technology, I came up with this idea for
  
   
 ### 🏆 Tracking Recent Game Performance Efficiently  
-✅ **Problem:** The dashboard needed to display **recent game data**, but inefficient queries caused slow loading times.  
+💻 **Problem:** The dashboard needed to display **recent game data**, but inefficient queries caused slow loading times.  
 ✅ **Solution:**  
 - Used `.order(start_time: :desc).limit(5)` to **fetch only the latest five games**, reducing database strain.  
 
